@@ -1,0 +1,20 @@
+﻿CREATE TABLE "incidents" (
+    "assignment_group" TEXT,
+    "number" TEXT,
+    "state" TEXT,
+    "caller" TEXT,
+    "assigned_to" TEXT,
+    "priority" TEXT,
+    "created" TEXT,
+    "updated" TEXT,
+    "short_description" TEXT,
+    "sla_due" TEXT,
+    "configuration_item" TEXT,
+    "resolved" TEXT,
+    "email" TEXT
+);
+
+CREATE TABLE notes (
+	"number" TEXT,
+	"description" TEXT
+);
