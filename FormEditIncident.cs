@@ -34,6 +34,11 @@ namespace IssueWatcher
             List<Incident> incidents = service.GetAll(numberCriteria);
             listIncidents = new SortableBindingList<Incident>(incidents);
 
+            if (incidents.Count == 0)
+            {
+                MessageBox.Show("Nenhum incidente encontrado.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+
             dgvIncidents.DataSource = listIncidents;
         }
 

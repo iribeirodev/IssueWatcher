@@ -129,6 +129,15 @@ namespace IssueWatcher.Services
             }
         }
 
+        /// <summary>
+        /// Retorna se existe o arquivo de database no caminho definido no config
+        /// </summary>
+        /// <returns></returns>
+        public bool DatabaseFileExists()
+        {
+            return File.Exists(this.GetValue("database"));
+        }
+
 
     }
 }
