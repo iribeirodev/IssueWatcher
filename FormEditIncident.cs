@@ -134,6 +134,12 @@ namespace IssueWatcher
 
         private void btnExport_Click(object sender, EventArgs e)
         {
+            if ((listIncidents == null) || (listIncidents.Count == 0))
+            {
+                MessageBox.Show("Nada a exportar", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             using (SaveFileDialog sfd = new SaveFileDialog())
             {
                 sfd.Filter = "Excel Files (*.xlsx)|*.xlsx";
