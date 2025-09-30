@@ -3,12 +3,9 @@ using IssueWatcher.Services;
 using IssueWatcher.Utils;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace IssueWatcher
@@ -16,6 +13,7 @@ namespace IssueWatcher
     public partial class FormEditIncident : Form
     {
         private SortableBindingList<Incident> listIncidents;
+        private HashSet<string> _incidentNumbersWithNotes;
 
         public FormEditIncident()
         {
@@ -37,6 +35,9 @@ namespace IssueWatcher
             if (incidents.Count == 0)
             {
                 MessageBox.Show("Nenhum incidente encontrado.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            } else
+            {
+                _incidentNumbersWithNotes = service.GetIncidentNumbersWithNotes();
             }
 
             dgvIncidents.DataSource = listIncidents;
@@ -158,6 +159,43 @@ namespace IssueWatcher
                     }
                 }
             }
+        }
+
+        private void dgvIncidents_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            // Ignora células fora do conteúdo (como cabeçalhos)
+            if (e.RowIndex < 0 || e.ColumnIndex < 0)
+                return;
+
+            if (dgvIncidents.Columns[e.ColumnIndex].Name != "Action")
+                return;
+
+            // A partir daqui é seguro acessar a linha
+            string incidentNumber = dgvIncidents.Rows[e.RowIndex].Cells["number"].Value?.ToString();
+
+            bool hasNote = !string.IsNullOrEmpty(incidentNumber)
+                && _incidentNumbersWithNotes != null
+                && _incidentNumbersWithNotes.Contains(incidentNumber);
+
+            e.PaintBackground(e.CellBounds, true);
+
+            using (Brush brush = new SolidBrush(hasNote ? ColorTranslator.FromHtml("#c2ccf2") : SystemColors.Control))
+            {
+                Rectangle rect = e.CellBounds;
+                rect.Inflate(-2, -2);
+                e.Graphics.FillRectangle(brush, rect);
+            }
+
+            TextRenderer.DrawText(
+                e.Graphics,
+                "...",
+                dgvIncidents.Font,
+                e.CellBounds,
+                hasNote ? Color.White : SystemColors.ControlText,
+                TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter
+            );
+
+            e.Handled = true;
         }
     }
 }

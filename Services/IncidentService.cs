@@ -186,5 +186,27 @@ namespace IssueWatcher.Services
                 conn.Close();
             }
         }
+
+        public HashSet<string> GetIncidentNumbersWithNotes()
+        {
+            var result = new HashSet<string>();
+
+            using (var conn = new SQLiteConnection($"Data Source={_databaseFile};Version=3;"))
+            {
+                conn.Open();
+                string sql = "SELECT DISTINCT number FROM notes";
+
+                using (var cmd = new SQLiteCommand(sql, conn))
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        result.Add(reader["number"].ToString());
+                    }
+                }
+            }
+
+            return result;
+        }
     }
 }

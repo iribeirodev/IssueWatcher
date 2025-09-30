@@ -93,19 +93,22 @@
             dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvIncidents.DefaultCellStyle = dataGridViewCellStyle10;
             this.dgvIncidents.GridColor = System.Drawing.Color.LightSteelBlue;
-            this.dgvIncidents.Location = new System.Drawing.Point(0, 86);
-            this.dgvIncidents.Margin = new System.Windows.Forms.Padding(2);
+            this.dgvIncidents.Location = new System.Drawing.Point(0, 106);
+            this.dgvIncidents.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvIncidents.Name = "dgvIncidents";
+            this.dgvIncidents.RowHeadersWidth = 51;
             this.dgvIncidents.RowTemplate.Height = 24;
-            this.dgvIncidents.Size = new System.Drawing.Size(1313, 605);
+            this.dgvIncidents.Size = new System.Drawing.Size(1751, 745);
             this.dgvIncidents.TabIndex = 0;
             this.dgvIncidents.TabStop = false;
             this.dgvIncidents.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvIncidents_CellClick);
             this.dgvIncidents.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvIncidents_CellEndEdit);
+            this.dgvIncidents.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvIncidents_CellPainting);
             // 
             // Action
             // 
             this.Action.HeaderText = "Edit Notes";
+            this.Action.MinimumWidth = 6;
             this.Action.Name = "Action";
             this.Action.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.Action.Text = "...";
@@ -119,6 +122,7 @@
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.LightSlateGray;
             this.number.DefaultCellStyle = dataGridViewCellStyle1;
             this.number.HeaderText = "Number";
+            this.number.MinimumWidth = 6;
             this.number.Name = "number";
             this.number.ReadOnly = true;
             this.number.Width = 120;
@@ -131,6 +135,7 @@
             this.State.DefaultCellStyle = dataGridViewCellStyle2;
             this.State.HeaderText = "State";
             this.State.MaxInputLength = 100;
+            this.State.MinimumWidth = 6;
             this.State.Name = "State";
             this.State.ReadOnly = true;
             this.State.Width = 180;
@@ -143,6 +148,7 @@
             this.caller.DefaultCellStyle = dataGridViewCellStyle3;
             this.caller.HeaderText = "Caller";
             this.caller.MaxInputLength = 100;
+            this.caller.MinimumWidth = 6;
             this.caller.Name = "caller";
             this.caller.ReadOnly = true;
             this.caller.Width = 200;
@@ -152,6 +158,7 @@
             this.assigned_to.DataPropertyName = "AssignedTo";
             this.assigned_to.HeaderText = "Assigned To";
             this.assigned_to.MaxInputLength = 100;
+            this.assigned_to.MinimumWidth = 6;
             this.assigned_to.Name = "assigned_to";
             this.assigned_to.Width = 200;
             // 
@@ -163,6 +170,7 @@
             this.configuration_item.DefaultCellStyle = dataGridViewCellStyle4;
             this.configuration_item.HeaderText = "Configuration Item";
             this.configuration_item.MaxInputLength = 100;
+            this.configuration_item.MinimumWidth = 6;
             this.configuration_item.Name = "configuration_item";
             this.configuration_item.ReadOnly = true;
             this.configuration_item.Width = 180;
@@ -175,6 +183,7 @@
             this.short_description.DefaultCellStyle = dataGridViewCellStyle5;
             this.short_description.HeaderText = "Short Description";
             this.short_description.MaxInputLength = 500;
+            this.short_description.MinimumWidth = 6;
             this.short_description.Name = "short_description";
             this.short_description.ReadOnly = true;
             this.short_description.Width = 280;
@@ -187,6 +196,7 @@
             this.email.DefaultCellStyle = dataGridViewCellStyle6;
             this.email.HeaderText = "Email";
             this.email.MaxInputLength = 100;
+            this.email.MinimumWidth = 6;
             this.email.Name = "email";
             this.email.ReadOnly = true;
             this.email.Width = 280;
@@ -198,6 +208,7 @@
             dataGridViewCellStyle7.ForeColor = System.Drawing.Color.LightSlateGray;
             this.created.DefaultCellStyle = dataGridViewCellStyle7;
             this.created.HeaderText = "Created";
+            this.created.MinimumWidth = 6;
             this.created.Name = "created";
             this.created.ReadOnly = true;
             this.created.Width = 130;
@@ -209,6 +220,7 @@
             dataGridViewCellStyle8.ForeColor = System.Drawing.Color.LightSlateGray;
             this.updated.DefaultCellStyle = dataGridViewCellStyle8;
             this.updated.HeaderText = "Updated";
+            this.updated.MinimumWidth = 6;
             this.updated.Name = "updated";
             this.updated.ReadOnly = true;
             this.updated.Width = 130;
@@ -220,6 +232,7 @@
             dataGridViewCellStyle9.ForeColor = System.Drawing.Color.LightSlateGray;
             this.assignment_group.DefaultCellStyle = dataGridViewCellStyle9;
             this.assignment_group.HeaderText = "Assignment Group";
+            this.assignment_group.MinimumWidth = 6;
             this.assignment_group.Name = "assignment_group";
             this.assignment_group.ReadOnly = true;
             this.assignment_group.Width = 200;
@@ -236,18 +249,18 @@
             this.pnlControl.Controls.Add(this.cboRecordsToLoad);
             this.pnlControl.Controls.Add(this.lblRecordsToLoad);
             this.pnlControl.Location = new System.Drawing.Point(0, 1);
-            this.pnlControl.Margin = new System.Windows.Forms.Padding(2);
+            this.pnlControl.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnlControl.Name = "pnlControl";
-            this.pnlControl.Size = new System.Drawing.Size(1313, 81);
+            this.pnlControl.Size = new System.Drawing.Size(1751, 100);
             this.pnlControl.TabIndex = 4;
             // 
             // btnExport
             // 
             this.btnExport.Image = ((System.Drawing.Image)(resources.GetObject("btnExport.Image")));
-            this.btnExport.Location = new System.Drawing.Point(933, 15);
-            this.btnExport.Margin = new System.Windows.Forms.Padding(2);
+            this.btnExport.Location = new System.Drawing.Point(1244, 18);
+            this.btnExport.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(62, 48);
+            this.btnExport.Size = new System.Drawing.Size(83, 59);
             this.btnExport.TabIndex = 3;
             this.btnExport.UseVisualStyleBackColor = true;
             this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
@@ -256,10 +269,9 @@
             // 
             this.lblNumber.AutoSize = true;
             this.lblNumber.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNumber.Location = new System.Drawing.Point(342, 45);
-            this.lblNumber.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblNumber.Location = new System.Drawing.Point(456, 55);
             this.lblNumber.Name = "lblNumber";
-            this.lblNumber.Size = new System.Drawing.Size(102, 17);
+            this.lblNumber.Size = new System.Drawing.Size(137, 23);
             this.lblNumber.TabIndex = 8;
             this.lblNumber.Text = "Incident number";
             // 
@@ -267,20 +279,19 @@
             // 
             this.lblFilterby.AutoSize = true;
             this.lblFilterby.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFilterby.Location = new System.Drawing.Point(342, 15);
-            this.lblFilterby.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblFilterby.Location = new System.Drawing.Point(456, 18);
             this.lblFilterby.Name = "lblFilterby";
-            this.lblFilterby.Size = new System.Drawing.Size(54, 17);
+            this.lblFilterby.Size = new System.Drawing.Size(70, 23);
             this.lblFilterby.TabIndex = 7;
             this.lblFilterby.Text = "Filter by";
             // 
             // txtNumber
             // 
-            this.txtNumber.Location = new System.Drawing.Point(496, 43);
-            this.txtNumber.Margin = new System.Windows.Forms.Padding(2);
+            this.txtNumber.Location = new System.Drawing.Point(661, 53);
+            this.txtNumber.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtNumber.MaxLength = 5;
             this.txtNumber.Name = "txtNumber";
-            this.txtNumber.Size = new System.Drawing.Size(76, 20);
+            this.txtNumber.Size = new System.Drawing.Size(100, 22);
             this.txtNumber.TabIndex = 1;
             this.txtNumber.TextChanged += new System.EventHandler(this.txtNumber_TextChanged);
             this.txtNumber.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNumber_KeyPress);
@@ -288,10 +299,10 @@
             // btnLoad
             // 
             this.btnLoad.Image = ((System.Drawing.Image)(resources.GetObject("btnLoad.Image")));
-            this.btnLoad.Location = new System.Drawing.Point(806, 15);
-            this.btnLoad.Margin = new System.Windows.Forms.Padding(2);
+            this.btnLoad.Location = new System.Drawing.Point(1075, 18);
+            this.btnLoad.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnLoad.Name = "btnLoad";
-            this.btnLoad.Size = new System.Drawing.Size(62, 48);
+            this.btnLoad.Size = new System.Drawing.Size(83, 59);
             this.btnLoad.TabIndex = 2;
             this.btnLoad.UseVisualStyleBackColor = true;
             this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
@@ -310,31 +321,30 @@
             "100 incidents",
             "150 incidents",
             "all"});
-            this.cboRecordsToLoad.Location = new System.Drawing.Point(17, 43);
-            this.cboRecordsToLoad.Margin = new System.Windows.Forms.Padding(2);
+            this.cboRecordsToLoad.Location = new System.Drawing.Point(23, 53);
+            this.cboRecordsToLoad.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cboRecordsToLoad.Name = "cboRecordsToLoad";
-            this.cboRecordsToLoad.Size = new System.Drawing.Size(181, 25);
+            this.cboRecordsToLoad.Size = new System.Drawing.Size(240, 29);
             this.cboRecordsToLoad.TabIndex = 0;
             // 
             // lblRecordsToLoad
             // 
             this.lblRecordsToLoad.AutoSize = true;
             this.lblRecordsToLoad.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRecordsToLoad.Location = new System.Drawing.Point(15, 15);
-            this.lblRecordsToLoad.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblRecordsToLoad.Location = new System.Drawing.Point(20, 18);
             this.lblRecordsToLoad.Name = "lblRecordsToLoad";
-            this.lblRecordsToLoad.Size = new System.Drawing.Size(63, 17);
+            this.lblRecordsToLoad.Size = new System.Drawing.Size(80, 23);
             this.lblRecordsToLoad.TabIndex = 3;
             this.lblRecordsToLoad.Text = "Load first";
             // 
             // FormEditIncident
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1313, 691);
+            this.ClientSize = new System.Drawing.Size(1751, 850);
             this.Controls.Add(this.pnlControl);
             this.Controls.Add(this.dgvIncidents);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MinimizeBox = false;
             this.Name = "FormEditIncident";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
