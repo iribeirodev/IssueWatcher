@@ -42,6 +42,7 @@ namespace IssueWatcher.Services
             return true;
         }
 
+
         public List<Incident> GetAll(string numberCriteria)
         {
             var incidents = new List<Incident>();
@@ -53,12 +54,16 @@ namespace IssueWatcher.Services
                 string limitClause = "";
                 if (!string.IsNullOrWhiteSpace(numberCriteria) && numberCriteria != "all")
                 {
-                    // Remove qualquer texto indesejado e usa LIMIT do SQLite
                     if (int.TryParse(numberCriteria.Replace("incidents", ""), out int limit))
                         limitClause = $"LIMIT {limit}";
                 }
 
-                string sql = $"SELECT * FROM incidents {limitClause};";
+                // JOIN com local_priorities para obter local_priority
+                string sql = $@"
+                    SELECT i.*, lp.local_priority
+                    FROM incidents i
+                    LEFT JOIN local_priorities lp ON i.number = lp.number
+                    {limitClause};";
 
                 using (var cmd = new SQLiteCommand(sql, conn))
                 using (var reader = cmd.ExecuteReader())
@@ -72,23 +77,49 @@ namespace IssueWatcher.Services
                             State = reader["state"]?.ToString(),
                             Caller = reader["caller"]?.ToString(),
                             AssignedTo = reader["assigned_to"]?.ToString(),
-                            Priority = reader["priority"]?.ToString(),
+                            Priority = reader["local_priority"] != DBNull.Value ? reader["local_priority"].ToString() : "5", //reader["priority"]?.ToString(),
                             Created = reader["created"]?.ToString(),
                             Updated = reader["updated"]?.ToString(),
                             ShortDescription = reader["short_description"]?.ToString(),
                             SlaDue = reader["sla_due"]?.ToString(),
                             ConfigurationItem = reader["configuration_item"]?.ToString(),
                             Resolved = reader["resolved"]?.ToString(),
-                            Email = reader["email"]?.ToString()
+                            Email = reader["email"]?.ToString(),
                         };
 
                         incidents.Add(incident);
                     }
-                } 
-            } 
+                }
+            }
 
             return incidents;
         }
+
+        public bool UpdateIncidentPriority(string number, string newPriority)
+        {
+            if (string.IsNullOrWhiteSpace(number))
+                throw new ArgumentException("Incident number cannot be empty.", nameof(number));
+
+            using (var conn = new SQLiteConnection($"Data Source={_databaseFile};Version=3;"))
+            {
+                conn.Open();
+
+                string sql = "UPDATE local_priorities SET local_priority = @local_priority WHERE number = @number;";
+
+                using (var cmd = new SQLiteCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@local_priority", newPriority ?? "");
+                    cmd.Parameters.AddWithValue("@number", number);
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                }
+
+                conn.Close();
+            }
+
+            return true;
+        }
+
 
         public bool Update(string number, string newAssignedTo)
         {

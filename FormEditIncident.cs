@@ -129,7 +129,36 @@ namespace IssueWatcher
                 {
                     MessageBox.Show($"Error updating value: {exc.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+            else if(dgvIncidents.Columns[e.ColumnIndex].Name == "Priority")
+            {
+                var linha = dgvIncidents.Rows[e.RowIndex];
+                var valorEditado = linha.Cells[e.ColumnIndex].Value?.ToString();
+                var numero = linha.Cells["number"].Value?.ToString();
 
+                if (MessageBox.Show(
+                    $"Deseja realmente alterar a prioridade do incidente {numero} para {valorEditado}?",
+                        "Confirmação",
+                        MessageBoxButtons.YesNo) == DialogResult.No)
+                {
+                    dgvIncidents.CancelEdit();
+                    return;
+                }
+
+                try
+                {
+                    ConfigReader reader = new ConfigReader();
+
+                    IncidentService service = new IncidentService(reader.GetValue("database"));
+                    if (service.UpdateIncidentPriority(numero, valorEditado))
+                    {
+                        MessageBox.Show("Priority updated.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                catch (Exception exc)
+                {
+                    MessageBox.Show($"Error updating priority: {exc.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
