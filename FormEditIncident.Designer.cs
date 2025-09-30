@@ -96,7 +96,7 @@
             this.dgvIncidents.DefaultCellStyle = dataGridViewCellStyle10;
             this.dgvIncidents.GridColor = System.Drawing.Color.LightSteelBlue;
             this.dgvIncidents.Location = new System.Drawing.Point(0, 86);
-            this.dgvIncidents.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgvIncidents.Margin = new System.Windows.Forms.Padding(2);
             this.dgvIncidents.Name = "dgvIncidents";
             this.dgvIncidents.RowHeadersWidth = 51;
             this.dgvIncidents.RowTemplate.Height = 24;
@@ -119,7 +119,7 @@
             this.pnlControl.Controls.Add(this.cboRecordsToLoad);
             this.pnlControl.Controls.Add(this.lblRecordsToLoad);
             this.pnlControl.Location = new System.Drawing.Point(0, 1);
-            this.pnlControl.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pnlControl.Margin = new System.Windows.Forms.Padding(2);
             this.pnlControl.Name = "pnlControl";
             this.pnlControl.Size = new System.Drawing.Size(1313, 81);
             this.pnlControl.TabIndex = 4;
@@ -128,7 +128,7 @@
             // 
             this.btnExport.Image = ((System.Drawing.Image)(resources.GetObject("btnExport.Image")));
             this.btnExport.Location = new System.Drawing.Point(933, 15);
-            this.btnExport.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnExport.Margin = new System.Windows.Forms.Padding(2);
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new System.Drawing.Size(62, 48);
             this.btnExport.TabIndex = 3;
@@ -160,7 +160,7 @@
             // txtNumber
             // 
             this.txtNumber.Location = new System.Drawing.Point(496, 43);
-            this.txtNumber.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtNumber.Margin = new System.Windows.Forms.Padding(2);
             this.txtNumber.MaxLength = 5;
             this.txtNumber.Name = "txtNumber";
             this.txtNumber.Size = new System.Drawing.Size(76, 20);
@@ -172,7 +172,7 @@
             // 
             this.btnLoad.Image = ((System.Drawing.Image)(resources.GetObject("btnLoad.Image")));
             this.btnLoad.Location = new System.Drawing.Point(806, 15);
-            this.btnLoad.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnLoad.Margin = new System.Windows.Forms.Padding(2);
             this.btnLoad.Name = "btnLoad";
             this.btnLoad.Size = new System.Drawing.Size(62, 48);
             this.btnLoad.TabIndex = 2;
@@ -194,7 +194,7 @@
             "150 incidents",
             "all"});
             this.cboRecordsToLoad.Location = new System.Drawing.Point(17, 43);
-            this.cboRecordsToLoad.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cboRecordsToLoad.Margin = new System.Windows.Forms.Padding(2);
             this.cboRecordsToLoad.Name = "cboRecordsToLoad";
             this.cboRecordsToLoad.Size = new System.Drawing.Size(181, 25);
             this.cboRecordsToLoad.TabIndex = 0;
@@ -231,6 +231,7 @@
             "4",
             "5"});
             this.Priority.Name = "Priority";
+            this.Priority.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // number
             // 
@@ -361,7 +362,7 @@
             this.ClientSize = new System.Drawing.Size(1313, 691);
             this.Controls.Add(this.pnlControl);
             this.Controls.Add(this.dgvIncidents);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MinimizeBox = false;
             this.Name = "FormEditIncident";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

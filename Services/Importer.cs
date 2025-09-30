@@ -112,6 +112,11 @@ namespace IssueWatcher.Services
 
             var incidents = service.GetAll("all");
 
+            // ordenação por prioridade
+            incidents = incidents
+                                .OrderBy(i => int.TryParse(i.Priority, out int p) ? p : int.MaxValue)
+                                .ToList();
+
             using (var workbook = new XLWorkbook())
             {
                 var worksheet = workbook.Worksheets.Add("Incidents");
@@ -119,8 +124,8 @@ namespace IssueWatcher.Services
                 // Cabeçalhos
                 var headers = new List<string>
                 {
-                    "Number", "AssignmentGroup", "State", "Caller", "AssignedTo",
-                    "Priority", "Created", "Updated", "ShortDescription",
+                    "Priority", "Number", "AssignmentGroup", "State", "Caller", "AssignedTo",
+                    "Created", "Updated", "ShortDescription",
                     "SlaDue", "ConfigurationItem", "Resolved", "Email", "Notas"
                 };
 
@@ -131,12 +136,12 @@ namespace IssueWatcher.Services
                 for (int row = 0; row < incidents.Count; row++)
                 {
                     var inc = incidents[row];
-                    worksheet.Cell(row + 2, 1).Value = inc.Number;
-                    worksheet.Cell(row + 2, 2).Value = inc.AssignmentGroup;
-                    worksheet.Cell(row + 2, 3).Value = inc.State;
-                    worksheet.Cell(row + 2, 4).Value = inc.Caller;
-                    worksheet.Cell(row + 2, 5).Value = inc.AssignedTo;
-                    worksheet.Cell(row + 2, 6).Value = inc.Priority;
+                    worksheet.Cell(row + 2, 1).Value = inc.Priority;
+                    worksheet.Cell(row + 2, 2).Value = inc.Number;
+                    worksheet.Cell(row + 2, 3).Value = inc.AssignmentGroup;
+                    worksheet.Cell(row + 2, 4).Value = inc.State;
+                    worksheet.Cell(row + 2, 5).Value = inc.Caller;
+                    worksheet.Cell(row + 2, 6).Value = inc.AssignedTo;
                     worksheet.Cell(row + 2, 7).Value = inc.Created;
                     worksheet.Cell(row + 2, 8).Value = inc.Updated;
                     worksheet.Cell(row + 2, 9).Value = inc.ShortDescription;
