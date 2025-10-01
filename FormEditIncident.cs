@@ -52,6 +52,14 @@ namespace IssueWatcher
 
             dgvIncidents.DataSource = listIncidents;
 
+            MarcarIncidenteAtual();
+
+        }
+
+        private void MarcarIncidenteAtual()
+        {
+            var configReader = new ConfigReader();
+            var service = new IncidentService(configReader.GetValue("database"));
 
             // Marcar a célula "Tag" do incidente atual
             string currentIncidentNumber = service.GetCurrentIncident();
@@ -69,7 +77,6 @@ namespace IssueWatcher
                     }
                 }
             }
-
         }
 
         private void FormEditIncident_Load(object sender, EventArgs e)
@@ -302,42 +309,64 @@ namespace IssueWatcher
 
         private void dgvIncidents_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-
             if (e.RowIndex >= 0 && dgvIncidents.Columns[e.ColumnIndex].Name == "Tag")
             {
+                var number = dgvIncidents.Rows[e.RowIndex].Cells["number"].Value?.ToString();
+                var cell = dgvIncidents.Rows[e.RowIndex].Cells["Tag"];
+                var defaultColor = dgvIncidents.DefaultCellStyle.BackColor;
 
-                if (e.RowIndex >= 0 && dgvIncidents.Columns[e.ColumnIndex].Name == "Tag")
+                try
                 {
-                    var number = dgvIncidents.CurrentRow.Cells["number"].Value.ToString();
+                    var configReader = new ConfigReader();
+                    var service = new IncidentService(configReader.GetValue("database"));
 
-
-                    Color defaultColor = dgvIncidents.DefaultCellStyle.BackColor;
-
-                    // Aplica a cor padrão em todas as células da coluna "Tag"
-                    foreach (DataGridViewRow row in dgvIncidents.Rows)
+                    // Verifica se a célula está marcada
+                    if (cell.Style.BackColor == _corTag)
                     {
-                        row.Cells["Tag"].Style.BackColor = defaultColor;
+                        // Desmarca visualmente
+                        cell.Style.BackColor = defaultColor;
+
+                        // Remove da tabela
+                        bool deleted = service.DeleteCurrentIncident(number);
+                        if (deleted)
+                        {
+                            MessageBox.Show($"Incidente {number} desmarcado.", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Falha ao remover incidente atual.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
-
-
-                    try
+                    else
                     {
-                        ConfigReader reader = new ConfigReader();
+                        // Aplica a cor padrão em todas as células da coluna "Tag"
+                        foreach (DataGridViewRow row in dgvIncidents.Rows)
+                        {
+                            row.Cells["Tag"].Style.BackColor = defaultColor;
+                        }
 
-                        IncidentService service = new IncidentService(reader.GetValue("database"));
-                        var stats = service.UpdateCurrentIncident(number);
+                        // Marca visualmente
+                        cell.Style.BackColor = _corTag;
 
-                        dgvIncidents.Rows[e.RowIndex].Cells["Tag"].Style.BackColor = _corTag;
-
-                        MessageBox.Show($"Incidente {number} marcado como atual.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    catch (Exception exc)
-                    {
-                        MessageBox.Show($"Error tagging incident: {exc.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        // Atualiza na tabela
+                        bool updated = service.UpdateCurrentIncident(number);
+                        if (updated)
+                        {
+                            MessageBox.Show($"Incidente {number} marcado como atual.", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
                     }
                 }
+                catch (Exception exc)
+                {
+                    MessageBox.Show($"Erro ao processar incidente: {exc.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
+        }
 
+
+        private void dgvIncidents_Sorted(object sender, EventArgs e)
+        {
+            MarcarIncidenteAtual();
         }
     }
 }

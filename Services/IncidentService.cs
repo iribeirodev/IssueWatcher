@@ -94,6 +94,21 @@ namespace IssueWatcher.Services
             }
         }
 
+        public bool DeleteCurrentIncident(string incidentNumber)
+        {
+            using (var conn = new SQLiteConnection($"Data Source={_databaseFile};Version=3;"))
+            {
+                conn.Open();
+
+                string sql = "DELETE FROM current_incident WHERE number = @incidentNumber;";
+                using (var cmd = new SQLiteCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@incidentNumber", incidentNumber);
+
+                    return cmd.ExecuteNonQuery() > 0;
+                }
+            }
+        }
 
         public List<Incident> GetAll(string numberCriteria)
         {
