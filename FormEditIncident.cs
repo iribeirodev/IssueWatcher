@@ -38,6 +38,10 @@ namespace IssueWatcher
             btnExport.Enabled = false;
             btnStat.Enabled = false;
 
+            txtNumber.Enabled = false;
+            cboState.Enabled = false;
+
+
             btnGoTo.Enabled = false;
 
             if (incidents.Count == 0)
@@ -48,6 +52,11 @@ namespace IssueWatcher
                 _incidentNumbersWithNotes = service.GetIncidentNumbersWithNotes();
                 btnExport.Enabled = true;
                 btnStat.Enabled = true;
+
+                txtNumber.Text = "";
+                cboState.SelectedIndex = -1;
+                txtNumber.Enabled = true;
+                cboState.Enabled = true;
             }
 
             dgvIncidents.DataSource = listIncidents;
@@ -111,6 +120,8 @@ namespace IssueWatcher
             }
             else
             {
+                cboState.SelectedIndex = 0;
+
                 // filtra apenas números que contêm o valor digitado no campo Number
                 var filtered = new SortableBindingList<Incident>(
                     listIncidents.Where(i => i.Number != null && i.Number.Contains(filterValue)).ToList()
@@ -367,6 +378,69 @@ namespace IssueWatcher
         private void dgvIncidents_Sorted(object sender, EventArgs e)
         {
             MarcarIncidenteAtual();
+        }
+
+        private void cboState_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string filterValue = cboState.Text;
+
+            if (listIncidents == null) return;
+
+            if (string.IsNullOrEmpty(filterValue))
+            {
+                // mostra todos
+                dgvIncidents.DataSource = listIncidents;
+            }
+            else
+            {
+                string criteria = cboState.Text;
+                if (criteria == "Cancelled") criteria = "Canceled";
+
+                txtNumber.Text = "";
+
+                // filtra apenas números que contêm o valor digitado no campo Number
+                var filtered = new SortableBindingList<Incident>(
+                    listIncidents.Where(i => i.State != null && i.State == criteria).ToList()
+                );
+
+                if (criteria == "all")
+                {
+                    dgvIncidents.DataSource = listIncidents;
+                }
+                else
+                {
+                    dgvIncidents.DataSource = filtered;
+                }
+            }
+
+        }
+
+        private void dgvIncidents_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            string columnName = dgvIncidents.Columns[e.ColumnIndex].Name;
+
+            if (columnName == "created" || columnName == "updated")
+            {
+                bool ascending = true;
+
+                // Alterna a direção da ordenação (opcional)
+                if (dgvIncidents.Tag != null && dgvIncidents.Tag.ToString() == "asc")
+                {
+                    ascending = false;
+                    dgvIncidents.Tag = "desc";
+                }
+                else
+                {
+                    dgvIncidents.Tag = "asc";
+                }
+
+                var sortedList = ascending
+                    ? listIncidents.OrderBy(i => System.DateTime.TryParse(columnName == "created" ? i.Created : i.Updated, out var dt) ? dt : System.DateTime.MinValue).ToList()
+                    : listIncidents.OrderByDescending(i => System.DateTime.TryParse(columnName == "created" ? i.Created : i.Updated, out var dt) ? dt : System.DateTime.MinValue).ToList();
+
+                listIncidents = new SortableBindingList<Incident>(sortedList);
+                dgvIncidents.DataSource = listIncidents;
+            }
         }
     }
 }
