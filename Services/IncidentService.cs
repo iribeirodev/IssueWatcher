@@ -239,5 +239,87 @@ namespace IssueWatcher.Services
 
             return result;
         }
+
+
+        public IncidentStat GetStatistics()
+        {
+            var stats = new IncidentStat();
+
+            using (var conn = new SQLiteConnection($"Data Source={_databaseFile};Version=3;"))
+            {
+                conn.Open();
+
+                // Contagem por estado
+                string stateQuery = @"
+                    SELECT state, COUNT(*) as count
+                    FROM incidents
+                    GROUP BY state";
+
+                using (var cmd = new SQLiteCommand(stateQuery, conn))
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string state = reader.GetString(0);
+                        int count = reader.GetInt32(1);
+
+                        switch (state.ToLower())
+                        {
+                            case "canceled":
+                                stats.CountCancelled = count;
+                                break;
+                            case "closed":
+                                stats.CountClosed = count;
+                                break;
+                            case "in progress":
+                                stats.CountInProgress = count;
+                                break;
+                            case "new":
+                                stats.CountNew = count;
+                                break;
+                        }
+                    }
+                }
+
+                // Contagem por prioridade local
+                string priorityQuery = @"
+                        SELECT local_priority, COUNT(*) as count
+                        FROM local_priorities
+                        GROUP BY local_priority";
+
+                using (var cmd = new SQLiteCommand(priorityQuery, conn))
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        int priority = reader.GetInt32(0);
+                        int count = reader.GetInt32(1);
+
+                        switch (priority)
+                        {
+                            case 1:
+                                stats.CountPriority1 = count;
+                                break;
+                            case 2:
+                                stats.CountPriority2 = count;
+                                break;
+                            case 3:
+                                stats.CountPriority3 = count;
+                                break;
+                            case 4:
+                                stats.CountPriority4 = count;
+                                break;
+                            case 5:
+                                stats.CountPriority5 = count;
+                                break;
+                        }
+                    }
+                }
+            }
+
+            return stats;
+        }
+
+
     }
 }

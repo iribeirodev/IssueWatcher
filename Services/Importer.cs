@@ -16,10 +16,9 @@ namespace IssueWatcher.Services
             var config = new ConfigReader();
             string expectedHeaders = config.GetValue("spreadsheet");
 
-            // Abre o Excel com ClosedXML
             using (var workbook = new XLWorkbook(spreadsheetFile))
             {
-                var worksheet = workbook.Worksheet(1); // primeira aba
+                var worksheet = workbook.Worksheet(1);
                 var rows = worksheet.RangeUsed().RowsUsed();
 
                 if (!ValidateSpreadsheetColumns(worksheet, expectedHeaders, out string error))
@@ -27,20 +26,22 @@ namespace IssueWatcher.Services
                     throw new InvalidDataException("Spreadsheet contains invalid columns or whole invalid header.");
                 }
 
-                // Conecta ao SQLite
                 using (var conn = new SQLiteConnection($"Data Source={databaseFile};Version=3;"))
                 {
                     conn.Open();
 
-                    // Apaga todos os registros existentes
                     using (var cmdClear = new SQLiteCommand("DELETE FROM incidents;", conn))
                     {
                         cmdClear.ExecuteNonQuery();
                     }
 
-                    foreach (var row in rows.Skip(1)) // pula cabeçalho
+                    foreach (var row in rows.Skip(1))
                     {
-                        string sql = @"INSERT INTO incidents (
+                        string number = row.Cell(2).GetValue<string>();
+
+                        // Insere na tabela incidents
+                        string sqlIncident = 
+                            @"INSERT INTO incidents (
                                 assignment_group, number, state, caller, assigned_to,
                                 priority, created, updated, short_description,
                                 sla_due, configuration_item, resolved, email
@@ -50,10 +51,10 @@ namespace IssueWatcher.Services
                                 @sla_due, @configuration_item, @resolved, @email
                             );";
 
-                        using (var cmd = new SQLiteCommand(sql, conn))
+                        using (var cmd = new SQLiteCommand(sqlIncident, conn))
                         {
                             cmd.Parameters.AddWithValue("@assignment_group", row.Cell(1).GetValue<string>());
-                            cmd.Parameters.AddWithValue("@number", row.Cell(2).GetValue<string>());
+                            cmd.Parameters.AddWithValue("@number", number);
                             cmd.Parameters.AddWithValue("@state", row.Cell(3).GetValue<string>());
                             cmd.Parameters.AddWithValue("@caller", row.Cell(4).GetValue<string>());
                             cmd.Parameters.AddWithValue("@assigned_to", row.Cell(5).GetValue<string>());
@@ -67,6 +68,24 @@ namespace IssueWatcher.Services
                             cmd.Parameters.AddWithValue("@email", row.Cell(13).GetValue<string>());
 
                             cmd.ExecuteNonQuery();
+                        }
+
+                        // Verifica se o número já existe em local_priorities
+                        string checkSql = "SELECT COUNT(*) FROM local_priorities WHERE number = @number;";
+                        using (var checkCmd = new SQLiteCommand(checkSql, conn))
+                        {
+                            checkCmd.Parameters.AddWithValue("@number", number);
+                            long count = (long)checkCmd.ExecuteScalar();
+
+                            if (count == 0)
+                            {
+                                string insertPrioritySql = "INSERT INTO local_priorities (number, local_priority) VALUES (@number, 5);";
+                                using (var insertCmd = new SQLiteCommand(insertPrioritySql, conn))
+                                {
+                                    insertCmd.Parameters.AddWithValue("@number", number);
+                                    insertCmd.ExecuteNonQuery();
+                                }
+                            }
                         }
                     }
                 }

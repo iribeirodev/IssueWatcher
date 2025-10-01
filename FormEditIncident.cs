@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using static ClosedXML.Excel.XLPredefinedFormat;
 
 namespace IssueWatcher
 {
@@ -32,12 +33,17 @@ namespace IssueWatcher
             List<Incident> incidents = service.GetAll(numberCriteria);
             listIncidents = new SortableBindingList<Incident>(incidents);
 
+            btnExport.Enabled = false;
+            btnStat.Enabled = false;
+
             if (incidents.Count == 0)
             {
                 MessageBox.Show("Nenhum incidente encontrado.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             } else
             {
                 _incidentNumbersWithNotes = service.GetIncidentNumbersWithNotes();
+                btnExport.Enabled = true;
+                btnStat.Enabled = true;
             }
 
             dgvIncidents.DataSource = listIncidents;
@@ -225,6 +231,25 @@ namespace IssueWatcher
             );
 
             e.Handled = true;
+        }
+
+        private void btnStat_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ConfigReader reader = new ConfigReader();
+
+                IncidentService service = new IncidentService(reader.GetValue("database"));
+                var stats = service.GetStatistics();
+
+                FormStatistics statsForm = new FormStatistics();
+                statsForm.Stats = stats;
+                statsForm.ShowDialog();
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show($"Error retrieving statistics: {exc.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
