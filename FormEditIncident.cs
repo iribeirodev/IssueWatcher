@@ -4,6 +4,7 @@ using IssueWatcher.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -15,6 +16,7 @@ namespace IssueWatcher
     {
         private SortableBindingList<Incident> listIncidents;
         private HashSet<string> _incidentNumbersWithNotes;
+        private Color _corTag = Color.YellowGreen;
 
         public FormEditIncident()
         {
@@ -36,6 +38,8 @@ namespace IssueWatcher
             btnExport.Enabled = false;
             btnStat.Enabled = false;
 
+            btnGoTo.Enabled = false;
+
             if (incidents.Count == 0)
             {
                 MessageBox.Show("Nenhum incidente encontrado.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -47,6 +51,25 @@ namespace IssueWatcher
             }
 
             dgvIncidents.DataSource = listIncidents;
+
+
+            // Marcar a célula "Tag" do incidente atual
+            string currentIncidentNumber = service.GetCurrentIncident();
+            if (!string.IsNullOrEmpty(currentIncidentNumber))
+            {
+                foreach (DataGridViewRow row in dgvIncidents.Rows)
+                {
+                    if (row.Cells["number"].Value?.ToString() == currentIncidentNumber)
+                    {
+                        row.Cells["Tag"].Style.BackColor = _corTag;
+                    }
+                    else
+                    {
+                        row.Cells["Tag"].Style.BackColor = dgvIncidents.DefaultCellStyle.BackColor;
+                    }
+                }
+            }
+
         }
 
         private void FormEditIncident_Load(object sender, EventArgs e)
@@ -101,6 +124,15 @@ namespace IssueWatcher
                 formIncidentNotes.Text = $"Edit notes for incident {number}";
                 formIncidentNotes.ShowDialog();
 
+            }
+
+            btnGoTo.Enabled = false;
+            if (e.RowIndex > -1)
+            {
+                var number = dgvIncidents.Rows[e.RowIndex].Cells["number"].Value.ToString();
+                toolTip1.SetToolTip(btnGoTo, $"Ir para o chamado {number} no MyServices.");
+                btnGoTo.Enabled = true;
+                
             }
         }
 
@@ -250,6 +282,62 @@ namespace IssueWatcher
             {
                 MessageBox.Show($"Error retrieving statistics: {exc.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+
+        private void btnGoTo_Click(object sender, EventArgs e)
+        {
+            if (dgvIncidents.CurrentRow != null)
+            {
+                var number = dgvIncidents.CurrentRow.Cells["number"].Value.ToString();
+                string url = $"https://myservices.abb.com/cs_gr?id=search&spa=1&q={number}";
+
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = url,
+                    UseShellExecute = true
+                });
+            }
+        }
+
+        private void dgvIncidents_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+            if (e.RowIndex >= 0 && dgvIncidents.Columns[e.ColumnIndex].Name == "Tag")
+            {
+
+                if (e.RowIndex >= 0 && dgvIncidents.Columns[e.ColumnIndex].Name == "Tag")
+                {
+                    var number = dgvIncidents.CurrentRow.Cells["number"].Value.ToString();
+
+
+                    Color defaultColor = dgvIncidents.DefaultCellStyle.BackColor;
+
+                    // Aplica a cor padrão em todas as células da coluna "Tag"
+                    foreach (DataGridViewRow row in dgvIncidents.Rows)
+                    {
+                        row.Cells["Tag"].Style.BackColor = defaultColor;
+                    }
+
+
+                    try
+                    {
+                        ConfigReader reader = new ConfigReader();
+
+                        IncidentService service = new IncidentService(reader.GetValue("database"));
+                        var stats = service.UpdateCurrentIncident(number);
+
+                        dgvIncidents.Rows[e.RowIndex].Cells["Tag"].Style.BackColor = _corTag;
+
+                        MessageBox.Show($"Incidente {number} marcado como atual.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception exc)
+                    {
+                        MessageBox.Show($"Error tagging incident: {exc.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+
         }
     }
 }

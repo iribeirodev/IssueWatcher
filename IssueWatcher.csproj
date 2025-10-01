@@ -199,9 +199,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="create_script.txt" />
+    <Content Include="Pictures\internet.png" />
     <Content Include="Pictures\pie-chart.png" />
     <Content Include="Pictures\settings.png" />
     <Content Include="Pictures\table.png" />
+    <Content Include="Pictures\tag.png" />
     <Content Include="Pictures\upload.png" />
     <Content Include="Pictures\warning.ico" />
   </ItemGroup>

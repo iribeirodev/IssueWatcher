@@ -43,6 +43,58 @@ namespace IssueWatcher.Services
         }
 
 
+        public string GetCurrentIncident()
+        {
+            using (var conn = new SQLiteConnection($"Data Source={_databaseFile};Version=3;"))
+            {
+                conn.Open();
+
+                string sql = "SELECT number FROM current_incident LIMIT 1;";
+                using (var cmd = new SQLiteCommand(sql, conn))
+                {
+                    var result = cmd.ExecuteScalar();
+                    return result?.ToString();
+                }
+            }
+        }
+
+        public bool UpdateCurrentIncident(string incidentNumber)
+        {
+            using (var conn = new SQLiteConnection($"Data Source={_databaseFile};Version=3;"))
+            {
+                conn.Open();
+
+                // Verifica se já existe um registro para o usuário
+                string checkSql = "SELECT COUNT(*) FROM current_incident";
+                using (var checkCmd = new SQLiteCommand(checkSql, conn))
+                {
+                    var result = checkCmd.ExecuteScalar();
+
+                    long count = (long)result;
+
+                    string sql;
+                    if (count > 0)
+                    {
+                        // Atualiza o incidente existente
+                        sql = "UPDATE current_incident SET number = @incidentNumber";
+                    }
+                    else
+                    {
+                        // Insere novo incidente
+                        sql = "INSERT INTO current_incident (number) VALUES (@incidentNumber);";
+                    }
+
+                    using (var cmd = new SQLiteCommand(sql, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@incidentNumber", incidentNumber);
+
+                        return cmd.ExecuteNonQuery() > 0;
+                    }
+                }
+            }
+        }
+
+
         public List<Incident> GetAll(string numberCriteria)
         {
             var incidents = new List<Incident>();
