@@ -398,7 +398,6 @@ namespace IssueWatcher
 
                 txtNumber.Text = "";
 
-                // filtra apenas números que contêm o valor digitado no campo Number
                 var filtered = new SortableBindingList<Incident>(
                     listIncidents.Where(i => i.State != null && i.State == criteria).ToList()
                 );
@@ -415,6 +414,7 @@ namespace IssueWatcher
 
         }
 
+
         private void dgvIncidents_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             string columnName = dgvIncidents.Columns[e.ColumnIndex].Name;
@@ -423,7 +423,6 @@ namespace IssueWatcher
             {
                 bool ascending = true;
 
-                // Alterna a direção da ordenação (opcional)
                 if (dgvIncidents.Tag != null && dgvIncidents.Tag.ToString() == "asc")
                 {
                     ascending = false;
@@ -434,13 +433,27 @@ namespace IssueWatcher
                     dgvIncidents.Tag = "asc";
                 }
 
-                var sortedList = ascending
-                    ? listIncidents.OrderBy(i => System.DateTime.TryParse(columnName == "created" ? i.Created : i.Updated, out var dt) ? dt : System.DateTime.MinValue).ToList()
-                    : listIncidents.OrderByDescending(i => System.DateTime.TryParse(columnName == "created" ? i.Created : i.Updated, out var dt) ? dt : System.DateTime.MinValue).ToList();
+                SortableBindingList<Incident> filtered = null;
 
-                listIncidents = new SortableBindingList<Incident>(sortedList);
-                dgvIncidents.DataSource = listIncidents;
+                if (!string.IsNullOrEmpty(cboState.Text))
+                {
+                    filtered = new SortableBindingList<Incident>(
+                        listIncidents.Where(i => i.State != null && i.State == cboState.Text).ToList()
+                    );
+                }
+
+                if (filtered == null)
+                {
+                    filtered = listIncidents;
+                }
+
+                var sortedList = ascending
+                    ? filtered.OrderBy(i => System.DateTime.TryParse(columnName == "created" ? i.Created : i.Updated, out var dt) ? dt : System.DateTime.MinValue).ToList()
+                    : filtered.OrderByDescending(i => System.DateTime.TryParse(columnName == "created" ? i.Created : i.Updated, out var dt) ? dt : System.DateTime.MinValue).ToList();
+
+                dgvIncidents.DataSource = new SortableBindingList<Incident>(sortedList);
             }
         }
+
     }
 }
