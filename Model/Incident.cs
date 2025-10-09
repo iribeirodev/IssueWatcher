@@ -15,5 +15,8 @@
         public string ConfigurationItem { get; set; }
         public string Resolved { get; set; }
         public string Email { get; set; }
+        public string LocalStatus { get; set; }
+        public string CurrentIncident { get; set; }
+        public string LocalPriority { get; set; }
     }
 }

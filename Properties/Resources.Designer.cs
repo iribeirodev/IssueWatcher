@@ -8,10 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace IssueWatcher.Properties
-{
-
-
+namespace IssueWatcher.Properties {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -19,52 +19,206 @@ namespace IssueWatcher.Properties
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources
-    {
-
+    internal class Resources {
+        
         private static global::System.Resources.ResourceManager resourceMan;
-
+        
         private static global::System.Globalization.CultureInfo resourceCulture;
-
+        
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources()
-        {
+        internal Resources() {
         }
-
+        
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager
-        {
-            get
-            {
-                if ((resourceMan == null))
-                {
+        internal static global::System.Resources.ResourceManager ResourceManager {
+            get {
+                if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("IssueWatcher.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
             }
         }
-
+        
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture
-        {
-            get
-            {
+        internal static global::System.Globalization.CultureInfo Culture {
+            get {
                 return resourceCulture;
             }
-            set
-            {
+            set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply changes for issue {number} ?.
+        /// </summary>
+        internal static string APPLY_ISSUE_CHANGES {
+            get {
+                return ResourceManager.GetString("APPLY_ISSUE_CHANGES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while trying to export to Excel: {error}.
+        /// </summary>
+        internal static string ERROR_EXPORTING {
+            get {
+                return ResourceManager.GetString("ERROR_EXPORTING", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error importing issues: {error}.
+        /// </summary>
+        internal static string ERROR_IMPORTING {
+            get {
+                return ResourceManager.GetString("ERROR_IMPORTING", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to process issue: {error}.
+        /// </summary>
+        internal static string ERROR_PROCESSING_ISSUE {
+            get {
+                return ResourceManager.GetString("ERROR_PROCESSING_ISSUE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error retrieving statistics: {error}.
+        /// </summary>
+        internal static string ERROR_STATISTICS {
+            get {
+                return ResourceManager.GetString("ERROR_STATISTICS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error tagging issue as default..
+        /// </summary>
+        internal static string ERROR_TAGGING_AS_DEFAULT {
+            get {
+                return ResourceManager.GetString("ERROR_TAGGING_AS_DEFAULT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error untagging issue..
+        /// </summary>
+        internal static string ERROR_UNTAGGING_ISSUE {
+            get {
+                return ResourceManager.GetString("ERROR_UNTAGGING_ISSUE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Navigate issue #{number}.
+        /// </summary>
+        internal static string GOTO_ISSUE_NUMBER {
+            get {
+                return ResourceManager.GetString("GOTO_ISSUE_NUMBER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid issue number..
+        /// </summary>
+        internal static string INVALID_ISSUE_NUMBER {
+            get {
+                return ResourceManager.GetString("INVALID_ISSUE_NUMBER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spreadsheet contains invalid columns or whole invalid header.
+        /// </summary>
+        internal static string INVALID_SPREADSHEET {
+            get {
+                return ResourceManager.GetString("INVALID_SPREADSHEET", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Issue #{number} tagged as default..
+        /// </summary>
+        internal static string ISSUE_TAGGED_AS_DEFAULT {
+            get {
+                return ResourceManager.GetString("ISSUE_TAGGED_AS_DEFAULT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Issue #{number} was untagged..
+        /// </summary>
+        internal static string ISSUE_UNTAGGED {
+            get {
+                return ResourceManager.GetString("ISSUE_UNTAGGED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data successfully exported..
+        /// </summary>
+        internal static string ISSUES_EXPORTED_TO_EXCEL {
+            get {
+                return ResourceManager.GetString("ISSUES_EXPORTED_TO_EXCEL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to #c2ccf2.
+        /// </summary>
+        internal static string NOTES_COLOR {
+            get {
+                return ResourceManager.GetString("NOTES_COLOR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nothing to export..
+        /// </summary>
+        internal static string NOTHING_TO_EXPORT {
+            get {
+                return ResourceManager.GetString("NOTHING_TO_EXPORT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Erase this line?.
+        /// </summary>
+        internal static string REMOVE_LINE_CONFIRMATION {
+            get {
+                return ResourceManager.GetString("REMOVE_LINE_CONFIRMATION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data successfully imported..
+        /// </summary>
+        internal static string SUCCESSFULL_IMPORTING {
+            get {
+                return ResourceManager.GetString("SUCCESSFULL_IMPORTING", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to #856BA1.
+        /// </summary>
+        internal static string TAG_COLOR {
+            get {
+                return ResourceManager.GetString("TAG_COLOR", resourceCulture);
             }
         }
     }

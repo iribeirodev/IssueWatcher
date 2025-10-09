@@ -20,6 +20,16 @@ namespace IssueWatcher.Services
         }
 
         /// <summary>
+        /// Carrega o caminho completo do database
+        /// </summary>
+        /// <returns></returns>
+        public string GetDatabaseName()
+        {
+            return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "chamados.db");
+        }
+
+
+        /// <summary>
         /// Carrega e processa o arquivo de configuração linha por linha,
         /// armazenando os pares Chave:Valor em um dicionário interno.
         /// </summary>
@@ -93,7 +103,6 @@ namespace IssueWatcher.Services
                 return;
 
             var lines = File.ReadAllLines(_filePath).ToList();
-            bool updated = false;
 
             for (int i = 0; i < lines.Count; i++)
             {
@@ -104,7 +113,6 @@ namespace IssueWatcher.Services
                     if (keyInFile == normalizedKey)
                     {
                         lines[i] = $"{normalizedKey}:{value}";
-                        updated = true;
                         break;
                     }
                 }

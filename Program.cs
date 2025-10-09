@@ -1,8 +1,4 @@
-﻿using IssueWatcher.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows.Forms;
 
 namespace IssueWatcher
@@ -17,19 +13,6 @@ namespace IssueWatcher
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
-            ConfigReader reader = new ConfigReader();
-            if (!reader.DatabaseFileExists())
-            {
-                MessageBox.Show(
-                    "Parece que não existe o database no caminho especificado no arquivo de configuração. Você será redirecionado para a tela de settings.",
-                    "Atenção",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
-
-                Application.Run(new FormSettings());
-                return;
-            }
 
             Application.Run(new FormMain());
         }

@@ -1,13 +1,6 @@
-﻿using IssueWatcher.Services;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows.Forms;
+using IssueWatcher.Services;
 
 namespace IssueWatcher
 {
@@ -24,14 +17,6 @@ namespace IssueWatcher
             Application.Exit();
         }
 
-        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FormSettings formSettings = new FormSettings();
-            formSettings.ShowDialog();
-
-            SetDatabaseLocation();
-        }
-
         private void FormMain_Load(object sender, EventArgs e)
         {
             SetDatabaseLocation();
@@ -40,7 +25,7 @@ namespace IssueWatcher
         public void SetDatabaseLocation()
         {
             ConfigReader configReader = new ConfigReader();
-            statusLabel.Text = $"Current database: {configReader.GetValue("database")}";
+            statusLabel.Text = $"Current database: {configReader.GetDatabaseName()}";
         }
 
         private void importFromExcelToolStripMenuItem_Click(object sender, EventArgs e)
@@ -51,7 +36,7 @@ namespace IssueWatcher
 
         private void editIncidentDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FormEditIncident formEditIncident = new FormEditIncident();
+            FormIncidents formEditIncident = new FormIncidents();
             formEditIncident.MdiParent = this;
             formEditIncident.Show();
         }

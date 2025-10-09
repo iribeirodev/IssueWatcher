@@ -1,13 +1,7 @@
-﻿using IssueWatcher.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using IssueWatcher.Services;
 
 namespace IssueWatcher
 {
@@ -15,7 +9,7 @@ namespace IssueWatcher
     {
         public string IncidentNumber { get; set; }
 
-        public bool Alterou { get; set; } = false;
+        public bool Changed { get; set; } = false;
 
         public FormIncidentNotes()
         {
@@ -24,37 +18,42 @@ namespace IssueWatcher
 
         private void dgvNotes_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Delete)
+            if (e.KeyCode != Keys.Delete)
+                return;
+
+            if (dgvNotes.CurrentCell == null || dgvNotes.CurrentRow == null)
+                return;
+
+            var row = dgvNotes.CurrentRow;
+
+            if (dgvNotes.CurrentCell.Value != null &&
+                MessageBox.Show(
+                    Properties.Resources.REMOVE_LINE_CONFIRMATION,
+                    "Confirmation", 
+                    MessageBoxButtons.YesNo, 
+                    MessageBoxIcon.Question) == DialogResult.No)
+                return;
+
+            bool shouldRemoveRow = !row.IsNewRow && dgvNotes.Rows.Count > 1;
+
+            Action clearCells = () =>
             {
-
-                if ((dgvNotes.CurrentCell.Value != null)
-                    && (MessageBox.Show("Excluir a coluna?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No))
+                foreach (DataGridViewCell cell in row.Cells)
                 {
-                    return;
+                    cell.Value = null;
                 }
+            };
 
-                if (e.KeyCode == Keys.Delete && dgvNotes.CurrentRow != null)
-                {
-                    var row = dgvNotes.CurrentRow;
+            Action actionToExecute = shouldRemoveRow
+                ? (Action)(() => dgvNotes.Rows.Remove(row))
+                : clearCells;
 
-                    if (!row.IsNewRow && dgvNotes.Rows.Count > 1)
-                    {
-                        dgvNotes.Rows.Remove(row);
-                    }
-                    else
-                    {
-                        foreach (DataGridViewCell cell in row.Cells)
-                        {
-                            cell.Value = null;
-                        }
-                    }
-                }
-            }
+            actionToExecute();
         }
 
         private void FormIncidentNotes_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if ((Alterou)
+            if ((Changed)
              && (MessageBox.Show("Confirma as alterações?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes))
             {
                 List<string> notes = new List<string>();
@@ -91,23 +90,17 @@ namespace IssueWatcher
                 dgvNotes.Rows.Add(note);
             }
 
-            Alterou = false;
+            Changed = false;
         }
 
         private void dgvNotes_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
-                Alterou = true;
+                Changed = true;
         }
 
-        private void dgvNotes_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
-        {
-            Alterou = true;
-        }
+        private void dgvNotes_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e) => Changed = true;
 
-        private void dgvNotes_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
-        {
-            Alterou = true;
-        }
+        private void dgvNotes_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e) => Changed = true;
     }
 }

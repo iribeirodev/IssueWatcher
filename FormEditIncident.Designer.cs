@@ -28,488 +28,411 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle50 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle41 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle42 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle43 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle44 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle45 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle46 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle47 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle48 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle49 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormEditIncident));
-            this.dgvIncidents = new System.Windows.Forms.DataGridView();
-            this.Action = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Tag = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Priority = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.number = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.State = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.caller = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.assigned_to = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.configuration_item = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.short_description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.email = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.created = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.updated = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.assignment_group = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pnlControl = new System.Windows.Forms.Panel();
-            this.btnGoTo = new System.Windows.Forms.Button();
-            this.btnStat = new System.Windows.Forms.Button();
-            this.btnExport = new System.Windows.Forms.Button();
-            this.btnLoad = new System.Windows.Forms.Button();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.cboState = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.lblNumber = new System.Windows.Forms.Label();
-            this.txtNumber = new System.Windows.Forms.TextBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.cboRecordsToLoad = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvIncidents)).BeginInit();
-            this.pnlControl.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.cboLocalStatus = new System.Windows.Forms.ComboBox();
+            this.cboPriority = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.cboAssignedTo = new System.Windows.Forms.ComboBox();
+            this.txtShortDescription = new System.Windows.Forms.TextBox();
+            this.txtEmail = new System.Windows.Forms.TextBox();
+            this.txtSlaDue = new System.Windows.Forms.TextBox();
+            this.txtConfigurationItem = new System.Windows.Forms.TextBox();
+            this.txtUpdated = new System.Windows.Forms.TextBox();
+            this.txtCreated = new System.Windows.Forms.TextBox();
+            this.txtCaller = new System.Windows.Forms.TextBox();
+            this.txtNumber = new System.Windows.Forms.TextBox();
+            this.txtAssignmentGroup = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // dgvIncidents
+            // panel1
             // 
-            this.dgvIncidents.AllowUserToAddRows = false;
-            this.dgvIncidents.AllowUserToDeleteRows = false;
-            this.dgvIncidents.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvIncidents.BackgroundColor = System.Drawing.Color.LightSteelBlue;
-            this.dgvIncidents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvIncidents.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Action,
-            this.Tag,
-            this.Priority,
-            this.number,
-            this.State,
-            this.caller,
-            this.assigned_to,
-            this.configuration_item,
-            this.short_description,
-            this.email,
-            this.created,
-            this.updated,
-            this.assignment_group});
-            dataGridViewCellStyle50.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle50.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle50.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle50.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle50.SelectionBackColor = System.Drawing.Color.Lavender;
-            dataGridViewCellStyle50.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle50.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvIncidents.DefaultCellStyle = dataGridViewCellStyle50;
-            this.dgvIncidents.GridColor = System.Drawing.Color.LightSteelBlue;
-            this.dgvIncidents.Location = new System.Drawing.Point(0, 123);
-            this.dgvIncidents.Margin = new System.Windows.Forms.Padding(2);
-            this.dgvIncidents.Name = "dgvIncidents";
-            this.dgvIncidents.RowHeadersWidth = 51;
-            this.dgvIncidents.RowTemplate.Height = 24;
-            this.dgvIncidents.Size = new System.Drawing.Size(1313, 568);
-            this.dgvIncidents.TabIndex = 0;
-            this.dgvIncidents.TabStop = false;
-            this.dgvIncidents.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvIncidents_CellClick);
-            this.dgvIncidents.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvIncidents_CellDoubleClick);
-            this.dgvIncidents.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvIncidents_CellEndEdit);
-            this.dgvIncidents.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvIncidents_CellPainting);
-            this.dgvIncidents.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvIncidents_ColumnHeaderMouseClick);
-            this.dgvIncidents.Sorted += new System.EventHandler(this.dgvIncidents_Sorted);
-            // 
-            // Action
-            // 
-            this.Action.HeaderText = "Edit Notes";
-            this.Action.MinimumWidth = 6;
-            this.Action.Name = "Action";
-            this.Action.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Action.Text = "...";
-            this.Action.UseColumnTextForButtonValue = true;
-            this.Action.Width = 70;
-            // 
-            // Tag
-            // 
-            this.Tag.DataPropertyName = "tag";
-            this.Tag.HeaderText = "Tag";
-            this.Tag.Name = "Tag";
-            this.Tag.ReadOnly = true;
-            this.Tag.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Tag.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Tag.Width = 50;
-            // 
-            // Priority
-            // 
-            this.Priority.DataPropertyName = "Priority";
-            this.Priority.HeaderText = "Priority";
-            this.Priority.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5"});
-            this.Priority.Name = "Priority";
-            this.Priority.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // number
-            // 
-            this.number.DataPropertyName = "number";
-            dataGridViewCellStyle41.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            dataGridViewCellStyle41.ForeColor = System.Drawing.Color.LightSlateGray;
-            this.number.DefaultCellStyle = dataGridViewCellStyle41;
-            this.number.HeaderText = "Number";
-            this.number.MinimumWidth = 6;
-            this.number.Name = "number";
-            this.number.ReadOnly = true;
-            this.number.Width = 120;
-            // 
-            // State
-            // 
-            this.State.DataPropertyName = "state";
-            dataGridViewCellStyle42.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            dataGridViewCellStyle42.ForeColor = System.Drawing.Color.LightSlateGray;
-            this.State.DefaultCellStyle = dataGridViewCellStyle42;
-            this.State.HeaderText = "State";
-            this.State.MaxInputLength = 100;
-            this.State.MinimumWidth = 6;
-            this.State.Name = "State";
-            this.State.ReadOnly = true;
-            this.State.Width = 180;
-            // 
-            // caller
-            // 
-            this.caller.DataPropertyName = "caller";
-            dataGridViewCellStyle43.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            dataGridViewCellStyle43.ForeColor = System.Drawing.Color.LightSlateGray;
-            this.caller.DefaultCellStyle = dataGridViewCellStyle43;
-            this.caller.HeaderText = "Caller";
-            this.caller.MaxInputLength = 100;
-            this.caller.MinimumWidth = 6;
-            this.caller.Name = "caller";
-            this.caller.ReadOnly = true;
-            this.caller.Width = 200;
-            // 
-            // assigned_to
-            // 
-            this.assigned_to.DataPropertyName = "AssignedTo";
-            this.assigned_to.HeaderText = "Assigned To";
-            this.assigned_to.MaxInputLength = 100;
-            this.assigned_to.MinimumWidth = 6;
-            this.assigned_to.Name = "assigned_to";
-            this.assigned_to.Width = 200;
-            // 
-            // configuration_item
-            // 
-            this.configuration_item.DataPropertyName = "ConfigurationItem";
-            dataGridViewCellStyle44.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            dataGridViewCellStyle44.ForeColor = System.Drawing.Color.LightSlateGray;
-            this.configuration_item.DefaultCellStyle = dataGridViewCellStyle44;
-            this.configuration_item.HeaderText = "Configuration Item";
-            this.configuration_item.MaxInputLength = 100;
-            this.configuration_item.MinimumWidth = 6;
-            this.configuration_item.Name = "configuration_item";
-            this.configuration_item.ReadOnly = true;
-            this.configuration_item.Width = 180;
-            // 
-            // short_description
-            // 
-            this.short_description.DataPropertyName = "ShortDescription";
-            dataGridViewCellStyle45.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            dataGridViewCellStyle45.ForeColor = System.Drawing.Color.LightSlateGray;
-            this.short_description.DefaultCellStyle = dataGridViewCellStyle45;
-            this.short_description.HeaderText = "Short Description";
-            this.short_description.MaxInputLength = 500;
-            this.short_description.MinimumWidth = 6;
-            this.short_description.Name = "short_description";
-            this.short_description.ReadOnly = true;
-            this.short_description.Width = 280;
-            // 
-            // email
-            // 
-            this.email.DataPropertyName = "email";
-            dataGridViewCellStyle46.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            dataGridViewCellStyle46.ForeColor = System.Drawing.Color.LightSlateGray;
-            this.email.DefaultCellStyle = dataGridViewCellStyle46;
-            this.email.HeaderText = "Email";
-            this.email.MaxInputLength = 100;
-            this.email.MinimumWidth = 6;
-            this.email.Name = "email";
-            this.email.ReadOnly = true;
-            this.email.Width = 280;
-            // 
-            // created
-            // 
-            this.created.DataPropertyName = "created";
-            dataGridViewCellStyle47.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            dataGridViewCellStyle47.ForeColor = System.Drawing.Color.LightSlateGray;
-            this.created.DefaultCellStyle = dataGridViewCellStyle47;
-            this.created.HeaderText = "Created";
-            this.created.MinimumWidth = 6;
-            this.created.Name = "created";
-            this.created.ReadOnly = true;
-            this.created.Width = 130;
-            // 
-            // updated
-            // 
-            this.updated.DataPropertyName = "Updated";
-            dataGridViewCellStyle48.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            dataGridViewCellStyle48.ForeColor = System.Drawing.Color.LightSlateGray;
-            this.updated.DefaultCellStyle = dataGridViewCellStyle48;
-            this.updated.HeaderText = "Updated";
-            this.updated.MinimumWidth = 6;
-            this.updated.Name = "updated";
-            this.updated.ReadOnly = true;
-            this.updated.Width = 130;
-            // 
-            // assignment_group
-            // 
-            this.assignment_group.DataPropertyName = "AssignmentGroup";
-            dataGridViewCellStyle49.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            dataGridViewCellStyle49.ForeColor = System.Drawing.Color.LightSlateGray;
-            this.assignment_group.DefaultCellStyle = dataGridViewCellStyle49;
-            this.assignment_group.HeaderText = "Assignment Group";
-            this.assignment_group.MinimumWidth = 6;
-            this.assignment_group.Name = "assignment_group";
-            this.assignment_group.ReadOnly = true;
-            this.assignment_group.Width = 200;
-            // 
-            // pnlControl
-            // 
-            this.pnlControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlControl.Controls.Add(this.groupBox2);
-            this.pnlControl.Controls.Add(this.groupBox1);
-            this.pnlControl.Controls.Add(this.btnGoTo);
-            this.pnlControl.Controls.Add(this.btnStat);
-            this.pnlControl.Controls.Add(this.btnExport);
-            this.pnlControl.Controls.Add(this.btnLoad);
-            this.pnlControl.Location = new System.Drawing.Point(0, 1);
-            this.pnlControl.Margin = new System.Windows.Forms.Padding(2);
-            this.pnlControl.Name = "pnlControl";
-            this.pnlControl.Size = new System.Drawing.Size(1313, 118);
-            this.pnlControl.TabIndex = 4;
-            // 
-            // btnGoTo
-            // 
-            this.btnGoTo.Enabled = false;
-            this.btnGoTo.Image = ((System.Drawing.Image)(resources.GetObject("btnGoTo.Image")));
-            this.btnGoTo.Location = new System.Drawing.Point(958, 43);
-            this.btnGoTo.Margin = new System.Windows.Forms.Padding(2);
-            this.btnGoTo.Name = "btnGoTo";
-            this.btnGoTo.Size = new System.Drawing.Size(62, 48);
-            this.btnGoTo.TabIndex = 2;
-            this.btnGoTo.UseVisualStyleBackColor = true;
-            this.btnGoTo.Click += new System.EventHandler(this.btnGoTo_Click);
-            // 
-            // btnStat
-            // 
-            this.btnStat.Enabled = false;
-            this.btnStat.Image = ((System.Drawing.Image)(resources.GetObject("btnStat.Image")));
-            this.btnStat.Location = new System.Drawing.Point(866, 43);
-            this.btnStat.Margin = new System.Windows.Forms.Padding(2);
-            this.btnStat.Name = "btnStat";
-            this.btnStat.Size = new System.Drawing.Size(62, 48);
-            this.btnStat.TabIndex = 1;
-            this.toolTip1.SetToolTip(this.btnStat, "Statistics");
-            this.btnStat.UseVisualStyleBackColor = true;
-            this.btnStat.Click += new System.EventHandler(this.btnStat_Click);
-            // 
-            // btnExport
-            // 
-            this.btnExport.Enabled = false;
-            this.btnExport.Image = ((System.Drawing.Image)(resources.GetObject("btnExport.Image")));
-            this.btnExport.Location = new System.Drawing.Point(1050, 43);
-            this.btnExport.Margin = new System.Windows.Forms.Padding(2);
-            this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(62, 48);
-            this.btnExport.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.btnExport, "Export to Excel");
-            this.btnExport.UseVisualStyleBackColor = true;
-            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
-            // 
-            // btnLoad
-            // 
-            this.btnLoad.Image = ((System.Drawing.Image)(resources.GetObject("btnLoad.Image")));
-            this.btnLoad.Location = new System.Drawing.Point(774, 43);
-            this.btnLoad.Margin = new System.Windows.Forms.Padding(2);
-            this.btnLoad.Name = "btnLoad";
-            this.btnLoad.Size = new System.Drawing.Size(62, 48);
-            this.btnLoad.TabIndex = 0;
-            this.toolTip1.SetToolTip(this.btnLoad, "Refresh Data");
-            this.btnLoad.UseVisualStyleBackColor = true;
-            this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
-            // 
-            // toolTip1
-            // 
-            this.toolTip1.IsBalloon = true;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.cboState);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.lblNumber);
-            this.groupBox1.Controls.Add(this.txtNumber);
-            this.groupBox1.Location = new System.Drawing.Point(268, 11);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(339, 100);
-            this.groupBox1.TabIndex = 14;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Filter by";
+            this.panel1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel1.Controls.Add(this.cboState);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.cboLocalStatus);
+            this.panel1.Controls.Add(this.cboPriority);
+            this.panel1.Controls.Add(this.label13);
+            this.panel1.Controls.Add(this.cboAssignedTo);
+            this.panel1.Controls.Add(this.txtShortDescription);
+            this.panel1.Controls.Add(this.txtEmail);
+            this.panel1.Controls.Add(this.txtSlaDue);
+            this.panel1.Controls.Add(this.txtConfigurationItem);
+            this.panel1.Controls.Add(this.txtUpdated);
+            this.panel1.Controls.Add(this.txtCreated);
+            this.panel1.Controls.Add(this.txtCaller);
+            this.panel1.Controls.Add(this.txtNumber);
+            this.panel1.Controls.Add(this.txtAssignmentGroup);
+            this.panel1.Controls.Add(this.label10);
+            this.panel1.Controls.Add(this.label11);
+            this.panel1.Controls.Add(this.label12);
+            this.panel1.Controls.Add(this.label7);
+            this.panel1.Controls.Add(this.label8);
+            this.panel1.Controls.Add(this.label9);
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.label6);
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Location = new System.Drawing.Point(12, 24);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1169, 542);
+            this.panel1.TabIndex = 27;
             // 
             // cboState
             // 
             this.cboState.BackColor = System.Drawing.Color.White;
             this.cboState.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboState.Enabled = false;
-            this.cboState.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboState.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboState.ForeColor = System.Drawing.Color.Black;
             this.cboState.FormattingEnabled = true;
-            this.cboState.Items.AddRange(new object[] {
-            "",
-            "Cancelled",
-            "Closed",
-            "In Progress",
-            "New",
-            "all"});
-            this.cboState.Location = new System.Drawing.Point(138, 47);
-            this.cboState.Margin = new System.Windows.Forms.Padding(2);
+            this.cboState.Location = new System.Drawing.Point(498, 481);
             this.cboState.Name = "cboState";
-            this.cboState.Size = new System.Drawing.Size(181, 25);
-            this.cboState.TabIndex = 1;
-            this.cboState.SelectedIndexChanged += new System.EventHandler(this.cboState_SelectedIndexChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(135, 28);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(33, 13);
-            this.label1.TabIndex = 16;
-            this.label1.Text = "State";
-            // 
-            // lblNumber
-            // 
-            this.lblNumber.AutoSize = true;
-            this.lblNumber.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNumber.Location = new System.Drawing.Point(20, 28);
-            this.lblNumber.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblNumber.Name = "lblNumber";
-            this.lblNumber.Size = new System.Drawing.Size(92, 13);
-            this.lblNumber.TabIndex = 15;
-            this.lblNumber.Text = "Incident number";
-            // 
-            // txtNumber
-            // 
-            this.txtNumber.Enabled = false;
-            this.txtNumber.Location = new System.Drawing.Point(23, 47);
-            this.txtNumber.Margin = new System.Windows.Forms.Padding(2);
-            this.txtNumber.MaxLength = 6;
-            this.txtNumber.Multiline = true;
-            this.txtNumber.Name = "txtNumber";
-            this.txtNumber.Size = new System.Drawing.Size(99, 25);
-            this.txtNumber.TabIndex = 0;
-            this.txtNumber.TextChanged += new System.EventHandler(this.txtNumber_TextChanged);
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Controls.Add(this.cboRecordsToLoad);
-            this.groupBox2.Location = new System.Drawing.Point(12, 11);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(200, 100);
-            this.groupBox2.TabIndex = 15;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "# of records loaded";
-            // 
-            // cboRecordsToLoad
-            // 
-            this.cboRecordsToLoad.BackColor = System.Drawing.Color.White;
-            this.cboRecordsToLoad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboRecordsToLoad.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboRecordsToLoad.ForeColor = System.Drawing.Color.Black;
-            this.cboRecordsToLoad.FormattingEnabled = true;
-            this.cboRecordsToLoad.Items.AddRange(new object[] {
-            "10 incidents",
-            "20 incidents",
-            "50 incidents",
-            "100 incidents",
-            "150 incidents",
-            "all"});
-            this.cboRecordsToLoad.Location = new System.Drawing.Point(10, 47);
-            this.cboRecordsToLoad.Margin = new System.Windows.Forms.Padding(2);
-            this.cboRecordsToLoad.Name = "cboRecordsToLoad";
-            this.cboRecordsToLoad.Size = new System.Drawing.Size(181, 25);
-            this.cboRecordsToLoad.TabIndex = 0;
-            this.toolTip1.SetToolTip(this.cboRecordsToLoad, "Select an Item and Click on Refresh Data");
+            this.cboState.Size = new System.Drawing.Size(292, 31);
+            this.cboState.TabIndex = 53;
+            this.cboState.SelectedIndexChanged += new System.EventHandler(this.Value_Changed);
+            this.cboState.TextChanged += new System.EventHandler(this.Value_Changed);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(7, 28);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(494, 458);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(55, 13);
-            this.label2.TabIndex = 16;
-            this.label2.Text = "Load first";
+            this.label2.Size = new System.Drawing.Size(43, 20);
+            this.label2.TabIndex = 52;
+            this.label2.Text = "State";
+            // 
+            // cboLocalStatus
+            // 
+            this.cboLocalStatus.BackColor = System.Drawing.Color.White;
+            this.cboLocalStatus.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboLocalStatus.ForeColor = System.Drawing.Color.Black;
+            this.cboLocalStatus.FormattingEnabled = true;
+            this.cboLocalStatus.Location = new System.Drawing.Point(826, 481);
+            this.cboLocalStatus.Name = "cboLocalStatus";
+            this.cboLocalStatus.Size = new System.Drawing.Size(292, 31);
+            this.cboLocalStatus.TabIndex = 11;
+            this.cboLocalStatus.SelectedIndexChanged += new System.EventHandler(this.Value_Changed);
+            this.cboLocalStatus.TextChanged += new System.EventHandler(this.Value_Changed);
+            // 
+            // cboPriority
+            // 
+            this.cboPriority.BackColor = System.Drawing.Color.White;
+            this.cboPriority.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboPriority.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboPriority.ForeColor = System.Drawing.Color.Black;
+            this.cboPriority.FormattingEnabled = true;
+            this.cboPriority.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            ""});
+            this.cboPriority.Location = new System.Drawing.Point(379, 481);
+            this.cboPriority.Name = "cboPriority";
+            this.cboPriority.Size = new System.Drawing.Size(61, 31);
+            this.cboPriority.TabIndex = 8;
+            this.cboPriority.SelectedIndexChanged += new System.EventHandler(this.Value_Changed);
+            this.cboPriority.TextChanged += new System.EventHandler(this.Value_Changed);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(822, 458);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(89, 20);
+            this.label13.TabIndex = 49;
+            this.label13.Text = "Local Status";
+            // 
+            // cboAssignedTo
+            // 
+            this.cboAssignedTo.BackColor = System.Drawing.Color.White;
+            this.cboAssignedTo.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboAssignedTo.ForeColor = System.Drawing.Color.Black;
+            this.cboAssignedTo.FormattingEnabled = true;
+            this.cboAssignedTo.Location = new System.Drawing.Point(32, 481);
+            this.cboAssignedTo.Name = "cboAssignedTo";
+            this.cboAssignedTo.Size = new System.Drawing.Size(292, 31);
+            this.cboAssignedTo.TabIndex = 2;
+            this.cboAssignedTo.SelectedIndexChanged += new System.EventHandler(this.Value_Changed);
+            this.cboAssignedTo.TextChanged += new System.EventHandler(this.Value_Changed);
+            // 
+            // txtShortDescription
+            // 
+            this.txtShortDescription.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtShortDescription.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtShortDescription.ForeColor = System.Drawing.Color.SlateGray;
+            this.txtShortDescription.Location = new System.Drawing.Point(32, 348);
+            this.txtShortDescription.MaxLength = 500;
+            this.txtShortDescription.Multiline = true;
+            this.txtShortDescription.Name = "txtShortDescription";
+            this.txtShortDescription.ReadOnly = true;
+            this.txtShortDescription.Size = new System.Drawing.Size(899, 79);
+            this.txtShortDescription.TabIndex = 12;
+            // 
+            // txtEmail
+            // 
+            this.txtEmail.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtEmail.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmail.ForeColor = System.Drawing.Color.SlateGray;
+            this.txtEmail.Location = new System.Drawing.Point(33, 189);
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.ReadOnly = true;
+            this.txtEmail.Size = new System.Drawing.Size(365, 30);
+            this.txtEmail.TabIndex = 5;
+            // 
+            // txtSlaDue
+            // 
+            this.txtSlaDue.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtSlaDue.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSlaDue.ForeColor = System.Drawing.Color.SlateGray;
+            this.txtSlaDue.Location = new System.Drawing.Point(639, 189);
+            this.txtSlaDue.Name = "txtSlaDue";
+            this.txtSlaDue.ReadOnly = true;
+            this.txtSlaDue.Size = new System.Drawing.Size(292, 30);
+            this.txtSlaDue.TabIndex = 10;
+            // 
+            // txtConfigurationItem
+            // 
+            this.txtConfigurationItem.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtConfigurationItem.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtConfigurationItem.ForeColor = System.Drawing.Color.SlateGray;
+            this.txtConfigurationItem.Location = new System.Drawing.Point(639, 117);
+            this.txtConfigurationItem.Name = "txtConfigurationItem";
+            this.txtConfigurationItem.ReadOnly = true;
+            this.txtConfigurationItem.Size = new System.Drawing.Size(365, 30);
+            this.txtConfigurationItem.TabIndex = 4;
+            // 
+            // txtUpdated
+            // 
+            this.txtUpdated.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtUpdated.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtUpdated.ForeColor = System.Drawing.Color.SlateGray;
+            this.txtUpdated.Location = new System.Drawing.Point(639, 261);
+            this.txtUpdated.Name = "txtUpdated";
+            this.txtUpdated.ReadOnly = true;
+            this.txtUpdated.Size = new System.Drawing.Size(292, 30);
+            this.txtUpdated.TabIndex = 9;
+            // 
+            // txtCreated
+            // 
+            this.txtCreated.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtCreated.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCreated.ForeColor = System.Drawing.Color.SlateGray;
+            this.txtCreated.Location = new System.Drawing.Point(33, 261);
+            this.txtCreated.Name = "txtCreated";
+            this.txtCreated.ReadOnly = true;
+            this.txtCreated.Size = new System.Drawing.Size(365, 30);
+            this.txtCreated.TabIndex = 3;
+            // 
+            // txtCaller
+            // 
+            this.txtCaller.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtCaller.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCaller.ForeColor = System.Drawing.Color.SlateGray;
+            this.txtCaller.Location = new System.Drawing.Point(33, 117);
+            this.txtCaller.Name = "txtCaller";
+            this.txtCaller.ReadOnly = true;
+            this.txtCaller.Size = new System.Drawing.Size(292, 30);
+            this.txtCaller.TabIndex = 7;
+            // 
+            // txtNumber
+            // 
+            this.txtNumber.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtNumber.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNumber.ForeColor = System.Drawing.Color.SlateGray;
+            this.txtNumber.Location = new System.Drawing.Point(639, 44);
+            this.txtNumber.Name = "txtNumber";
+            this.txtNumber.ReadOnly = true;
+            this.txtNumber.Size = new System.Drawing.Size(151, 30);
+            this.txtNumber.TabIndex = 6;
+            // 
+            // txtAssignmentGroup
+            // 
+            this.txtAssignmentGroup.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtAssignmentGroup.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAssignmentGroup.ForeColor = System.Drawing.Color.SlateGray;
+            this.txtAssignmentGroup.Location = new System.Drawing.Point(32, 44);
+            this.txtAssignmentGroup.Name = "txtAssignmentGroup";
+            this.txtAssignmentGroup.ReadOnly = true;
+            this.txtAssignmentGroup.Size = new System.Drawing.Size(365, 30);
+            this.txtAssignmentGroup.TabIndex = 0;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(29, 166);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(52, 20);
+            this.label10.TabIndex = 37;
+            this.label10.Text = "E-mail";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(635, 166);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(66, 20);
+            this.label11.TabIndex = 36;
+            this.label11.Text = "SLA Due";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(635, 238);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(68, 20);
+            this.label12.TabIndex = 35;
+            this.label12.Text = "Updated";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(375, 458);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(60, 20);
+            this.label7.TabIndex = 34;
+            this.label7.Text = "Priority";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(29, 94);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(48, 20);
+            this.label8.TabIndex = 33;
+            this.label8.Text = "Caller";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(635, 21);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(66, 20);
+            this.label9.TabIndex = 32;
+            this.label9.Text = "Number";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(635, 94);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(138, 20);
+            this.label4.TabIndex = 31;
+            this.label4.Text = "Configuration Item";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(28, 325);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(128, 20);
+            this.label5.TabIndex = 30;
+            this.label5.Text = "Short Description";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(29, 238);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(62, 20);
+            this.label6.TabIndex = 29;
+            this.label6.Text = "Created";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(29, 458);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(90, 20);
+            this.label3.TabIndex = 28;
+            this.label3.Text = "Assigned To";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(29, 21);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(135, 20);
+            this.label1.TabIndex = 27;
+            this.label1.Text = "Assignment Group";
             // 
             // FormEditIncident
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1313, 691);
-            this.Controls.Add(this.pnlControl);
-            this.Controls.Add(this.dgvIncidents);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.ClientSize = new System.Drawing.Size(1202, 593);
+            this.Controls.Add(this.panel1);
+            this.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormEditIncident";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Incidents";
+            this.Text = "Edit Incident Info";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormEditIncident_FormClosing);
             this.Load += new System.EventHandler(this.FormEditIncident_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvIncidents)).EndInit();
-            this.pnlControl.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dgvIncidents;
-        private System.Windows.Forms.Panel pnlControl;
-        private System.Windows.Forms.Button btnLoad;
-        private System.Windows.Forms.Button btnExport;
-        private System.Windows.Forms.Button btnStat;
-        private System.Windows.Forms.Button btnGoTo;
-        private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.DataGridViewButtonColumn Action;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Tag;
-        private System.Windows.Forms.DataGridViewComboBoxColumn Priority;
-        private System.Windows.Forms.DataGridViewTextBoxColumn number;
-        private System.Windows.Forms.DataGridViewTextBoxColumn State;
-        private System.Windows.Forms.DataGridViewTextBoxColumn caller;
-        private System.Windows.Forms.DataGridViewTextBoxColumn assigned_to;
-        private System.Windows.Forms.DataGridViewTextBoxColumn configuration_item;
-        private System.Windows.Forms.DataGridViewTextBoxColumn short_description;
-        private System.Windows.Forms.DataGridViewTextBoxColumn email;
-        private System.Windows.Forms.DataGridViewTextBoxColumn created;
-        private System.Windows.Forms.DataGridViewTextBoxColumn updated;
-        private System.Windows.Forms.DataGridViewTextBoxColumn assignment_group;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ComboBox cboState;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label lblNumber;
-        private System.Windows.Forms.TextBox txtNumber;
+        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox cboRecordsToLoad;
+        private System.Windows.Forms.ComboBox cboLocalStatus;
+        private System.Windows.Forms.ComboBox cboPriority;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.ComboBox cboAssignedTo;
+        private System.Windows.Forms.TextBox txtShortDescription;
+        private System.Windows.Forms.TextBox txtEmail;
+        private System.Windows.Forms.TextBox txtSlaDue;
+        private System.Windows.Forms.TextBox txtConfigurationItem;
+        private System.Windows.Forms.TextBox txtUpdated;
+        private System.Windows.Forms.TextBox txtCreated;
+        private System.Windows.Forms.TextBox txtCaller;
+        private System.Windows.Forms.TextBox txtNumber;
+        private System.Windows.Forms.TextBox txtAssignmentGroup;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox cboState;
     }
 }
