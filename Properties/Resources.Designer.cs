@@ -178,6 +178,15 @@ namespace IssueWatcher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No incidents found..
+        /// </summary>
+        internal static string NO_INCIDENTS {
+            get {
+                return ResourceManager.GetString("NO_INCIDENTS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to #c2ccf2.
         /// </summary>
         internal static string NOTES_COLOR {

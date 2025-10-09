@@ -101,7 +101,11 @@ namespace IssueWatcher
 
             if (incidents.Count == 0)
             {
-                MessageBox.Show("Nenhum incidente encontrado.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(
+                    Properties.Resources.NO_INCIDENTS,
+                    "Warning", 
+                    MessageBoxButtons.OK, 
+                    MessageBoxIcon.Warning);
                 return;
             }
 

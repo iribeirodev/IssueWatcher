@@ -163,6 +163,9 @@
   <data name="NOTHING_TO_EXPORT" xml:space="preserve">
     <value>Nothing to export.</value>
   </data>
+  <data name="NO_INCIDENTS" xml:space="preserve">
+    <value>No incidents found.</value>
+  </data>
   <data name="REMOVE_LINE_CONFIRMATION" xml:space="preserve">
     <value>Erase this line?</value>
   </data>
