@@ -9,11 +9,18 @@ namespace IssueWatcher
     {
         public string IncidentNumber { get; set; }
 
+        private readonly IncidentService _incidentService;
+        private readonly ConfigReader _configReader;
+
+
         public bool Changed { get; set; } = false;
 
         public FormIncidentNotes()
         {
             InitializeComponent();
+
+            _configReader = new ConfigReader();
+            _incidentService = new IncidentService(_configReader.GetDatabaseName());
         }
 
         private void dgvNotes_KeyDown(object sender, KeyEventArgs e)
@@ -54,24 +61,27 @@ namespace IssueWatcher
         private void FormIncidentNotes_FormClosing(object sender, FormClosingEventArgs e)
         {
             if ((Changed)
-             && (MessageBox.Show("Confirma as alterações?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes))
+             && (MessageBox.Show(
+                 Properties.Resources.APPLY_ISSUE_CHANGES.Replace("{number}", IncidentNumber), 
+                 "Confirm", 
+                 MessageBoxButtons.YesNo, 
+                 MessageBoxIcon.Question) == DialogResult.No))
             {
-                List<string> notes = new List<string>();
-                foreach (DataGridViewRow row in dgvNotes.Rows)
-                {
-                    if (!row.IsNewRow)
-                    {
-                        var valor = row.Cells["Note"].Value?.ToString();
-                        if (!string.IsNullOrEmpty(valor))
-                            notes.Add(valor);
-                    }
-                }
-
-                ConfigReader reader = new ConfigReader();
-                IncidentService service = new IncidentService(reader.GetValue("database"));
-
-                service.ReplaceNotes(IncidentNumber, notes);
+                return;
             }
+            
+            List<string> notes = new List<string>();
+            foreach (DataGridViewRow row in dgvNotes.Rows)
+            {
+                if (!row.IsNewRow)
+                {
+                    var valor = row.Cells["Note"].Value?.ToString();
+                    if (!string.IsNullOrEmpty(valor))
+                        notes.Add(valor);
+                }
+            }
+
+            _incidentService.ReplaceNotes(IncidentNumber, notes);
         }
 
         private void FormIncidentNotes_Load(object sender, EventArgs e)
@@ -79,10 +89,7 @@ namespace IssueWatcher
             if (string.IsNullOrWhiteSpace(IncidentNumber))
                 return;
 
-            ConfigReader reader = new ConfigReader();
-            IncidentService service = new IncidentService(reader.GetValue("database"));
-
-            List<string> notes = service.GetNotes(IncidentNumber);
+            List<string> notes = _incidentService.GetNotes(IncidentNumber);
 
             dgvNotes.Rows.Clear();
             foreach (var note in notes)
