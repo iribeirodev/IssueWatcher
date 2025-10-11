@@ -70,6 +70,15 @@ namespace IssueWatcher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error applying changes: {error}.
+        /// </summary>
+        internal static string ERROR_APPLYING_CHANGES {
+            get {
+                return ResourceManager.GetString("ERROR_APPLYING_CHANGES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred while trying to export to Excel: {error}.
         /// </summary>
         internal static string ERROR_EXPORTING {
@@ -129,6 +138,15 @@ namespace IssueWatcher.Properties {
         internal static string GOTO_ISSUE_NUMBER {
             get {
                 return ResourceManager.GetString("GOTO_ISSUE_NUMBER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please provide a valid file title (do not include the file extension)..
+        /// </summary>
+        internal static string INVALID_FILE_NAME {
+            get {
+                return ResourceManager.GetString("INVALID_FILE_NAME", resourceCulture);
             }
         }
         
@@ -214,6 +232,15 @@ namespace IssueWatcher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Changes applied successfully..
+        /// </summary>
+        internal static string SUCCESSFULL_APPLIED {
+            get {
+                return ResourceManager.GetString("SUCCESSFULL_APPLIED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Data successfully imported..
         /// </summary>
         internal static string SUCCESSFULL_IMPORTING {
@@ -228,6 +255,15 @@ namespace IssueWatcher.Properties {
         internal static string TAG_COLOR {
             get {
                 return ResourceManager.GetString("TAG_COLOR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fill in the template information correctly..
+        /// </summary>
+        internal static string TEMPLATE_INVALID_INFO {
+            get {
+                return ResourceManager.GetString("TEMPLATE_INVALID_INFO", resourceCulture);
             }
         }
     }

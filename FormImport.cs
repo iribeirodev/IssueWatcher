@@ -71,6 +71,7 @@ namespace IssueWatcher
             {
                 txtSpreadsheetLocation.Text = openFileDialog.FileName;
                 _fileName = openFileDialog.FileName;
+
                 btnImport.Enabled = true;
             }
         }

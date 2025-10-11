@@ -50,8 +50,9 @@ namespace IssueWatcher
             {
                 case EnumControlState.Initial:
                     txtSearchNumber.Enabled = false;
-                    cboSearchState.Enabled = false;
 
+                    btnFilter.Enabled = false;
+                    btnClearFilter.Enabled = false;
                     btnLoad.Enabled = true;
                     btnEdit.Enabled = false;
                     btnStat.Enabled = false;
@@ -65,9 +66,8 @@ namespace IssueWatcher
                     txtSearchNumber.Enabled = true;
                     txtSearchNumber.Text = "";
 
-                    cboSearchState.Enabled = true;
-                    cboSearchState.SelectedIndex = -1;
-
+                    btnFilter.Enabled = true;
+                    btnClearFilter.Enabled = false;
                     btnLoad.Enabled = true;
                     btnEdit.Enabled = false;
                     btnStat.Enabled = true;
@@ -76,8 +76,9 @@ namespace IssueWatcher
                     break;
                 case EnumControlState.Selected:
                     txtSearchNumber.Enabled = true;
-                    cboSearchState.Enabled = true;
 
+                    btnFilter.Enabled = true;
+                    btnClearFilter.Enabled = false;
                     btnLoad.Enabled = true;
                     btnEdit.Enabled = true;
                     btnStat.Enabled = true;
@@ -161,24 +162,26 @@ namespace IssueWatcher
 
 
             // Verifica se há um filtro de estado ativo.
-            bool hasStateFilter = !string.IsNullOrEmpty(cboSearchState.Text);
-            string criteria = cboSearchState.Text;
+            //bool hasStateFilter = !string.IsNullOrEmpty(cboSearchState.Text);
+            //string criteria = cboSearchState.Text;
 
             // Cria a lista de incidentes a ser ordenada:
-            SortableBindingList<Incident> listToSort = hasStateFilter
-                // Se houver filtro, filtra a lista original.
-                ? new SortableBindingList<Incident>(
-                    listIncidents.Where(i => i.State != null && i.State == criteria).ToList()
-                )
-                // Se não houver filtro, usa a lista completa.
-                : listIncidents;
+            //sortablebindinglist<incident> listtosort = hasstatefilter
+            //    // se houver filtro, filtra a lista original.
+            //    ? new sortablebindinglist<incident>(
+            //        listincidents.where(i => i.state != null && i.state == criteria).tolist()
+            //    )
+            //    // se não houver filtro, usa a lista completa.
+            //    : listincidents;
+
+            SortableBindingList<Incident> listToSort = listIncidents;
 
             // Função helper para parse seguro da data (para usar no LINQ).
             Func<Incident, DateTime> dateSelector = i =>
                 System.DateTime.TryParse(columnName == "created" ? i.Created : i.Updated, out var dt)
                 ? dt : System.DateTime.MinValue;
 
-            // Seleciona a ordenação (Ascendente ou Descendente)
+            //// Seleciona a ordenação (Ascendente ou Descendente)
             var sortedList = ascending
                 ? listToSort.OrderBy(dateSelector).ToList()
                 : listToSort.OrderByDescending(dateSelector).ToList();
@@ -278,6 +281,75 @@ namespace IssueWatcher
             }
         }
 
+        private void LoadFilters()
+        {
+            if (listIncidents.Any())
+            {
+                var distinctStates = listIncidents.Select(i => i.State).Distinct().ToList();
+                var distinctLocalStatus = listIncidents.Select(i => i.LocalStatus).Distinct().ToList();
+                var distinctConfigurationItem = listIncidents.Select(i => i.ConfigurationItem).Distinct().ToList();
+
+                lstFilterStates.Items.Clear();
+                foreach (var state in distinctStates)
+                    if (!string.IsNullOrEmpty(state))
+                        lstFilterStates.Items.Add(state);
+
+                lstFilterLocalStatus.Items.Clear();
+                foreach (var ls in distinctLocalStatus)
+                    if (!string.IsNullOrEmpty(ls))
+                        lstFilterLocalStatus.Items.Add(ls);
+
+                lstFilterConfigurationItem.Items.Clear();
+                foreach (var ci in distinctConfigurationItem)
+                    if (!string.IsNullOrEmpty(ci))
+                        lstFilterConfigurationItem.Items.Add(ci);
+
+
+            }
+        }
+
+        private void FilterData()
+        {
+            List<string> statesChecked = lstFilterStates.CheckedItems.Cast<string>().ToList();
+            List<string> localStatusChecked = lstFilterLocalStatus.CheckedItems.Cast<string>().ToList();
+            List<string> configurationItemChecked = lstFilterConfigurationItem.CheckedItems.Cast<string>().ToList();
+
+            btnClearFilter.Enabled = (statesChecked.Count > 0) || (localStatusChecked.Count > 0) || (configurationItemChecked.Count > 0);
+
+            txtSearchNumber.Text = "";
+
+            var filtered = listIncidents.Where(incident =>
+                        (statesChecked.Count == 0 || statesChecked.Contains(incident.State))
+                        &&
+                        (localStatusChecked.Count == 0 || localStatusChecked.Contains(incident.LocalStatus))
+                        &&
+                        (configurationItemChecked.Count == 0 || configurationItemChecked.Contains(incident.ConfigurationItem))
+                    ).ToList();
+
+            dgvIncidents.DataSource = filtered;
+        }
+
+        private void RemoveFilter()
+        {
+            btnClearFilter.Enabled = false;
+
+            UncheckAllFilters(lstFilterStates);
+            UncheckAllFilters(lstFilterLocalStatus);
+            UncheckAllFilters(lstFilterConfigurationItem);
+
+            dgvIncidents.DataSource = listIncidents;
+        }
+
+        private void UncheckAllFilters(CheckedListBox checkedListBox)
+        {
+            for (int i = 0; i < checkedListBox.Items.Count; i++)
+            {
+                checkedListBox.SetItemChecked(i, false);
+            }
+
+            checkedListBox.ClearSelected();
+        }
+
         private void FormEditIncident_Load(object sender, EventArgs e)
         {
             SetControlState(EnumControlState.Initial);
@@ -286,6 +358,7 @@ namespace IssueWatcher
         private void btnLoad_Click(object sender, EventArgs e)
         {
             LoadData();
+            LoadFilters();
         }
 
         private void dgvIncidents_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -443,31 +516,6 @@ namespace IssueWatcher
             SetIncidentAsCurrent();
         }
 
-        // Pesquisa por estado
-        private void cboState_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (listIncidents == null) return;
-
-            string criteria = cboSearchState.Text;
-            criteria = (criteria == "Cancelled") ? "Canceled" : criteria;
-
-            // Pesquisa por estado tem prioridade
-            txtSearchNumber.Text = string.Empty;
-
-            // Sem filtro
-            bool showAll = string.IsNullOrEmpty(criteria) || criteria.Equals("all", StringComparison.OrdinalIgnoreCase);
-
-            // usa a lista completa ou filtrada
-            var filteredList =
-                showAll ? listIncidents 
-                        : new SortableBindingList<Incident>(
-                                listIncidents.Where(i => i.State != null 
-                                                            && i.State.Equals(criteria, StringComparison.OrdinalIgnoreCase))
-                                             .ToList());  
-
-            dgvIncidents.DataSource = filteredList;
-        }
-
         // Ao clicar no header reordena por data
         private void dgvIncidents_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
@@ -512,12 +560,21 @@ namespace IssueWatcher
             }
 
             // Filtra apenas números que contêm o valor digitado no campo Number
-            cboSearchState.SelectedIndex = 0;
             var filtered = new SortableBindingList<Incident>(
                 listIncidents.Where(i => i.Number != null && i.Number.Contains(filterValue)).ToList()
             );
 
             dgvIncidents.DataSource = filtered;
+        }
+
+        private void btnFiltering_Click(object sender, EventArgs e)
+        {
+            FilterData();
+        }
+
+        private void btnClearFilter_Click(object sender, EventArgs e)
+        {
+            RemoveFilter();
         }
     }
 }

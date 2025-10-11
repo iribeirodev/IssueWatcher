@@ -60,7 +60,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(236)))), ((int)(((byte)(237)))));
             this.panel1.Controls.Add(this.cboState);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.cboLocalStatus);
@@ -101,7 +101,7 @@
             this.cboState.FormattingEnabled = true;
             this.cboState.Location = new System.Drawing.Point(498, 481);
             this.cboState.Name = "cboState";
-            this.cboState.Size = new System.Drawing.Size(292, 31);
+            this.cboState.Size = new System.Drawing.Size(292, 27);
             this.cboState.TabIndex = 53;
             this.cboState.SelectedIndexChanged += new System.EventHandler(this.Value_Changed);
             this.cboState.TextChanged += new System.EventHandler(this.Value_Changed);
@@ -112,7 +112,7 @@
             this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(494, 458);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(43, 20);
+            this.label2.Size = new System.Drawing.Size(34, 15);
             this.label2.TabIndex = 52;
             this.label2.Text = "State";
             // 
@@ -124,7 +124,7 @@
             this.cboLocalStatus.FormattingEnabled = true;
             this.cboLocalStatus.Location = new System.Drawing.Point(826, 481);
             this.cboLocalStatus.Name = "cboLocalStatus";
-            this.cboLocalStatus.Size = new System.Drawing.Size(292, 31);
+            this.cboLocalStatus.Size = new System.Drawing.Size(292, 27);
             this.cboLocalStatus.TabIndex = 11;
             this.cboLocalStatus.SelectedIndexChanged += new System.EventHandler(this.Value_Changed);
             this.cboLocalStatus.TextChanged += new System.EventHandler(this.Value_Changed);
@@ -145,7 +145,7 @@
             ""});
             this.cboPriority.Location = new System.Drawing.Point(379, 481);
             this.cboPriority.Name = "cboPriority";
-            this.cboPriority.Size = new System.Drawing.Size(61, 31);
+            this.cboPriority.Size = new System.Drawing.Size(61, 27);
             this.cboPriority.TabIndex = 8;
             this.cboPriority.SelectedIndexChanged += new System.EventHandler(this.Value_Changed);
             this.cboPriority.TextChanged += new System.EventHandler(this.Value_Changed);
@@ -156,7 +156,7 @@
             this.label13.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.Location = new System.Drawing.Point(822, 458);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(89, 20);
+            this.label13.Size = new System.Drawing.Size(71, 15);
             this.label13.TabIndex = 49;
             this.label13.Text = "Local Status";
             // 
@@ -168,7 +168,7 @@
             this.cboAssignedTo.FormattingEnabled = true;
             this.cboAssignedTo.Location = new System.Drawing.Point(32, 481);
             this.cboAssignedTo.Name = "cboAssignedTo";
-            this.cboAssignedTo.Size = new System.Drawing.Size(292, 31);
+            this.cboAssignedTo.Size = new System.Drawing.Size(292, 27);
             this.cboAssignedTo.TabIndex = 2;
             this.cboAssignedTo.SelectedIndexChanged += new System.EventHandler(this.Value_Changed);
             this.cboAssignedTo.TextChanged += new System.EventHandler(this.Value_Changed);
@@ -194,7 +194,7 @@
             this.txtEmail.Location = new System.Drawing.Point(33, 189);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.ReadOnly = true;
-            this.txtEmail.Size = new System.Drawing.Size(365, 30);
+            this.txtEmail.Size = new System.Drawing.Size(365, 26);
             this.txtEmail.TabIndex = 5;
             // 
             // txtSlaDue
@@ -205,7 +205,7 @@
             this.txtSlaDue.Location = new System.Drawing.Point(639, 189);
             this.txtSlaDue.Name = "txtSlaDue";
             this.txtSlaDue.ReadOnly = true;
-            this.txtSlaDue.Size = new System.Drawing.Size(292, 30);
+            this.txtSlaDue.Size = new System.Drawing.Size(292, 26);
             this.txtSlaDue.TabIndex = 10;
             // 
             // txtConfigurationItem
@@ -216,7 +216,7 @@
             this.txtConfigurationItem.Location = new System.Drawing.Point(639, 117);
             this.txtConfigurationItem.Name = "txtConfigurationItem";
             this.txtConfigurationItem.ReadOnly = true;
-            this.txtConfigurationItem.Size = new System.Drawing.Size(365, 30);
+            this.txtConfigurationItem.Size = new System.Drawing.Size(365, 26);
             this.txtConfigurationItem.TabIndex = 4;
             // 
             // txtUpdated
@@ -227,7 +227,7 @@
             this.txtUpdated.Location = new System.Drawing.Point(639, 261);
             this.txtUpdated.Name = "txtUpdated";
             this.txtUpdated.ReadOnly = true;
-            this.txtUpdated.Size = new System.Drawing.Size(292, 30);
+            this.txtUpdated.Size = new System.Drawing.Size(292, 26);
             this.txtUpdated.TabIndex = 9;
             // 
             // txtCreated
@@ -238,7 +238,7 @@
             this.txtCreated.Location = new System.Drawing.Point(33, 261);
             this.txtCreated.Name = "txtCreated";
             this.txtCreated.ReadOnly = true;
-            this.txtCreated.Size = new System.Drawing.Size(365, 30);
+            this.txtCreated.Size = new System.Drawing.Size(365, 26);
             this.txtCreated.TabIndex = 3;
             // 
             // txtCaller
@@ -249,7 +249,7 @@
             this.txtCaller.Location = new System.Drawing.Point(33, 117);
             this.txtCaller.Name = "txtCaller";
             this.txtCaller.ReadOnly = true;
-            this.txtCaller.Size = new System.Drawing.Size(292, 30);
+            this.txtCaller.Size = new System.Drawing.Size(292, 26);
             this.txtCaller.TabIndex = 7;
             // 
             // txtNumber
@@ -260,7 +260,7 @@
             this.txtNumber.Location = new System.Drawing.Point(639, 44);
             this.txtNumber.Name = "txtNumber";
             this.txtNumber.ReadOnly = true;
-            this.txtNumber.Size = new System.Drawing.Size(151, 30);
+            this.txtNumber.Size = new System.Drawing.Size(151, 26);
             this.txtNumber.TabIndex = 6;
             // 
             // txtAssignmentGroup
@@ -271,7 +271,7 @@
             this.txtAssignmentGroup.Location = new System.Drawing.Point(32, 44);
             this.txtAssignmentGroup.Name = "txtAssignmentGroup";
             this.txtAssignmentGroup.ReadOnly = true;
-            this.txtAssignmentGroup.Size = new System.Drawing.Size(365, 30);
+            this.txtAssignmentGroup.Size = new System.Drawing.Size(365, 26);
             this.txtAssignmentGroup.TabIndex = 0;
             // 
             // label10
@@ -280,7 +280,7 @@
             this.label10.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.Location = new System.Drawing.Point(29, 166);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(52, 20);
+            this.label10.Size = new System.Drawing.Size(41, 15);
             this.label10.TabIndex = 37;
             this.label10.Text = "E-mail";
             // 
@@ -290,7 +290,7 @@
             this.label11.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.Location = new System.Drawing.Point(635, 166);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(66, 20);
+            this.label11.Size = new System.Drawing.Size(53, 15);
             this.label11.TabIndex = 36;
             this.label11.Text = "SLA Due";
             // 
@@ -300,7 +300,7 @@
             this.label12.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.Location = new System.Drawing.Point(635, 238);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(68, 20);
+            this.label12.Size = new System.Drawing.Size(52, 15);
             this.label12.TabIndex = 35;
             this.label12.Text = "Updated";
             // 
@@ -310,7 +310,7 @@
             this.label7.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(375, 458);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(60, 20);
+            this.label7.Size = new System.Drawing.Size(45, 15);
             this.label7.TabIndex = 34;
             this.label7.Text = "Priority";
             // 
@@ -320,7 +320,7 @@
             this.label8.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.Location = new System.Drawing.Point(29, 94);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(48, 20);
+            this.label8.Size = new System.Drawing.Size(36, 15);
             this.label8.TabIndex = 33;
             this.label8.Text = "Caller";
             // 
@@ -330,7 +330,7 @@
             this.label9.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.Location = new System.Drawing.Point(635, 21);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(66, 20);
+            this.label9.Size = new System.Drawing.Size(51, 15);
             this.label9.TabIndex = 32;
             this.label9.Text = "Number";
             // 
@@ -340,7 +340,7 @@
             this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(635, 94);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(138, 20);
+            this.label4.Size = new System.Drawing.Size(108, 15);
             this.label4.TabIndex = 31;
             this.label4.Text = "Configuration Item";
             // 
@@ -350,7 +350,7 @@
             this.label5.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(28, 325);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(128, 20);
+            this.label5.Size = new System.Drawing.Size(100, 15);
             this.label5.TabIndex = 30;
             this.label5.Text = "Short Description";
             // 
@@ -360,7 +360,7 @@
             this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(29, 238);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(62, 20);
+            this.label6.Size = new System.Drawing.Size(47, 15);
             this.label6.TabIndex = 29;
             this.label6.Text = "Created";
             // 
@@ -370,7 +370,7 @@
             this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(29, 458);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(90, 20);
+            this.label3.Size = new System.Drawing.Size(71, 15);
             this.label3.TabIndex = 28;
             this.label3.Text = "Assigned To";
             // 
@@ -380,14 +380,15 @@
             this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(29, 21);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(135, 20);
+            this.label1.Size = new System.Drawing.Size(106, 15);
             this.label1.TabIndex = 27;
             this.label1.Text = "Assignment Group";
             // 
             // FormEditIncident
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 23F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(236)))), ((int)(((byte)(237)))));
             this.ClientSize = new System.Drawing.Size(1202, 593);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

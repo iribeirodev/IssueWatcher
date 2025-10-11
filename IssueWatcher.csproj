@@ -146,6 +146,12 @@
     <Compile Include="FormStatistics.Designer.cs">
       <DependentUpon>FormStatistics.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormTemplates.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTemplates.Designer.cs">
+      <DependentUpon>FormTemplates.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model\Incident.cs" />
     <Compile Include="Model\IncidentStat.cs" />
     <Compile Include="Program.cs" />
@@ -153,6 +159,7 @@
     <Compile Include="Services\ConfigReader.cs" />
     <Compile Include="Services\IncidentDataTransfer.cs" />
     <Compile Include="Services\IncidentService.cs" />
+    <Compile Include="Services\TemplateService.cs" />
     <Compile Include="Utils\SortableBindingList.cs" />
     <EmbeddedResource Include="FormEditIncident.resx">
       <DependentUpon>FormEditIncident.cs</DependentUpon>
@@ -171,6 +178,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormStatistics.resx">
       <DependentUpon>FormStatistics.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormTemplates.resx">
+      <DependentUpon>FormTemplates.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -198,6 +208,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Templates\.templates">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\sample.rtf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -205,12 +221,17 @@
   <ItemGroup>
     <EmbeddedResource Include="create_script.txt" />
     <Content Include="Pictures\check-mark.png" />
+    <Content Include="Pictures\clear-filter.png" />
+    <Content Include="Pictures\download.png" />
     <Content Include="Pictures\edit.png" />
+    <Content Include="Pictures\filter.png" />
     <Content Include="Pictures\internet.png" />
+    <Content Include="Pictures\new.png" />
     <Content Include="Pictures\pie-chart.png" />
     <Content Include="Pictures\settings.png" />
     <Content Include="Pictures\table.png" />
     <Content Include="Pictures\tag.png" />
+    <Content Include="Pictures\undo.png" />
     <Content Include="Pictures\upload.png" />
     <Content Include="Pictures\warning.ico" />
   </ItemGroup>

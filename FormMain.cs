@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using IssueWatcher.Services;
 
@@ -7,6 +8,7 @@ namespace IssueWatcher
     public partial class FormMain : Form
     {
 
+        private readonly string _backgroundColor = "#DBE9F4"; // Cor de fundo do espaço MDI
         public FormMain()
         {
             InitializeComponent();
@@ -19,6 +21,14 @@ namespace IssueWatcher
 
         private void FormMain_Load(object sender, EventArgs e)
         {
+            foreach (Control control in this.Controls)
+            {
+                if (control is MdiClient client)
+                {   
+                    client.BackColor = ColorTranslator.FromHtml(_backgroundColor);
+                    break;
+                }
+            }
             SetDatabaseLocation();
         }
 
@@ -41,5 +51,11 @@ namespace IssueWatcher
             formEditIncident.Show();
         }
 
+        private void templatesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormTemplates formTemplates = new FormTemplates();
+            formTemplates.MdiParent = this;
+            formTemplates.Show();
+        }
     }
 }

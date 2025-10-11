@@ -117,75 +117,71 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="APPLY_ISSUE_CHANGES" xml:space="preserve">
-    <value>Apply changes for issue {number} ?</value>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>13, 16</value>
+  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btnNew.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAA
+        5gAAAOYBIly6UQAAABh0RVh0U29mdHdhcmUAUGFpbnQuTkVUIDUuMS45bG7aPgAAA8BJREFUSEutlFto
+        XFUUhkcUQVCsTyL6LiiI1CqCLS2xZqjJg6A+RMSntFAFS5FYW403ECuKWCXQPiikEROR3ijaJJPYllYK
+        JiHpJG1CTeaajLPn3PfJmcmlM5/sk5lp5mRKKHHBD4e91/7/vf61zg6F/u84xn3f9cSmj/TMtAW3NhwM
+        PB+e+f2rL7/vmZz9oju9J7i/4aC3sWO5twl5bq+T7939I5HQAzUJQnJXzcIdhtey7d2F/S/Bie0QaRgp
+        9TU9GsxRIpuF5KCQHBCS99dD1uFA3KI9Ebc/lvv2DOXf2EHpTBgi4W+D3H4IyddCwp0gYUFqMov71iss
+        ftQA/WGXSLg5yB0SDpuE5FzloDa/PnIupEwQZ/rwws9ws7MRBsLD9IXvD/KHcpLHhSStyDNWiWvJAtF4
+        nvE6UOsTyQJps8icWcQ+2EZh9w5Kp8NK4HCQ2w8haVTk6lZpo8ilqM3AsMngSB0Mm1wcs4hpRbTrceZf
+        fZmlww3Qt32JwcbNQW4/hOSTij1KZD1kHch6YHf34IWfZbGjicUrh5JW/Oy9Qe6QyHO3kEQqAjGxfFt7
+        FJR9/6qLZF3cz9vJb92E2fUT6aydjEEdAYsHhcSsCCh/b2vPyIo9mXkwhq7itexk/vVtzF0aI2ZTSGg8
+        HORXE7RTSIrVCapjSY09fl4J+7eT5F8I4bQfIpFwiBmQNHg7yK/8/7RCnrFLTCQKa2yp4HqqQEZdIm3i
+        tr1DftcTmD//QtyGmAYJnV+D/EqgOv+zZpHzo9YaWxSUbWq60hYYo5N4zU/jtYTRojdIlQViGn/Vkrs8
+        JiRTFQEFf0Iqk+KUAgDhlLCPduA1b8H9YB85+6YvqgTiGpmUyXNVgazLLiGxVgsIp0gupSPMJYQbeB5U
+        H7ISt/VNvBefxDr7h7+WuVWB6sPeWxVI3qshmAd9KIr8cD/6+DTCWytgJcdZPvEa+WOtaDMZ/4yqLKGX
+        +2DwmU9u5LhHSDpXk2tJHedoB3bXcfS/x/xqlCVV+1xwp/uh/xHy490IZ7m6lzRgZqXRvTmLh0JZx/d/
+        pCrgFLGPd6KPTmL+edn/VkJG9AbZhZULqAoSk1fJXf4BXcvVWJg2yxVomCmdp5Q9W4RkwU/wQB+b8knV
+        IW0qgXnqNObFKzhHvsE6eQozcsF/RS+M2UzEbf+fWG1fpQ/xlT5sDWUlrau9zeU8hLFY21hl27UZjMHz
+        aP/M+ntzVqn8s9VCrcXLfUiqPgiXrmBSXSjBsj1r9gJQfSgLRJVAIpiwUcxW+qCz+B/oFBsZ5j3YbgAA
+        AABJRU5ErkJggg==
+</value>
   </data>
-  <data name="ERROR_APPLYING_CHANGES" xml:space="preserve">
-    <value>Error applying changes: {error}</value>
+  <data name="btnSave.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAH
+        3QAAB90BsLuKDAAAABh0RVh0U29mdHdhcmUAUGFpbnQuTkVUIDUuMS45bG7aPgAAA8ZJREFUSEudVl1o
+        HUUUvkltVVSsCkJfRKzxtlptah9FLIhCI9qYIlSfBCl672z1Qe+eqyFtBUUUmz0TSStqH6JCWtM9m2v2
+        3FJEsT6JvohV1Ba7Z5Jo/X9Rq9amV2bvRHb3xhD8YB5mzne+Mztz5pwtlRZBY/b55ZHg2kh0P0kwRIJ7
+        3dhJgv0kuCY6HpxX9FON+oUqhke92L+1aPsXZLCPBN8gwR9JsEWC50jwWxKcJcG/3doPKSfRN2Z9FcOL
+        iqGlGPzsegqS4HK3y79I8AwJToSit5LRGyjRZRLdEwr2kugBEhy3gSPBh+f9q1wfcuJfVrm+OiceCl5N
+        gkfd7g6RCdblCAWMnH6mK5oeWfnBT6+usHPF8IRiOOcCqBy5IfoKEnyfBOdCwcGccQlQMTyiGH534ke9
+        ydolOULYPpbW/xJnf5ti+NWJn1VN2JwjkOBmd+ZhzrAEKIZ+xfCLE7djLEegmb3LSfBNmxmh0TfYtcen
+        6t0ewy1eE8o5cgHVpn+7YpjNiJ+qxP76Vuvj7uikvvL1z6irRAmucan41rzjjhhWeAzHFIPxGAYrR+DS
+        vLTdeW2jtWfE7Xja2kjwfhL8iASvKUWi702zJsGBvADUM47HFcNDXtwOpGJYpxi+KIh/WmnWVqUBDD5g
+        NSODd5dItH2VcyR6QzZA9TBcoBgOFkSOqBi2K4YPC+stxf6D875k9Mb0YSb4lP2cfST4TWiC67IBLBT7
+        qxXDV51iHeOdCtfSt2BBgmvdsWs7GU2fv8GevHwbiqFPMZxeQHR+2NzflPWxNYoEv6ckGLWlwU9ri8H1
+        WVIWimHnAsLtEcO+x6Ze6MryQ4P2iFqRBIN2cpe7kC1ZUhY7puAixfB2hzjDtMeQpnYWJHifKzdb7KTH
+        3gEJHiwSs6g2/esVw4lsAG+hatkOQOkRCZZL4yef6ybB/e7WFy1uKoYBxXDGBfikctjveB+T03gTCZ4l
+        wbGJU8PtXkEJbiLB32zkV469tKzolIVif7dimFFc7yvaxn9+totEN0jwzzAJ7swZSXDYFbuhnGEBeAzn
+        F9csyOhdTmOkaCtNmD0Xk2AzPSqjd22Vr3OZsRj2fz66LBS923W9dyeNXlnkpIgkWOWC2AxoUDLcW+QU
+        EUnQm3LbPu9FRl9V5ORwqP0le9yd2Ms6YNujbZOhbZkJlkmCm0lwm8uWORL8g0SPhDN4WVHvPxEmwW0k
+        +Jpr8nZ3Npht+t+5uR02FcfI4B1F/yXhwIknbQpfG5nA/mHUSPBlV7sGKcF7QsFyYwY7fluy+Aes/RjC
+        D312iQAAAABJRU5ErkJggg==
+</value>
   </data>
-  <data name="ERROR_EXPORTING" xml:space="preserve">
-    <value>An error occurred while trying to export to Excel: {error}</value>
-  </data>
-  <data name="ERROR_IMPORTING" xml:space="preserve">
-    <value>Error importing issues: {error}</value>
-  </data>
-  <data name="ERROR_PROCESSING_ISSUE" xml:space="preserve">
-    <value>Failed to process issue: {error}</value>
-  </data>
-  <data name="ERROR_STATISTICS" xml:space="preserve">
-    <value>Error retrieving statistics: {error}</value>
-  </data>
-  <data name="ERROR_TAGGING_AS_DEFAULT" xml:space="preserve">
-    <value>Error tagging issue as default.</value>
-  </data>
-  <data name="ERROR_UNTAGGING_ISSUE" xml:space="preserve">
-    <value>Error untagging issue.</value>
-  </data>
-  <data name="GOTO_ISSUE_NUMBER" xml:space="preserve">
-    <value>Navigate issue #{number}</value>
-  </data>
-  <data name="INVALID_FILE_NAME" xml:space="preserve">
-    <value>Please provide a valid file title (do not include the file extension).</value>
-  </data>
-  <data name="INVALID_ISSUE_NUMBER" xml:space="preserve">
-    <value>Invalid issue number.</value>
-  </data>
-  <data name="INVALID_SPREADSHEET" xml:space="preserve">
-    <value>Spreadsheet contains invalid columns or whole invalid header</value>
-  </data>
-  <data name="ISSUES_EXPORTED_TO_EXCEL" xml:space="preserve">
-    <value>Data successfully exported.</value>
-  </data>
-  <data name="ISSUE_TAGGED_AS_DEFAULT" xml:space="preserve">
-    <value>Issue #{number} tagged as default.</value>
-  </data>
-  <data name="ISSUE_UNTAGGED" xml:space="preserve">
-    <value>Issue #{number} was untagged.</value>
-  </data>
-  <data name="NOTES_COLOR" xml:space="preserve">
-    <value>#c2ccf2</value>
-    <comment>Cor de marcação se possui anotações</comment>
-  </data>
-  <data name="NOTHING_TO_EXPORT" xml:space="preserve">
-    <value>Nothing to export.</value>
-  </data>
-  <data name="NO_INCIDENTS" xml:space="preserve">
-    <value>No incidents found.</value>
-  </data>
-  <data name="REMOVE_LINE_CONFIRMATION" xml:space="preserve">
-    <value>Erase this line?</value>
-  </data>
-  <data name="SUCCESSFULL_APPLIED" xml:space="preserve">
-    <value>Changes applied successfully.</value>
-  </data>
-  <data name="SUCCESSFULL_IMPORTING" xml:space="preserve">
-    <value>Data successfully imported.</value>
-  </data>
-  <data name="TAG_COLOR" xml:space="preserve">
-    <value>#856BA1</value>
-    <comment>Cor de marcação da tag atual</comment>
-  </data>
-  <data name="TEMPLATE_INVALID_INFO" xml:space="preserve">
-    <value>Fill in the template information correctly.</value>
+  <data name="btnUndo.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAA
+        rQAAAK0BVE7WMAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAJlSURBVEhLpZW/
+        axRBFMcXVBBUrETU/Jg3ORFMaWOhmDaiYuUfYRKt0kQLCztBNDpvbokhYBM4tLBQg62ohbUYQYVDxV+g
+        7ry9U0wuK29vstmbnbtbyYMPLO/N+87um7fzgqCHyfD3ECBNAdISIC0DxnEbfqYl0DQ5opqDbl5fG9DN
+        A4AUAtIqICV9aAFSTeifwtXxmkBzFpDII9QPA2jOuHodJlR80b6Rm1yWltB0wdVNzb75ZsSzTQpfUplt
+        DpQoy19AqgPSV0/MxQzeauzfeHsVz3sWpUikV6Dp3N5rX3aIhWT72JVkKycDmpl23Ys5lrlU3LZit26p
+        HZr/vgvQTAukt9bXEkjPpDanKuGvEcD4vSePWeXKBLbP3WACyrxMxRU9KcQ2uFy5TaOA1PTEmIkA0Dz2
+        BBKhaQw0XXX9DmsC6QQouumJJUKZh/wFb3LOPxJpEZA+HQmTbaDoOSC9cBM7RJDuC4yOun7LMm+QPyjD
+        dZXKHJPhj92VWdojdbzgScxTb59TwZ/quRskoOkDb5J2lzbXPUku9VH1bafHn22QL1GKRPoISA9cfxfu
+        9SmR/5BLsgZojktNNzwxe8iaJt1AeczMUJUOc3MUY5RIRecDvs97/Gg+eO1TWW2clNXoICC986xhVtIf
+        jQ0wvuNZ4MFMB7VkSzovFF0CpKi4JiPM7iI7YHrdK+vwms/t2hdieaLhsLEv24BtGBvj/1mqbrRAmdMd
+        4uvGw2KTM4Fzp1zdDuNhUbJcLhHfsK6e1/iKsBfYikfIhSfY3ULNy5iddBMSzSNQ9NpOPeJn/om4z7NW
+        7GL/APnLwRtNicdaAAAAAElFTkSuQmCC
+</value>
   </data>
 </root>
