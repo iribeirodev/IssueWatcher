@@ -120,6 +120,15 @@
   <data name="APPLY_ISSUE_CHANGES" xml:space="preserve">
     <value>Apply changes for issue {number} ?</value>
   </data>
+  <data name="DISTRIB_BY_LOCAL_STATUS" xml:space="preserve">
+    <value>Distribution by Local Status</value>
+  </data>
+  <data name="DISTRIB_BY_PRIOR_LEVEL_TITLE" xml:space="preserve">
+    <value>Distribution by Priority Level</value>
+  </data>
+  <data name="DISTRIB_BY_STATE_CHART_TITLE" xml:space="preserve">
+    <value>Distribution by State</value>
+  </data>
   <data name="ERROR_APPLYING_CHANGES" xml:space="preserve">
     <value>Error applying changes: {error}</value>
   </data>
@@ -162,6 +171,9 @@
   <data name="ISSUE_UNTAGGED" xml:space="preserve">
     <value>Issue #{number} was untagged.</value>
   </data>
+  <data name="LOCAL_STATUS_SERIES_TITLE" xml:space="preserve">
+    <value>Local Status</value>
+  </data>
   <data name="NOTES_COLOR" xml:space="preserve">
     <value>#c2ccf2</value>
     <comment>Cor de marcação se possui anotações</comment>
@@ -174,6 +186,9 @@
   </data>
   <data name="REMOVE_LINE_CONFIRMATION" xml:space="preserve">
     <value>Erase this line?</value>
+  </data>
+  <data name="STATE_SERIES_TITLE" xml:space="preserve">
+    <value>States</value>
   </data>
   <data name="SUCCESSFULL_APPLIED" xml:space="preserve">
     <value>Changes applied successfully.</value>

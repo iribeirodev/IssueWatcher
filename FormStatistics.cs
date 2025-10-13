@@ -1,5 +1,6 @@
 ﻿using IssueWatcher.Model;
 using System;
+using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
@@ -10,39 +11,51 @@ namespace IssueWatcher
     {
         public IncidentStat Stats { get; set; }
 
+        private readonly Font _chartFont;
+        private readonly Font _chartFontMin;
+
         public FormStatistics()
         {
             InitializeComponent();
+
+            _chartFont = new Font("Segoe UI", 10, FontStyle.Regular);
+            _chartFontMin = new Font("Segoe UI", 8, FontStyle.Regular);
         }
 
         private void FormStatistics_Load(object sender, EventArgs e)
         {
-            PreencherGraficoEstados(chartEstados);
-            PreencherGraficoPrioridades(chartPrioridades);
+            PreencherGraficoEstados(chartStates);
+            PreencherGraficoLocalStatus(chartLocalStatus);
             PreencherResumo();
         }
 
 
-        public void PreencherGraficoPrioridades(Chart chartPrioridades)
+        public void PreencherGraficoLocalStatus(Chart chartPrioridades)
         {
             chartPrioridades.Series.Clear();
             chartPrioridades.Titles.Clear();
 
-            chartPrioridades.Titles.Add("Distribuição por Prioridade");
+            chartPrioridades.Titles.Add(Properties.Resources.DISTRIB_BY_LOCAL_STATUS);
+            chartPrioridades.Titles[0].Font = _chartFont;
 
-            var series = new Series("Prioridades")
+            var series = new Series(Properties.Resources.LOCAL_STATUS_SERIES_TITLE)
             {
                 ChartType = SeriesChartType.Bar,
-                IsValueShownAsLabel = true
+                IsValueShownAsLabel = true,
+                Font = _chartFont
             };
 
             chartPrioridades.Series.Add(series);
 
-            if (Stats.CountPriority1 > 0) series.Points.AddXY("Prioridade 01", Stats.CountPriority1);
-            if (Stats.CountPriority2 > 0) series.Points.AddXY("Prioridade 02", Stats.CountPriority2);
-            if (Stats.CountPriority3 > 0) series.Points.AddXY("Prioridade 03", Stats.CountPriority3);
-            if (Stats.CountPriority4 > 0) series.Points.AddXY("Prioridade 04", Stats.CountPriority4);
-            if (Stats.CountPriority5 > 0) series.Points.AddXY("Prioridade 05", Stats.CountPriority5);
+            chartPrioridades.ChartAreas[0].AxisX.LabelStyle.Font = _chartFontMin;
+            chartPrioridades.ChartAreas[0].AxisY.LabelStyle.Font = _chartFontMin;
+
+
+            if (Stats.CountAguardandoHomologacao > 0) series.Points.AddXY("Aguardando homologação", Stats.CountAguardandoHomologacao);
+            if (Stats.CountAguardandoPublicacao > 0) series.Points.AddXY("Aguardando publicação", Stats.CountAguardandoPublicacao);
+            if (Stats.CountAguardandoTestes > 0) series.Points.AddXY("Aguardando testes", Stats.CountAguardandoTestes);
+            if (Stats.CountFinalizado > 0) series.Points.AddXY("Finalizado", Stats.CountFinalizado);
+            if (Stats.CountNaoAtuado> 0) series.Points.AddXY("Não atuado", Stats.CountNaoAtuado);
         }
 
 
@@ -51,18 +64,26 @@ namespace IssueWatcher
             chartEstados.Series.Clear();
             chartEstados.Titles.Clear();
 
-            chartEstados.Titles.Add("Distribuição por Estado");
+            chartEstados.Titles.Add(Properties.Resources.DISTRIB_BY_STATE_CHART_TITLE);
+            chartEstados.Titles[0].Font = _chartFont;
 
-            var series = new Series("Estados")
+            var series = new Series(Properties.Resources.STATE_SERIES_TITLE)
             {
                 ChartType = SeriesChartType.Bar,
-                IsValueShownAsLabel = true
+                IsValueShownAsLabel = true,
+                Font = _chartFontMin
             };
 
             chartEstados.Series.Add(series);
 
+
+            chartEstados.ChartAreas[0].AxisX.LabelStyle.Font = _chartFontMin;
+            chartEstados.ChartAreas[0].AxisY.LabelStyle.Font = _chartFontMin;
+
+
             if (Stats.CountNew > 0) series.Points.AddXY("New", Stats.CountNew);
             if (Stats.CountInProgress > 0) series.Points.AddXY("In Progress", Stats.CountInProgress);
+            if (Stats.CountResolved > 0) series.Points.AddXY("Resolved", Stats.CountResolved);
             if (Stats.CountClosed > 0) series.Points.AddXY("Closed", Stats.CountClosed);
             if (Stats.CountCancelled > 0) series.Points.AddXY("Cancelled", Stats.CountCancelled);
         }
@@ -72,16 +93,17 @@ namespace IssueWatcher
         {
             var sb = new StringBuilder();
 
-            sb.AppendLine($"Cancelados: {Stats.CountCancelled}");
-            sb.AppendLine($"Fechados: {Stats.CountClosed}");
-            sb.AppendLine($"Em progresso: {Stats.CountInProgress}");
-            sb.AppendLine($"Novos: {Stats.CountNew}");
+            sb.AppendLine($"New: {Stats.CountNew}");
+            sb.AppendLine($"In progress: {Stats.CountInProgress}");
+            sb.AppendLine($"Resolved: {Stats.CountResolved}");
+            sb.AppendLine($"Cancelled: {Stats.CountCancelled}");
+            sb.AppendLine($"Closed: {Stats.CountClosed}");
             sb.AppendLine();
-            sb.AppendLine($"Prioridade 01: {Stats.CountPriority1}");
-            sb.AppendLine($"Prioridade 02: {Stats.CountPriority2}");
-            sb.AppendLine($"Prioridade 03: {Stats.CountPriority3}");
-            sb.AppendLine($"Prioridade 04: {Stats.CountPriority4}");
-            sb.AppendLine($"Prioridade 05: {Stats.CountPriority5}");
+            sb.AppendLine($"Aguardando homologação: {Stats.CountAguardandoHomologacao}");
+            sb.AppendLine($"Aguardando publicação: {Stats.CountAguardandoPublicacao}");
+            sb.AppendLine($"Aguardando Homologação:  {Stats.CountAguardandoTestes}");
+            sb.AppendLine($"Finalizados: {Stats.CountFinalizado}");
+            sb.AppendLine($"Não atuados: {Stats.CountNaoAtuado}");
 
             txtResumo.Text = sb.ToString();
             this.ActiveControl = null;

@@ -41,10 +41,11 @@
             this.txtSpreadsheetLocation.BackColor = System.Drawing.Color.White;
             this.txtSpreadsheetLocation.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSpreadsheetLocation.ForeColor = System.Drawing.Color.Black;
-            this.txtSpreadsheetLocation.Location = new System.Drawing.Point(50, 68);
+            this.txtSpreadsheetLocation.Location = new System.Drawing.Point(75, 105);
+            this.txtSpreadsheetLocation.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtSpreadsheetLocation.Name = "txtSpreadsheetLocation";
             this.txtSpreadsheetLocation.ReadOnly = true;
-            this.txtSpreadsheetLocation.Size = new System.Drawing.Size(660, 25);
+            this.txtSpreadsheetLocation.Size = new System.Drawing.Size(988, 25);
             this.txtSpreadsheetLocation.TabIndex = 3;
             this.toolTip1.SetToolTip(this.txtSpreadsheetLocation, "Double-click to select a Spreadsheet file");
             this.txtSpreadsheetLocation.DoubleClick += new System.EventHandler(this.txtSpreadsheetLocation_DoubleClick);
@@ -53,7 +54,8 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(47, 41);
+            this.label1.Location = new System.Drawing.Point(70, 63);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(120, 15);
             this.label1.TabIndex = 2;
@@ -63,23 +65,26 @@
             // 
             this.btnImport.Enabled = false;
             this.btnImport.Image = ((System.Drawing.Image)(resources.GetObject("btnImport.Image")));
-            this.btnImport.Location = new System.Drawing.Point(725, 65);
+            this.btnImport.Location = new System.Drawing.Point(1088, 100);
+            this.btnImport.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnImport.Name = "btnImport";
-            this.btnImport.Size = new System.Drawing.Size(35, 30);
+            this.btnImport.Size = new System.Drawing.Size(52, 46);
             this.btnImport.TabIndex = 4;
             this.toolTip1.SetToolTip(this.btnImport, "Start importing");
             this.btnImport.UseVisualStyleBackColor = true;
+            this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
             // 
             // FormImport
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(236)))), ((int)(((byte)(237)))));
-            this.ClientSize = new System.Drawing.Size(800, 154);
+            this.ClientSize = new System.Drawing.Size(1200, 237);
             this.Controls.Add(this.btnImport);
             this.Controls.Add(this.txtSpreadsheetLocation);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormImport";

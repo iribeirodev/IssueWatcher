@@ -70,6 +70,33 @@ namespace IssueWatcher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Distribution by Local Status.
+        /// </summary>
+        internal static string DISTRIB_BY_LOCAL_STATUS {
+            get {
+                return ResourceManager.GetString("DISTRIB_BY_LOCAL_STATUS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Distribution by Priority Level.
+        /// </summary>
+        internal static string DISTRIB_BY_PRIOR_LEVEL_TITLE {
+            get {
+                return ResourceManager.GetString("DISTRIB_BY_PRIOR_LEVEL_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Distribution by State.
+        /// </summary>
+        internal static string DISTRIB_BY_STATE_CHART_TITLE {
+            get {
+                return ResourceManager.GetString("DISTRIB_BY_STATE_CHART_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error applying changes: {error}.
         /// </summary>
         internal static string ERROR_APPLYING_CHANGES {
@@ -196,6 +223,15 @@ namespace IssueWatcher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Local Status.
+        /// </summary>
+        internal static string LOCAL_STATUS_SERIES_TITLE {
+            get {
+                return ResourceManager.GetString("LOCAL_STATUS_SERIES_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No incidents found..
         /// </summary>
         internal static string NO_INCIDENTS {
@@ -228,6 +264,15 @@ namespace IssueWatcher.Properties {
         internal static string REMOVE_LINE_CONFIRMATION {
             get {
                 return ResourceManager.GetString("REMOVE_LINE_CONFIRMATION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to States.
+        /// </summary>
+        internal static string STATE_SERIES_TITLE {
+            get {
+                return ResourceManager.GetString("STATE_SERIES_TITLE", resourceCulture);
             }
         }
         

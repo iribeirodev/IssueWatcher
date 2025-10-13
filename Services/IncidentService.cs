@@ -339,7 +339,7 @@ namespace IssueWatcher.Services
         }
 
         /// <summary>
-        /// Calcula e obtém as estatísticas agregadas de incidentes (contagem por estado e prioridade local).
+        /// Calcula e obtém as estatísticas agregadas de incidentes (contagem por state e status local).
         /// </summary>
         /// <returns>Um objeto <see cref="IncidentStat"/> preenchido com as contagens de incidentes.</returns>
         public IncidentStat GetStatistics()
@@ -374,6 +374,9 @@ namespace IssueWatcher.Services
                             case "in progress":
                                 _incidentStat.CountInProgress = count;
                                 break;
+                            case "resolved":
+                                _incidentStat.CountResolved = count;
+                                break;
                             case "new":
                                 _incidentStat.CountNew = count;
                                 break;
@@ -381,40 +384,57 @@ namespace IssueWatcher.Services
                     }
                 }
 
-                // Contagem por prioridade local
-                string priorityQuery = @"
-                    SELECT local_priority, COUNT(*) as count
-                    FROM incidents
-                    GROUP BY local_priority";
+                // Contagem por status local sem agregação 
+                string localStatusQuery = @"
+                    SELECT state, local_status
+                    FROM incidents";
 
-                using (var cmd = new SQLiteCommand(priorityQuery, conn))
+                using (var cmd = new SQLiteCommand(localStatusQuery, conn))
                 using (var reader = cmd.ExecuteReader())
                 {
+                    var localStatusCounts = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
+
                     while (reader.Read())
                     {
-                        // O valor lido é um texto, mas pode ser convertido para int para o switch
-                        if (int.TryParse(reader.GetString(0), out int priority))
-                        {
-                            int count = reader.GetInt32(1);
+                        string state = reader.IsDBNull(0) ? null : reader.GetString(0);
+                        string localStatus = reader.IsDBNull(1) ? null : reader.GetString(1);
 
-                            switch (priority)
-                            {
-                                case 1:
-                                    _incidentStat.CountPriority1 = count;
-                                    break;
-                                case 2:
-                                    _incidentStat.CountPriority2 = count;
-                                    break;
-                                case 3:
-                                    _incidentStat.CountPriority3 = count;
-                                    break;
-                                case 4:
-                                    _incidentStat.CountPriority4 = count;
-                                    break;
-                                case 5:
-                                    _incidentStat.CountPriority5 = count;
-                                    break;
-                            }
+                        string key;
+                        if (localStatus == null && string.Equals(state, "New", StringComparison.OrdinalIgnoreCase))
+                            key = "n/a";
+                        else if (localStatus != null)
+                            key = localStatus.ToLower();
+                        else
+                            continue; // ignora casos não mapeáveis
+
+                        if (!localStatusCounts.ContainsKey(key))
+                            localStatusCounts[key] = 0;
+
+                        localStatusCounts[key]++;
+                    }
+
+                    foreach (var kvp in localStatusCounts)
+                    {
+                        switch (kvp.Key)
+                        {
+                            case "aguardando homologação":
+                                _incidentStat.CountAguardandoHomologacao = kvp.Value;
+                                break;
+                            case "aguardando publicação":
+                                _incidentStat.CountAguardandoPublicacao = kvp.Value;
+                                break;
+                            case "aguardando testes":
+                                _incidentStat.CountAguardandoTestes = kvp.Value;
+                                break;
+                            case "em atendimento":
+                                _incidentStat.CountEmAtendimento = kvp.Value;
+                                break;
+                            case "finalizado":
+                                _incidentStat.CountFinalizado = kvp.Value;
+                                break;
+                            case "n/a":
+                                _incidentStat.CountNaoAtuado = kvp.Value;
+                                break;
                         }
                     }
                 }
