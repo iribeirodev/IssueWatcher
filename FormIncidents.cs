@@ -18,15 +18,16 @@ namespace IssueWatcher
         private readonly IncidentDataTransfer _incidentDataTransfer;
         private readonly ConfigReader _configReader;
 
+        private SortableBindingList<Incident> _listIncidents;   // Lista de incidentes padrão
+        private List<Incident> _filteredIncidents;              // Incidentes com filtro aplicado
+        private HashSet<string> _incidentNumbersWithNotes;      // Incidentes com anotações
+
+
         private const string INCIDENT_URL_SEARCH = "https://myservices.abb.com/cs_gr?id=search&spa=1&q={number}";
 
         private readonly Color TAG_COLOR = ColorTranslator.FromHtml(Properties.Resources.TAG_COLOR);
         private readonly Color NOTES_COLOR = ColorTranslator.FromHtml(Properties.Resources.NOTES_COLOR);
         
-
-        private SortableBindingList<Incident> listIncidents;
-        private HashSet<string> _incidentNumbersWithNotes;  // Incidentes com anotações
-
         private FormEditIncident formEditIncident;          // Tela de edição de dados de incidentes
         private FormIncidentNotes formIncidentNotes;        // Tela de anotações sobre incidentes
         private FormStatistics formStatistics;              // Tela de apresentação de estatísticas
@@ -98,7 +99,7 @@ namespace IssueWatcher
             var numberCriteria = cboRecordsToLoad.Text;
 
             List<Incident> incidents = _incidentService.GetAll(numberCriteria);
-            listIncidents = new SortableBindingList<Incident>(incidents);
+            _listIncidents = new SortableBindingList<Incident>(incidents);
 
             if (incidents.Count == 0)
             {
@@ -113,7 +114,7 @@ namespace IssueWatcher
             // Carrega números de incidentes com anotações
             _incidentNumbersWithNotes = _incidentService.GetIncidentNumbersWithNotes();
 
-            dgvIncidents.DataSource = listIncidents;
+            dgvIncidents.DataSource = _listIncidents;
 
             SetControlState(EnumControlState.Loaded);
             SetIncidentAsCurrent();
@@ -174,7 +175,13 @@ namespace IssueWatcher
             //    // se não houver filtro, usa a lista completa.
             //    : listincidents;
 
-            SortableBindingList<Incident> listToSort = listIncidents;
+            bool hasStateFilter = btnClearFilter.Enabled;
+
+
+            SortableBindingList<Incident> listToSort = hasStateFilter
+                    ? new SortableBindingList<Incident>(
+                        _filteredIncidents)
+                    : _listIncidents;
 
             // Função helper para parse seguro da data (para usar no LINQ).
             Func<Incident, DateTime> dateSelector = i =>
@@ -283,11 +290,11 @@ namespace IssueWatcher
 
         private void LoadFilters()
         {
-            if (listIncidents.Any())
+            if (_listIncidents.Any())
             {
-                var distinctStates = listIncidents.Select(i => i.State).Distinct().ToList();
-                var distinctLocalStatus = listIncidents.Select(i => i.LocalStatus).Distinct().ToList();
-                var distinctConfigurationItem = listIncidents.Select(i => i.ConfigurationItem).Distinct().ToList();
+                var distinctStates = _listIncidents.Select(i => i.State).Distinct().ToList();
+                var distinctLocalStatus = _listIncidents.Select(i => i.LocalStatus).Distinct().ToList();
+                var distinctConfigurationItem = _listIncidents.Select(i => i.ConfigurationItem).Distinct().ToList();
 
                 lstFilterStates.Items.Clear();
                 foreach (var state in distinctStates)
@@ -318,7 +325,7 @@ namespace IssueWatcher
 
             txtSearchNumber.Text = "";
 
-            var filtered = listIncidents.Where(incident =>
+            _filteredIncidents = _listIncidents.Where(incident =>
                         (statesChecked.Count == 0 || statesChecked.Contains(incident.State))
                         &&
                         (localStatusChecked.Count == 0 || localStatusChecked.Contains(incident.LocalStatus))
@@ -326,7 +333,7 @@ namespace IssueWatcher
                         (configurationItemChecked.Count == 0 || configurationItemChecked.Contains(incident.ConfigurationItem))
                     ).ToList();
 
-            dgvIncidents.DataSource = filtered;
+            dgvIncidents.DataSource = _filteredIncidents;
         }
 
         private void RemoveFilter()
@@ -337,7 +344,7 @@ namespace IssueWatcher
             UncheckAllFilters(lstFilterLocalStatus);
             UncheckAllFilters(lstFilterConfigurationItem);
 
-            dgvIncidents.DataSource = listIncidents;
+            dgvIncidents.DataSource = _listIncidents;
         }
 
         private void UncheckAllFilters(CheckedListBox checkedListBox)
@@ -387,7 +394,7 @@ namespace IssueWatcher
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            if ((listIncidents == null) || (listIncidents.Count == 0))
+            if ((_listIncidents == null) || (_listIncidents.Count == 0))
             {
                 MessageBox.Show(Properties.Resources.NOTHING_TO_EXPORT,
                     "Warning", 
@@ -549,19 +556,19 @@ namespace IssueWatcher
         /// </summary>
         private void txtSearchNumber_TextChanged(object sender, EventArgs e)
         {
-            if (listIncidents == null) return;
+            if (_listIncidents == null) return;
 
             string filterValue = txtSearchNumber.Text.Trim();
             // Mostra todos
             if (string.IsNullOrEmpty(filterValue))
             {
-                dgvIncidents.DataSource = listIncidents;
+                dgvIncidents.DataSource = _listIncidents;
                 return;
             }
 
             // Filtra apenas números que contêm o valor digitado no campo Number
             var filtered = new SortableBindingList<Incident>(
-                listIncidents.Where(i => i.Number != null && i.Number.Contains(filterValue)).ToList()
+                _listIncidents.Where(i => i.Number != null && i.Number.Contains(filterValue)).ToList()
             );
 
             dgvIncidents.DataSource = filtered;
