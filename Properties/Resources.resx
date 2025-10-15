@@ -120,6 +120,9 @@
   <data name="APPLY_ISSUE_CHANGES" xml:space="preserve">
     <value>Apply changes for issue {number} ?</value>
   </data>
+  <data name="COULD_NOT_FIND_TAGGED" xml:space="preserve">
+    <value>The current issue is not present in the list (may be filtered).</value>
+  </data>
   <data name="DISTRIB_BY_LOCAL_STATUS" xml:space="preserve">
     <value>Distribution by Local Status</value>
   </data>
@@ -174,6 +177,9 @@
   <data name="LOCAL_STATUS_SERIES_TITLE" xml:space="preserve">
     <value>Local Status</value>
   </data>
+  <data name="NONE_MARKED_AS_DEFAULT" xml:space="preserve">
+    <value>No issue tagged as default.</value>
+  </data>
   <data name="NOTES_COLOR" xml:space="preserve">
     <value>#c2ccf2</value>
     <comment>Cor de marcação se possui anotações</comment>
@@ -202,5 +208,8 @@
   </data>
   <data name="TEMPLATE_INVALID_INFO" xml:space="preserve">
     <value>Fill in the template information correctly.</value>
+  </data>
+  <data name="UNABLE_TO_SCROLL" xml:space="preserve">
+    <value>Unable to scroll to the line.  Try reloading the list.</value>
   </data>
 </root>

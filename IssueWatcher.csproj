@@ -228,6 +228,7 @@
     <Content Include="Pictures\internet.png" />
     <Content Include="Pictures\new.png" />
     <Content Include="Pictures\pie-chart.png" />
+    <Content Include="Pictures\searching.png" />
     <Content Include="Pictures\settings.png" />
     <Content Include="Pictures\table.png" />
     <Content Include="Pictures\tag.png" />

@@ -59,6 +59,7 @@ namespace IssueWatcher
                     btnStat.Enabled = false;
                     btnGoTo.Enabled = false;
                     btnExport.Enabled = false;
+                    btnGotoDefault.Enabled = false;
 
                     cboRecordsToLoad.SelectedIndex = cboRecordsToLoad.Items.Count - 1;
 
@@ -74,6 +75,9 @@ namespace IssueWatcher
                     btnStat.Enabled = true;
                     btnGoTo.Enabled = false;
                     btnExport.Enabled = true;
+                    btnGotoDefault.Enabled = true;
+
+
                     break;
                 case EnumControlState.Selected:
                     txtSearchNumber.Enabled = true;
@@ -85,6 +89,9 @@ namespace IssueWatcher
                     btnStat.Enabled = true;
                     btnGoTo.Enabled = true;
                     btnExport.Enabled = true;
+
+                    btnGotoDefault.Enabled = false;
+
                     break;
             }
         }
@@ -582,6 +589,67 @@ namespace IssueWatcher
         private void btnClearFilter_Click(object sender, EventArgs e)
         {
             RemoveFilter();
+        }
+
+        private void btnGotoDefault_Click(object sender, EventArgs e)
+        {
+            // Chama a rotina que encontra o incidente atual e obtém o número
+            string currentIncidentNumber = _incidentService.GetCurrentIncident();
+            if (string.IsNullOrEmpty(currentIncidentNumber))
+            {
+                MessageBox.Show(
+                    Properties.Resources.NONE_MARKED_AS_DEFAULT,
+                    "Information",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+                return;
+            }
+
+            // Procura a linha que corresponde ao número do incidente atual
+            int rowIndexToScroll = -1;
+            foreach (DataGridViewRow row in dgvIncidents.Rows)
+            {
+                // Verifica se a linha está visível (importante se houver filtros aplicados)
+                if (row.Visible && row.Cells["number"].Value?.ToString() == currentIncidentNumber)
+                {
+                    rowIndexToScroll = row.Index;
+                    break; // Linha encontrada, pode sair do loop
+                }
+            }
+
+            // Rola o DataGridView se a linha for encontrada
+            if (rowIndexToScroll != -1)
+            {
+                try
+                {
+                    // Define a linha encontrada como a primeira linha visível da DataGridView.
+                    // Isso força a rolagem.
+                    dgvIncidents.FirstDisplayedScrollingRowIndex = rowIndexToScroll;
+
+                    // Opcional: Selecionar a linha para dar destaque visual
+                    //dgvIncidents.Rows[rowIndexToScroll].Selected = true;
+
+                }
+                catch (InvalidOperationException)
+                {
+                    // Captura um possível erro se a linha estiver fora do range de visualização.
+                    // Isso pode acontecer se o DataGridView estiver sendo atualizado ou se a lista
+                    // de dados mudou inesperadamente.
+                    MessageBox.Show(
+                        Properties.Resources.UNABLE_TO_SCROLL,
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show(
+                    Properties.Resources.UNABLE_TO_SCROLL,
+                    "Information",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+            }
         }
     }
 }

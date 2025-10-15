@@ -70,6 +70,15 @@ namespace IssueWatcher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The current issue is not present in the list (may be filtered)..
+        /// </summary>
+        internal static string COULD_NOT_FIND_TAGGED {
+            get {
+                return ResourceManager.GetString("COULD_NOT_FIND_TAGGED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Distribution by Local Status.
         /// </summary>
         internal static string DISTRIB_BY_LOCAL_STATUS {
@@ -241,6 +250,15 @@ namespace IssueWatcher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No issue tagged as default..
+        /// </summary>
+        internal static string NONE_MARKED_AS_DEFAULT {
+            get {
+                return ResourceManager.GetString("NONE_MARKED_AS_DEFAULT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to #c2ccf2.
         /// </summary>
         internal static string NOTES_COLOR {
@@ -309,6 +327,15 @@ namespace IssueWatcher.Properties {
         internal static string TEMPLATE_INVALID_INFO {
             get {
                 return ResourceManager.GetString("TEMPLATE_INVALID_INFO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to scroll to the line.  Try reloading the list..
+        /// </summary>
+        internal static string UNABLE_TO_SCROLL {
+            get {
+                return ResourceManager.GetString("UNABLE_TO_SCROLL", resourceCulture);
             }
         }
     }
