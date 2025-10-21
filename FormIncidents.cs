@@ -61,6 +61,7 @@ namespace IssueWatcher
                     btnExport.Enabled = false;
                     btnGotoDefault.Enabled = false;
 
+                    lblFilter.Text = "";
                     cboRecordsToLoad.SelectedIndex = cboRecordsToLoad.Items.Count - 1;
 
                     break;
@@ -77,6 +78,7 @@ namespace IssueWatcher
                     btnExport.Enabled = true;
                     btnGotoDefault.Enabled = true;
 
+                    lblFilter.Text = "";
 
                     break;
                 case EnumControlState.Selected:
@@ -313,12 +315,13 @@ namespace IssueWatcher
                     if (!string.IsNullOrEmpty(ls))
                         lstFilterLocalStatus.Items.Add(ls);
 
+
                 lstFilterConfigurationItem.Items.Clear();
                 foreach (var ci in distinctConfigurationItem)
                     if (!string.IsNullOrEmpty(ci))
                         lstFilterConfigurationItem.Items.Add(ci);
 
-
+                lstFilterLocalStatus.Items.Add("<Blank>");
             }
         }
 
@@ -333,14 +336,19 @@ namespace IssueWatcher
             txtSearchNumber.Text = "";
 
             _filteredIncidents = _listIncidents.Where(incident =>
-                        (statesChecked.Count == 0 || statesChecked.Contains(incident.State))
-                        &&
-                        (localStatusChecked.Count == 0 || localStatusChecked.Contains(incident.LocalStatus))
-                        &&
-                        (configurationItemChecked.Count == 0 || configurationItemChecked.Contains(incident.ConfigurationItem))
-                    ).ToList();
+                (statesChecked.Count == 0 || statesChecked.Contains(incident.State))
+                &&
+                (localStatusChecked.Count == 0 ||
+                    localStatusChecked.Contains(incident.LocalStatus) ||
+                    (localStatusChecked.Contains("<Blank>") && string.IsNullOrWhiteSpace(incident.LocalStatus)))
+                &&
+                (configurationItemChecked.Count == 0 || configurationItemChecked.Contains(incident.ConfigurationItem))
+            ).ToList();
 
             dgvIncidents.DataSource = _filteredIncidents;
+
+            // Atualiza a label com o total filtrado
+            lblFilter.Text = $"Filtrados: {_filteredIncidents.Count} de {_listIncidents.Count}";
         }
 
         private void RemoveFilter()
@@ -351,6 +359,7 @@ namespace IssueWatcher
             UncheckAllFilters(lstFilterLocalStatus);
             UncheckAllFilters(lstFilterConfigurationItem);
 
+            lblFilter.Text = "";
             dgvIncidents.DataSource = _listIncidents;
         }
 

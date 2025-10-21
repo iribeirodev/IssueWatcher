@@ -58,6 +58,7 @@
             this.updated = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.assignment_group = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlControl = new System.Windows.Forms.Panel();
+            this.btnGotoDefault = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnGoTo = new System.Windows.Forms.Button();
             this.btnStat = new System.Windows.Forms.Button();
@@ -79,7 +80,7 @@
             this.lstFilterStates = new System.Windows.Forms.CheckedListBox();
             this.label3 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.btnGotoDefault = new System.Windows.Forms.Button();
+            this.lblFilter = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvIncidents)).BeginInit();
             this.pnlControl.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -305,6 +306,7 @@
             // 
             this.pnlControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlControl.Controls.Add(this.lblFilter);
             this.pnlControl.Controls.Add(this.btnGotoDefault);
             this.pnlControl.Controls.Add(this.btnEdit);
             this.pnlControl.Controls.Add(this.btnGoTo);
@@ -319,6 +321,19 @@
             this.pnlControl.Name = "pnlControl";
             this.pnlControl.Size = new System.Drawing.Size(1811, 154);
             this.pnlControl.TabIndex = 4;
+            // 
+            // btnGotoDefault
+            // 
+            this.btnGotoDefault.Enabled = false;
+            this.btnGotoDefault.Image = ((System.Drawing.Image)(resources.GetObject("btnGotoDefault.Image")));
+            this.btnGotoDefault.Location = new System.Drawing.Point(1587, 84);
+            this.btnGotoDefault.Margin = new System.Windows.Forms.Padding(2);
+            this.btnGotoDefault.Name = "btnGotoDefault";
+            this.btnGotoDefault.Size = new System.Drawing.Size(43, 37);
+            this.btnGotoDefault.TabIndex = 25;
+            this.toolTip1.SetToolTip(this.btnGotoDefault, "Find current incident");
+            this.btnGotoDefault.UseVisualStyleBackColor = true;
+            this.btnGotoDefault.Click += new System.EventHandler(this.btnGotoDefault_Click);
             // 
             // btnEdit
             // 
@@ -588,18 +603,15 @@
             // 
             this.toolTip1.IsBalloon = true;
             // 
-            // btnGotoDefault
+            // lblFilter
             // 
-            this.btnGotoDefault.Enabled = false;
-            this.btnGotoDefault.Image = ((System.Drawing.Image)(resources.GetObject("btnGotoDefault.Image")));
-            this.btnGotoDefault.Location = new System.Drawing.Point(1587, 84);
-            this.btnGotoDefault.Margin = new System.Windows.Forms.Padding(2);
-            this.btnGotoDefault.Name = "btnGotoDefault";
-            this.btnGotoDefault.Size = new System.Drawing.Size(43, 37);
-            this.btnGotoDefault.TabIndex = 25;
-            this.toolTip1.SetToolTip(this.btnGotoDefault, "Find current incident");
-            this.btnGotoDefault.UseVisualStyleBackColor = true;
-            this.btnGotoDefault.Click += new System.EventHandler(this.btnGotoDefault_Click);
+            this.lblFilter.AutoSize = true;
+            this.lblFilter.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFilter.Location = new System.Drawing.Point(525, 137);
+            this.lblFilter.Name = "lblFilter";
+            this.lblFilter.Size = new System.Drawing.Size(46, 15);
+            this.lblFilter.TabIndex = 26;
+            this.lblFilter.Text = "lblFilter";
             // 
             // FormIncidents
             // 
@@ -617,6 +629,7 @@
             this.Load += new System.EventHandler(this.FormEditIncident_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvIncidents)).EndInit();
             this.pnlControl.ResumeLayout(false);
+            this.pnlControl.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -667,5 +680,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn updated;
         private System.Windows.Forms.DataGridViewTextBoxColumn assignment_group;
         private System.Windows.Forms.Button btnGotoDefault;
+        private System.Windows.Forms.Label lblFilter;
     }
 }
