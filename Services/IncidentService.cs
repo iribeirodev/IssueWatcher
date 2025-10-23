@@ -339,108 +339,133 @@ namespace IssueWatcher.Services
         }
 
         /// <summary>
-        /// Calcula e obtém as estatísticas agregadas de incidentes (contagem por state e status local).
+        /// Calcula e retorna as estatísticas agregadas de incidentes para um mês específico,
+        /// incluindo contagem por estado e por status local.
         /// </summary>
-        /// <returns>Um objeto <see cref="IncidentStat"/> preenchido com as contagens de incidentes.</returns>
-        public IncidentStat GetStatistics()
+        /// <param name="mesAno">O mês e ano no formato "yyyy-MM" (ex: "2025-10") para o qual as estatísticas devem ser calculadas.</param>
+        /// <returns>Um objeto <see cref="IncidentStat"/> preenchido com as contagens de incidentes correspondentes ao mês informado.</returns>
+        public IncidentStat GetStatistics(string mesAno)
         {
+            var stat = new IncidentStat { MesAno = mesAno };
 
             using (var conn = new SQLiteConnection($"Data Source={_databaseFile};Version=3;"))
             {
                 conn.Open();
 
-                // Contagem por estado
+                // Contagem por estado no mês especificado
                 string stateQuery = @"
                     SELECT state, COUNT(*) as count
-                    FROM incidents
+                    FROM (
+                        SELECT state,
+                               STRFTIME('%Y-%m',
+                                   SUBSTR(updated, 7, 4) || '-' || SUBSTR(updated, 4, 2) || '-' || SUBSTR(updated, 1, 2)
+                               ) AS mes_ano
+                        FROM incidents
+                    )
+                    WHERE mes_ano = @mesAno
                     GROUP BY state";
 
                 using (var cmd = new SQLiteCommand(stateQuery, conn))
-                using (var reader = cmd.ExecuteReader())
                 {
-                    while (reader.Read())
-                    {
-                        string state = reader.GetString(0);
-                        int count = reader.GetInt32(1);
+                    cmd.Parameters.AddWithValue("@mesAno", mesAno);
 
-                        switch (state.ToLower())
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
                         {
-                            case "canceled":
-                                _incidentStat.CountCancelled = count;
-                                break;
-                            case "closed":
-                                _incidentStat.CountClosed = count;
-                                break;
-                            case "in progress":
-                                _incidentStat.CountInProgress = count;
-                                break;
-                            case "resolved":
-                                _incidentStat.CountResolved = count;
-                                break;
-                            case "new":
-                                _incidentStat.CountNew = count;
-                                break;
+                            string state = reader.GetString(0);
+                            int count = reader.GetInt32(1);
+
+                            switch (state.ToLower())
+                            {
+                                case "canceled":
+                                    stat.CountCancelled = count;
+                                    break;
+                                case "closed":
+                                    stat.CountClosed = count;
+                                    break;
+                                case "in progress":
+                                    stat.CountInProgress = count;
+                                    break;
+                                case "resolved":
+                                    stat.CountResolved = count;
+                                    break;
+                                case "new":
+                                    stat.CountNew = count;
+                                    break;
+                            }
                         }
                     }
                 }
 
-                // Contagem por status local sem agregação 
+                // Contagem por status local no mês especificado
                 string localStatusQuery = @"
                     SELECT state, local_status
-                    FROM incidents";
+                    FROM (
+                        SELECT state, local_status,
+                               STRFTIME('%Y-%m',
+                                   SUBSTR(updated, 7, 4) || '-' || SUBSTR(updated, 4, 2) || '-' || SUBSTR(updated, 1, 2)
+                               ) AS mes_ano
+                        FROM incidents
+                    )
+                    WHERE mes_ano = @mesAno";
 
                 using (var cmd = new SQLiteCommand(localStatusQuery, conn))
-                using (var reader = cmd.ExecuteReader())
                 {
-                    var localStatusCounts = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
+                    cmd.Parameters.AddWithValue("@mesAno", mesAno);
 
-                    while (reader.Read())
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        string state = reader.IsDBNull(0) ? null : reader.GetString(0);
-                        string localStatus = reader.IsDBNull(1) ? null : reader.GetString(1);
+                        var localStatusCounts = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
 
-                        string key;
-                        if (localStatus == null && string.Equals(state, "New", StringComparison.OrdinalIgnoreCase))
-                            key = "n/a";
-                        else if (localStatus != null)
-                            key = localStatus.ToLower();
-                        else
-                            continue; // ignora casos não mapeáveis
-
-                        if (!localStatusCounts.ContainsKey(key))
-                            localStatusCounts[key] = 0;
-
-                        localStatusCounts[key]++;
-                    }
-
-                    foreach (var kvp in localStatusCounts)
-                    {
-                        switch (kvp.Key)
+                        while (reader.Read())
                         {
-                            case "aguardando homologação":
-                                _incidentStat.CountAguardandoHomologacao = kvp.Value;
-                                break;
-                            case "aguardando publicação":
-                                _incidentStat.CountAguardandoPublicacao = kvp.Value;
-                                break;
-                            case "aguardando testes":
-                                _incidentStat.CountAguardandoTestes = kvp.Value;
-                                break;
-                            case "em atendimento":
-                                _incidentStat.CountEmAtendimento = kvp.Value;
-                                break;
-                            case "finalizado":
-                                _incidentStat.CountFinalizado = kvp.Value;
-                                break;
-                            case "n/a":
-                                _incidentStat.CountNaoAtuado = kvp.Value;
-                                break;
+                            string state = reader.IsDBNull(0) ? null : reader.GetString(0);
+                            string localStatus = reader.IsDBNull(1) ? null : reader.GetString(1);
+
+                            string key;
+                            if (localStatus == null && string.Equals(state, "New", StringComparison.OrdinalIgnoreCase))
+                                key = "n/a";
+                            else if (localStatus != null)
+                                key = localStatus.ToLower();
+                            else
+                                continue;
+
+                            if (!localStatusCounts.ContainsKey(key))
+                                localStatusCounts[key] = 0;
+
+                            localStatusCounts[key]++;
+                        }
+
+                        foreach (var kvp in localStatusCounts)
+                        {
+                            switch (kvp.Key)
+                            {
+                                case "aguardando homologação":
+                                    stat.CountAguardandoHomologacao = kvp.Value;
+                                    break;
+                                case "aguardando publicação":
+                                    stat.CountAguardandoPublicacao = kvp.Value;
+                                    break;
+                                case "aguardando testes":
+                                    stat.CountAguardandoTestes = kvp.Value;
+                                    break;
+                                case "em atendimento":
+                                    stat.CountEmAtendimento = kvp.Value;
+                                    break;
+                                case "finalizado":
+                                    stat.CountFinalizado = kvp.Value;
+                                    break;
+                                case "n/a":
+                                    stat.CountNaoAtuado = kvp.Value;
+                                    break;
+                            }
                         }
                     }
                 }
             }
 
-            return _incidentStat;
+            return stat;
         }
 
         #endregion

@@ -470,10 +470,10 @@ namespace IssueWatcher
         {
             try
             {
-                var stats = _incidentService.GetStatistics();
+                //var stats = _incidentService.GetStatistics();
 
                 formStatistics = new FormStatistics();
-                formStatistics.Stats = stats;
+                //formStatistics.Stats = stats;
                 formStatistics.ShowDialog();
             }
             catch (Exception ex)
