@@ -325,6 +325,15 @@ namespace IssueWatcher
             }
         }
 
+        private void SetInitialFilter()
+        {
+            lstFilterStates.SetItemChecked(2, true);
+            lstFilterStates.SetItemChecked(3, true);
+            lstFilterStates.SetItemChecked(4, true);
+
+            FilterData();
+        }
+
         private void FilterData()
         {
             List<string> statesChecked = lstFilterStates.CheckedItems.Cast<string>().ToList();
@@ -349,6 +358,8 @@ namespace IssueWatcher
 
             // Atualiza a label com o total filtrado
             lblFilter.Text = $"Filtrados: {_filteredIncidents.Count} de {_listIncidents.Count}";
+
+            SetIncidentAsCurrent();
         }
 
         private void RemoveFilter()
@@ -361,6 +372,8 @@ namespace IssueWatcher
 
             lblFilter.Text = "";
             dgvIncidents.DataSource = _listIncidents;
+
+            SetIncidentAsCurrent();
         }
 
         private void UncheckAllFilters(CheckedListBox checkedListBox)
@@ -382,6 +395,7 @@ namespace IssueWatcher
         {
             LoadData();
             LoadFilters();
+            SetInitialFilter();
         }
 
         private void dgvIncidents_CellClick(object sender, DataGridViewCellEventArgs e)

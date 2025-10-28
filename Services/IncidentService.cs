@@ -49,6 +49,7 @@ namespace IssueWatcher.Services
 
                 string sql = $@"
                     SELECT i.* FROM incidents i
+                    ORDER BY state DESC, created ASC 
                     {limitClause};";
 
                 using (var cmd = new SQLiteCommand(sql, conn))

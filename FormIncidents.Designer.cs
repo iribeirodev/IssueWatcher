@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormIncidents));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -41,23 +42,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormIncidents));
             this.dgvIncidents = new System.Windows.Forms.DataGridView();
-            this.Action = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Priority = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Tag = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.number = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.State = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LocalStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.caller = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.assigned_to = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.configuration_item = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.short_description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.email = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.created = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.updated = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.assignment_group = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlControl = new System.Windows.Forms.Panel();
+            this.lblFilter = new System.Windows.Forms.Label();
             this.btnGotoDefault = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnGoTo = new System.Windows.Forms.Button();
@@ -80,7 +67,20 @@
             this.lstFilterStates = new System.Windows.Forms.CheckedListBox();
             this.label3 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.lblFilter = new System.Windows.Forms.Label();
+            this.Action = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Tag = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.created = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.updated = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Priority = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.number = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.State = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LocalStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.caller = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.assigned_to = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.configuration_item = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.short_description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.email = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.assignment_group = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvIncidents)).BeginInit();
             this.pnlControl.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -99,8 +99,10 @@
             this.dgvIncidents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvIncidents.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Action,
-            this.Priority,
             this.Tag,
+            this.created,
+            this.updated,
+            this.Priority,
             this.number,
             this.State,
             this.LocalStatus,
@@ -109,8 +111,6 @@
             this.configuration_item,
             this.short_description,
             this.email,
-            this.created,
-            this.updated,
             this.assignment_group});
             dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle12.BackColor = System.Drawing.Color.White;
@@ -135,173 +135,6 @@
             this.dgvIncidents.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvIncidents_ColumnHeaderMouseClick);
             this.dgvIncidents.Sorted += new System.EventHandler(this.dgvIncidents_Sorted);
             // 
-            // Action
-            // 
-            this.Action.HeaderText = "Edit Notes";
-            this.Action.MinimumWidth = 6;
-            this.Action.Name = "Action";
-            this.Action.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Action.Text = "...";
-            this.Action.UseColumnTextForButtonValue = true;
-            this.Action.Width = 70;
-            // 
-            // Priority
-            // 
-            this.Priority.DataPropertyName = "LocalPriority";
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.GhostWhite;
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Maroon;
-            this.Priority.DefaultCellStyle = dataGridViewCellStyle1;
-            this.Priority.HeaderText = "Priority";
-            this.Priority.MinimumWidth = 6;
-            this.Priority.Name = "Priority";
-            this.Priority.ReadOnly = true;
-            this.Priority.Width = 50;
-            // 
-            // Tag
-            // 
-            this.Tag.DataPropertyName = "tag";
-            this.Tag.HeaderText = "Current";
-            this.Tag.MinimumWidth = 6;
-            this.Tag.Name = "Tag";
-            this.Tag.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Tag.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Tag.Width = 50;
-            // 
-            // number
-            // 
-            this.number.DataPropertyName = "number";
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.GhostWhite;
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
-            this.number.DefaultCellStyle = dataGridViewCellStyle2;
-            this.number.HeaderText = "Number";
-            this.number.MinimumWidth = 6;
-            this.number.Name = "number";
-            this.number.ReadOnly = true;
-            this.number.Width = 120;
-            // 
-            // State
-            // 
-            this.State.DataPropertyName = "state";
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.GhostWhite;
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
-            this.State.DefaultCellStyle = dataGridViewCellStyle3;
-            this.State.HeaderText = "State";
-            this.State.MaxInputLength = 100;
-            this.State.MinimumWidth = 6;
-            this.State.Name = "State";
-            this.State.ReadOnly = true;
-            this.State.Width = 180;
-            // 
-            // LocalStatus
-            // 
-            this.LocalStatus.DataPropertyName = "LocalStatus";
-            this.LocalStatus.HeaderText = "Local Status";
-            this.LocalStatus.Name = "LocalStatus";
-            this.LocalStatus.ReadOnly = true;
-            this.LocalStatus.Width = 175;
-            // 
-            // caller
-            // 
-            this.caller.DataPropertyName = "caller";
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.GhostWhite;
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
-            this.caller.DefaultCellStyle = dataGridViewCellStyle4;
-            this.caller.HeaderText = "Caller";
-            this.caller.MaxInputLength = 100;
-            this.caller.MinimumWidth = 6;
-            this.caller.Name = "caller";
-            this.caller.ReadOnly = true;
-            this.caller.Width = 200;
-            // 
-            // assigned_to
-            // 
-            this.assigned_to.DataPropertyName = "AssignedTo";
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.GhostWhite;
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black;
-            this.assigned_to.DefaultCellStyle = dataGridViewCellStyle5;
-            this.assigned_to.HeaderText = "Assigned To";
-            this.assigned_to.MaxInputLength = 100;
-            this.assigned_to.MinimumWidth = 6;
-            this.assigned_to.Name = "assigned_to";
-            this.assigned_to.ReadOnly = true;
-            this.assigned_to.Width = 200;
-            // 
-            // configuration_item
-            // 
-            this.configuration_item.DataPropertyName = "ConfigurationItem";
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.GhostWhite;
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black;
-            this.configuration_item.DefaultCellStyle = dataGridViewCellStyle6;
-            this.configuration_item.HeaderText = "Configuration Item";
-            this.configuration_item.MaxInputLength = 100;
-            this.configuration_item.MinimumWidth = 6;
-            this.configuration_item.Name = "configuration_item";
-            this.configuration_item.ReadOnly = true;
-            this.configuration_item.Width = 180;
-            // 
-            // short_description
-            // 
-            this.short_description.DataPropertyName = "ShortDescription";
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.GhostWhite;
-            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black;
-            this.short_description.DefaultCellStyle = dataGridViewCellStyle7;
-            this.short_description.HeaderText = "Short Description";
-            this.short_description.MaxInputLength = 500;
-            this.short_description.MinimumWidth = 6;
-            this.short_description.Name = "short_description";
-            this.short_description.ReadOnly = true;
-            this.short_description.Width = 280;
-            // 
-            // email
-            // 
-            this.email.DataPropertyName = "email";
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.GhostWhite;
-            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Black;
-            this.email.DefaultCellStyle = dataGridViewCellStyle8;
-            this.email.HeaderText = "Email";
-            this.email.MaxInputLength = 100;
-            this.email.MinimumWidth = 6;
-            this.email.Name = "email";
-            this.email.ReadOnly = true;
-            this.email.Width = 280;
-            // 
-            // created
-            // 
-            this.created.DataPropertyName = "created";
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.GhostWhite;
-            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.Black;
-            this.created.DefaultCellStyle = dataGridViewCellStyle9;
-            this.created.HeaderText = "Created";
-            this.created.MinimumWidth = 6;
-            this.created.Name = "created";
-            this.created.ReadOnly = true;
-            this.created.Width = 130;
-            // 
-            // updated
-            // 
-            this.updated.DataPropertyName = "Updated";
-            dataGridViewCellStyle10.BackColor = System.Drawing.Color.GhostWhite;
-            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.Black;
-            this.updated.DefaultCellStyle = dataGridViewCellStyle10;
-            this.updated.HeaderText = "Updated";
-            this.updated.MinimumWidth = 6;
-            this.updated.Name = "updated";
-            this.updated.ReadOnly = true;
-            this.updated.Width = 130;
-            // 
-            // assignment_group
-            // 
-            this.assignment_group.DataPropertyName = "AssignmentGroup";
-            dataGridViewCellStyle11.BackColor = System.Drawing.Color.GhostWhite;
-            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.Black;
-            this.assignment_group.DefaultCellStyle = dataGridViewCellStyle11;
-            this.assignment_group.HeaderText = "Assignment Group";
-            this.assignment_group.MinimumWidth = 6;
-            this.assignment_group.Name = "assignment_group";
-            this.assignment_group.ReadOnly = true;
-            this.assignment_group.Width = 200;
-            // 
             // pnlControl
             // 
             this.pnlControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -321,6 +154,16 @@
             this.pnlControl.Name = "pnlControl";
             this.pnlControl.Size = new System.Drawing.Size(1811, 154);
             this.pnlControl.TabIndex = 4;
+            // 
+            // lblFilter
+            // 
+            this.lblFilter.AutoSize = true;
+            this.lblFilter.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFilter.Location = new System.Drawing.Point(525, 137);
+            this.lblFilter.Name = "lblFilter";
+            this.lblFilter.Size = new System.Drawing.Size(46, 15);
+            this.lblFilter.TabIndex = 26;
+            this.lblFilter.Text = "lblFilter";
             // 
             // btnGotoDefault
             // 
@@ -603,15 +446,172 @@
             // 
             this.toolTip1.IsBalloon = true;
             // 
-            // lblFilter
+            // Action
             // 
-            this.lblFilter.AutoSize = true;
-            this.lblFilter.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFilter.Location = new System.Drawing.Point(525, 137);
-            this.lblFilter.Name = "lblFilter";
-            this.lblFilter.Size = new System.Drawing.Size(46, 15);
-            this.lblFilter.TabIndex = 26;
-            this.lblFilter.Text = "lblFilter";
+            this.Action.HeaderText = "Edit Notes";
+            this.Action.MinimumWidth = 6;
+            this.Action.Name = "Action";
+            this.Action.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Action.Text = "...";
+            this.Action.UseColumnTextForButtonValue = true;
+            this.Action.Width = 70;
+            // 
+            // Tag
+            // 
+            this.Tag.DataPropertyName = "tag";
+            this.Tag.HeaderText = "Current";
+            this.Tag.MinimumWidth = 6;
+            this.Tag.Name = "Tag";
+            this.Tag.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Tag.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Tag.Width = 50;
+            // 
+            // created
+            // 
+            this.created.DataPropertyName = "created";
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.GhostWhite;
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            this.created.DefaultCellStyle = dataGridViewCellStyle1;
+            this.created.HeaderText = "Created";
+            this.created.MinimumWidth = 6;
+            this.created.Name = "created";
+            this.created.ReadOnly = true;
+            this.created.Width = 130;
+            // 
+            // updated
+            // 
+            this.updated.DataPropertyName = "Updated";
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.GhostWhite;
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            this.updated.DefaultCellStyle = dataGridViewCellStyle2;
+            this.updated.HeaderText = "Updated";
+            this.updated.MinimumWidth = 6;
+            this.updated.Name = "updated";
+            this.updated.ReadOnly = true;
+            this.updated.Width = 130;
+            // 
+            // Priority
+            // 
+            this.Priority.DataPropertyName = "LocalPriority";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.GhostWhite;
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Maroon;
+            this.Priority.DefaultCellStyle = dataGridViewCellStyle3;
+            this.Priority.HeaderText = "Priority";
+            this.Priority.MinimumWidth = 6;
+            this.Priority.Name = "Priority";
+            this.Priority.ReadOnly = true;
+            this.Priority.Width = 50;
+            // 
+            // number
+            // 
+            this.number.DataPropertyName = "number";
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.GhostWhite;
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
+            this.number.DefaultCellStyle = dataGridViewCellStyle4;
+            this.number.HeaderText = "Number";
+            this.number.MinimumWidth = 6;
+            this.number.Name = "number";
+            this.number.ReadOnly = true;
+            this.number.Width = 120;
+            // 
+            // State
+            // 
+            this.State.DataPropertyName = "state";
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.GhostWhite;
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black;
+            this.State.DefaultCellStyle = dataGridViewCellStyle5;
+            this.State.HeaderText = "State";
+            this.State.MaxInputLength = 100;
+            this.State.MinimumWidth = 6;
+            this.State.Name = "State";
+            this.State.ReadOnly = true;
+            this.State.Width = 180;
+            // 
+            // LocalStatus
+            // 
+            this.LocalStatus.DataPropertyName = "LocalStatus";
+            this.LocalStatus.HeaderText = "Local Status";
+            this.LocalStatus.Name = "LocalStatus";
+            this.LocalStatus.ReadOnly = true;
+            this.LocalStatus.Width = 175;
+            // 
+            // caller
+            // 
+            this.caller.DataPropertyName = "caller";
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.GhostWhite;
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black;
+            this.caller.DefaultCellStyle = dataGridViewCellStyle6;
+            this.caller.HeaderText = "Caller";
+            this.caller.MaxInputLength = 100;
+            this.caller.MinimumWidth = 6;
+            this.caller.Name = "caller";
+            this.caller.ReadOnly = true;
+            this.caller.Width = 200;
+            // 
+            // assigned_to
+            // 
+            this.assigned_to.DataPropertyName = "AssignedTo";
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.GhostWhite;
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black;
+            this.assigned_to.DefaultCellStyle = dataGridViewCellStyle7;
+            this.assigned_to.HeaderText = "Assigned To";
+            this.assigned_to.MaxInputLength = 100;
+            this.assigned_to.MinimumWidth = 6;
+            this.assigned_to.Name = "assigned_to";
+            this.assigned_to.ReadOnly = true;
+            this.assigned_to.Width = 200;
+            // 
+            // configuration_item
+            // 
+            this.configuration_item.DataPropertyName = "ConfigurationItem";
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.GhostWhite;
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Black;
+            this.configuration_item.DefaultCellStyle = dataGridViewCellStyle8;
+            this.configuration_item.HeaderText = "Configuration Item";
+            this.configuration_item.MaxInputLength = 100;
+            this.configuration_item.MinimumWidth = 6;
+            this.configuration_item.Name = "configuration_item";
+            this.configuration_item.ReadOnly = true;
+            this.configuration_item.Width = 180;
+            // 
+            // short_description
+            // 
+            this.short_description.DataPropertyName = "ShortDescription";
+            dataGridViewCellStyle9.BackColor = System.Drawing.Color.GhostWhite;
+            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.Black;
+            this.short_description.DefaultCellStyle = dataGridViewCellStyle9;
+            this.short_description.HeaderText = "Short Description";
+            this.short_description.MaxInputLength = 500;
+            this.short_description.MinimumWidth = 6;
+            this.short_description.Name = "short_description";
+            this.short_description.ReadOnly = true;
+            this.short_description.Width = 280;
+            // 
+            // email
+            // 
+            this.email.DataPropertyName = "email";
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.GhostWhite;
+            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.Black;
+            this.email.DefaultCellStyle = dataGridViewCellStyle10;
+            this.email.HeaderText = "Email";
+            this.email.MaxInputLength = 100;
+            this.email.MinimumWidth = 6;
+            this.email.Name = "email";
+            this.email.ReadOnly = true;
+            this.email.Width = 280;
+            // 
+            // assignment_group
+            // 
+            this.assignment_group.DataPropertyName = "AssignmentGroup";
+            dataGridViewCellStyle11.BackColor = System.Drawing.Color.GhostWhite;
+            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.Black;
+            this.assignment_group.DefaultCellStyle = dataGridViewCellStyle11;
+            this.assignment_group.HeaderText = "Assignment Group";
+            this.assignment_group.MinimumWidth = 6;
+            this.assignment_group.Name = "assignment_group";
+            this.assignment_group.ReadOnly = true;
+            this.assignment_group.Width = 200;
             // 
             // FormIncidents
             // 
@@ -665,9 +665,13 @@
         private System.Windows.Forms.Button btnStat;
         private System.Windows.Forms.Button btnExport;
         private System.Windows.Forms.Button btnLoad;
+        private System.Windows.Forms.Button btnGotoDefault;
+        private System.Windows.Forms.Label lblFilter;
         private System.Windows.Forms.DataGridViewButtonColumn Action;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Priority;
         private System.Windows.Forms.DataGridViewTextBoxColumn Tag;
+        private System.Windows.Forms.DataGridViewTextBoxColumn created;
+        private System.Windows.Forms.DataGridViewTextBoxColumn updated;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Priority;
         private System.Windows.Forms.DataGridViewTextBoxColumn number;
         private System.Windows.Forms.DataGridViewTextBoxColumn State;
         private System.Windows.Forms.DataGridViewTextBoxColumn LocalStatus;
@@ -676,10 +680,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn configuration_item;
         private System.Windows.Forms.DataGridViewTextBoxColumn short_description;
         private System.Windows.Forms.DataGridViewTextBoxColumn email;
-        private System.Windows.Forms.DataGridViewTextBoxColumn created;
-        private System.Windows.Forms.DataGridViewTextBoxColumn updated;
         private System.Windows.Forms.DataGridViewTextBoxColumn assignment_group;
-        private System.Windows.Forms.Button btnGotoDefault;
-        private System.Windows.Forms.Label lblFilter;
     }
 }
