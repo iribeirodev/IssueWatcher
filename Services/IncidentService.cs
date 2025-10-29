@@ -75,6 +75,7 @@ namespace IssueWatcher.Services
                             Email = reader["email"]?.ToString(),
                             LocalStatus = reader["local_status"]?.ToString(),
                             CurrentIncident = reader["current_incident"]?.ToString(),
+                            IssueType = reader["issue_type"]?.ToString(),
                         };
 
                         incidents.Add(incident);
@@ -234,6 +235,46 @@ namespace IssueWatcher.Services
             return localStatusList;
         }
 
+
+        /// <summary>
+        /// Obtém uma lista de todos os valores distintos e não vazios de "issue_type" (tipo de incidente) 
+        /// da tabela de incidentes, ordenados alfabeticamente.
+        /// </summary>
+        /// <returns>Uma <see cref="List{T}"/> de strings com os status locais distintos.</returns>
+        public List<string> GetAllIssueTypes()
+        {
+            var issueTypeList = new List<string>();
+
+            // Altera a coluna de 'state' para 'local_status'
+            string sql = @"
+            SELECT DISTINCT issue_type
+            FROM incidents
+            WHERE issue_type IS NOT NULL AND issue_type != ''
+            ORDER BY issue_type;";
+
+            using (var conn = new SQLiteConnection($"Data Source={_databaseFile};Version=3;"))
+            {
+                conn.Open();
+
+                using (var cmd = new SQLiteCommand(sql, conn))
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string sIssueType = reader["issue_type"]?.ToString();
+
+                        if (!string.IsNullOrWhiteSpace(sIssueType))
+                        {
+                            issueTypeList.Add(sIssueType);
+                        }
+                    }
+                }
+            }
+
+            return issueTypeList;
+        }
+
+
         /// <summary>
         /// Obtém o número do incidente que está marcado na coluna 'current_incident' do banco de dados.
         /// </summary>
@@ -304,6 +345,7 @@ namespace IssueWatcher.Services
                                 Email = reader["email"]?.ToString(),
                                 LocalStatus = reader["local_status"]?.ToString(),
                                 CurrentIncident = reader["current_incident"]?.ToString(),
+                                IssueType = reader["issue_type"]?.ToString(),
                             };
                         }
                     }
@@ -605,13 +647,15 @@ namespace IssueWatcher.Services
         /// <param name="assignedTo">O novo responsável pelo incidente.</param>
         /// <param name="localStatus">O novo status local do incidente.</param>
         /// <param name="localPriority">A nova prioridade local do incidente.</param>
+        /// <param name="issueType">O novo tipo de incidente.</param>
         /// <returns><c>true</c> se pelo menos uma linha foi afetada (incidente encontrado e atualizado); caso contrário, <c>false</c>.</returns>
         public bool UpdateIncident(
             string number,
             string state,
             string assignedTo,
             string localStatus,
-            string localPriority)
+            string localPriority,
+            string issueType)
         {
             if (string.IsNullOrWhiteSpace(number))
             {
@@ -623,7 +667,8 @@ namespace IssueWatcher.Services
                     state = @State,
                     assigned_to = @AssignedTo,
                     local_status = @LocalStatus,
-                    local_priority = @LocalPriority
+                    local_priority = @LocalPriority,
+                    issue_type = @IssueType
                 WHERE 
                     number = @Number;";
 
@@ -637,6 +682,7 @@ namespace IssueWatcher.Services
                     cmd.Parameters.AddWithValue("@AssignedTo", assignedTo ?? (object)DBNull.Value);
                     cmd.Parameters.AddWithValue("@LocalStatus", localStatus ?? (object)DBNull.Value);
                     cmd.Parameters.AddWithValue("@LocalPriority", localPriority ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@IssueType", issueType ?? (object)DBNull.Value);
 
                     cmd.Parameters.AddWithValue("@Number", number);
 

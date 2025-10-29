@@ -13,6 +13,7 @@ namespace IssueWatcher
         public string PriorityUpdated { get; set; }
         public string StateUpdated { get; set; }
         public string LocalStatusUpdated { get; set; }
+        public string IssueType { get; set; }
         public bool Changed { get; set; } = false;
 
         private IncidentService _incidentService;
@@ -48,6 +49,13 @@ namespace IssueWatcher
             {
                 cboLocalStatus.Items.Add(status);
             }
+
+            cboIssueType.Items.Clear();
+            var listIssueType = _incidentService.GetAllIssueTypes();
+            foreach (var issueType in listIssueType)
+            {
+                cboIssueType.Items.Add(issueType);
+            }
         }
 
         private void FormEditIncident_Load(object sender, EventArgs e)
@@ -73,6 +81,7 @@ namespace IssueWatcher
                 txtEmail.Text = incidentToEdit.Email;
                 txtShortDescription.Text = incidentToEdit.ShortDescription;
                 cboLocalStatus.Text = incidentToEdit.LocalStatus;
+                cboIssueType.Text = incidentToEdit.IssueType;
             }
 
             _isLoading = false;
@@ -103,12 +112,14 @@ namespace IssueWatcher
                 state: cboState.Text, 
                 assignedTo: cboAssignedTo.Text,
                 localStatus: cboLocalStatus.Text, 
-                localPriority: cboPriority.Text))
+                localPriority: cboPriority.Text,
+                issueType: cboIssueType.Text))
             {
                 AssignedToUpdated = cboAssignedTo.Text;
                 PriorityUpdated = cboPriority.Text;
                 StateUpdated = cboState.Text;
                 LocalStatusUpdated = cboLocalStatus.Text;
+                IssueType = cboIssueType.Text;
             }
         }
     }

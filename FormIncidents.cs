@@ -568,9 +568,11 @@ namespace IssueWatcher
             if (formEditIncident.Changed)
             {
                 dgvIncidents.CurrentRow.Cells["Priority"].Value = formEditIncident.PriorityUpdated;
+                dgvIncidents.CurrentRow.Cells["IssueType"].Value = formEditIncident.IssueType;
                 dgvIncidents.CurrentRow.Cells["assigned_to"].Value = formEditIncident.AssignedToUpdated;
                 dgvIncidents.CurrentRow.Cells["state"].Value = formEditIncident.StateUpdated;
                 dgvIncidents.CurrentRow.Cells["LocalStatus"].Value = formEditIncident.LocalStatusUpdated;
+                
             }
         }
 

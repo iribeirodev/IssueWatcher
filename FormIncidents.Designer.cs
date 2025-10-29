@@ -68,6 +68,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.Action = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.IssueType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Tag = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.created = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.updated = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -99,6 +100,7 @@
             this.dgvIncidents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvIncidents.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Action,
+            this.IssueType,
             this.Tag,
             this.created,
             this.updated,
@@ -456,6 +458,14 @@
             this.Action.UseColumnTextForButtonValue = true;
             this.Action.Width = 70;
             // 
+            // IssueType
+            // 
+            this.IssueType.DataPropertyName = "IssueType";
+            this.IssueType.HeaderText = "Issue Type";
+            this.IssueType.Name = "IssueType";
+            this.IssueType.ReadOnly = true;
+            this.IssueType.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
             // Tag
             // 
             this.Tag.DataPropertyName = "tag";
@@ -668,6 +678,7 @@
         private System.Windows.Forms.Button btnGotoDefault;
         private System.Windows.Forms.Label lblFilter;
         private System.Windows.Forms.DataGridViewButtonColumn Action;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IssueType;
         private System.Windows.Forms.DataGridViewTextBoxColumn Tag;
         private System.Windows.Forms.DataGridViewTextBoxColumn created;
         private System.Windows.Forms.DataGridViewTextBoxColumn updated;

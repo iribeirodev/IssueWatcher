@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cboIssueType = new System.Windows.Forms.ComboBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.cboState = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cboLocalStatus = new System.Windows.Forms.ComboBox();
@@ -61,6 +63,8 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(236)))), ((int)(((byte)(237)))));
+            this.panel1.Controls.Add(this.cboIssueType);
+            this.panel1.Controls.Add(this.label14);
             this.panel1.Controls.Add(this.cboState);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.cboLocalStatus);
@@ -89,8 +93,31 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(12, 24);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1169, 542);
+            this.panel1.Size = new System.Drawing.Size(1169, 600);
             this.panel1.TabIndex = 27;
+            // 
+            // cboIssueType
+            // 
+            this.cboIssueType.BackColor = System.Drawing.Color.White;
+            this.cboIssueType.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboIssueType.ForeColor = System.Drawing.Color.Black;
+            this.cboIssueType.FormattingEnabled = true;
+            this.cboIssueType.Location = new System.Drawing.Point(33, 332);
+            this.cboIssueType.Name = "cboIssueType";
+            this.cboIssueType.Size = new System.Drawing.Size(364, 27);
+            this.cboIssueType.TabIndex = 55;
+            this.cboIssueType.SelectedIndexChanged += new System.EventHandler(this.Value_Changed);
+            this.cboIssueType.TextUpdate += new System.EventHandler(this.Value_Changed);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(30, 314);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(62, 15);
+            this.label14.TabIndex = 54;
+            this.label14.Text = "Issue Type";
             // 
             // cboState
             // 
@@ -99,7 +126,7 @@
             this.cboState.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboState.ForeColor = System.Drawing.Color.Black;
             this.cboState.FormattingEnabled = true;
-            this.cboState.Location = new System.Drawing.Point(498, 481);
+            this.cboState.Location = new System.Drawing.Point(498, 555);
             this.cboState.Name = "cboState";
             this.cboState.Size = new System.Drawing.Size(292, 27);
             this.cboState.TabIndex = 53;
@@ -110,7 +137,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(494, 458);
+            this.label2.Location = new System.Drawing.Point(494, 532);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(34, 15);
             this.label2.TabIndex = 52;
@@ -122,7 +149,7 @@
             this.cboLocalStatus.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboLocalStatus.ForeColor = System.Drawing.Color.Black;
             this.cboLocalStatus.FormattingEnabled = true;
-            this.cboLocalStatus.Location = new System.Drawing.Point(826, 481);
+            this.cboLocalStatus.Location = new System.Drawing.Point(826, 555);
             this.cboLocalStatus.Name = "cboLocalStatus";
             this.cboLocalStatus.Size = new System.Drawing.Size(292, 27);
             this.cboLocalStatus.TabIndex = 11;
@@ -143,7 +170,7 @@
             "4",
             "5",
             ""});
-            this.cboPriority.Location = new System.Drawing.Point(379, 481);
+            this.cboPriority.Location = new System.Drawing.Point(379, 555);
             this.cboPriority.Name = "cboPriority";
             this.cboPriority.Size = new System.Drawing.Size(61, 27);
             this.cboPriority.TabIndex = 8;
@@ -154,7 +181,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(822, 458);
+            this.label13.Location = new System.Drawing.Point(822, 532);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(71, 15);
             this.label13.TabIndex = 49;
@@ -166,7 +193,7 @@
             this.cboAssignedTo.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboAssignedTo.ForeColor = System.Drawing.Color.Black;
             this.cboAssignedTo.FormattingEnabled = true;
-            this.cboAssignedTo.Location = new System.Drawing.Point(32, 481);
+            this.cboAssignedTo.Location = new System.Drawing.Point(32, 555);
             this.cboAssignedTo.Name = "cboAssignedTo";
             this.cboAssignedTo.Size = new System.Drawing.Size(292, 27);
             this.cboAssignedTo.TabIndex = 2;
@@ -178,7 +205,7 @@
             this.txtShortDescription.BackColor = System.Drawing.Color.WhiteSmoke;
             this.txtShortDescription.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtShortDescription.ForeColor = System.Drawing.Color.SlateGray;
-            this.txtShortDescription.Location = new System.Drawing.Point(32, 348);
+            this.txtShortDescription.Location = new System.Drawing.Point(32, 422);
             this.txtShortDescription.MaxLength = 500;
             this.txtShortDescription.Multiline = true;
             this.txtShortDescription.Name = "txtShortDescription";
@@ -308,7 +335,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(375, 458);
+            this.label7.Location = new System.Drawing.Point(375, 532);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(45, 15);
             this.label7.TabIndex = 34;
@@ -348,7 +375,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(28, 325);
+            this.label5.Location = new System.Drawing.Point(28, 399);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(100, 15);
             this.label5.TabIndex = 30;
@@ -368,7 +395,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(29, 458);
+            this.label3.Location = new System.Drawing.Point(29, 532);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(71, 15);
             this.label3.TabIndex = 28;
@@ -389,7 +416,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(236)))), ((int)(((byte)(237)))));
-            this.ClientSize = new System.Drawing.Size(1202, 593);
+            this.ClientSize = new System.Drawing.Size(1202, 649);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -435,5 +462,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cboState;
+        private System.Windows.Forms.ComboBox cboIssueType;
+        private System.Windows.Forms.Label label14;
     }
 }
