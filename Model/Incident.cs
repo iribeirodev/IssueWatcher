@@ -19,5 +19,6 @@
         public string CurrentIncident { get; set; }
         public string LocalPriority { get; set; }
         public string IssueType { get; set; }
+        public string Age { get; set; }
     }
 }

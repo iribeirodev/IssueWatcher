@@ -51,6 +51,7 @@ namespace IssueWatcher
             {
                 case EnumControlState.Initial:
                     txtSearchNumber.Enabled = false;
+                    txtSearchText.Enabled = false;
 
                     btnFilter.Enabled = false;
                     btnClearFilter.Enabled = false;
@@ -69,6 +70,9 @@ namespace IssueWatcher
                     txtSearchNumber.Enabled = true;
                     txtSearchNumber.Text = "";
 
+                    txtSearchText.Enabled = true;
+                    txtSearchText.Text = "";
+
                     btnFilter.Enabled = true;
                     btnClearFilter.Enabled = false;
                     btnLoad.Enabled = true;
@@ -83,6 +87,7 @@ namespace IssueWatcher
                     break;
                 case EnumControlState.Selected:
                     txtSearchNumber.Enabled = true;
+                    txtSearchText.Enabled = true;
 
                     btnFilter.Enabled = true;
                     btnClearFilter.Enabled = false;
@@ -157,53 +162,42 @@ namespace IssueWatcher
         /// </summary>
         private void SortListByDateFields(string columnName)
         {
-            // Só processa colunas de data ===
-            if (columnName != "created" && columnName != "updated")
+            string[] allowedFields = { "created", "updated", "Age" };
+
+            if (!allowedFields.Contains(columnName))
                 return;
 
-            // Alternância da Direção de Ordenação
-
-            // Obtém a direção atual (se for 'asc' ou nulo/diferente, será 'asc' por padrão).
             bool isAscending = dgvIncidents.Tag != null && dgvIncidents.Tag.ToString() == "asc";
             bool ascending = !isAscending;
-
-            // Atualiza o Tag do DataGridView para a próxima chamada.
             dgvIncidents.Tag = ascending ? "asc" : "desc";
-
-
-            // Verifica se há um filtro de estado ativo.
-            //bool hasStateFilter = !string.IsNullOrEmpty(cboSearchState.Text);
-            //string criteria = cboSearchState.Text;
-
-            // Cria a lista de incidentes a ser ordenada:
-            //sortablebindinglist<incident> listtosort = hasstatefilter
-            //    // se houver filtro, filtra a lista original.
-            //    ? new sortablebindinglist<incident>(
-            //        listincidents.where(i => i.state != null && i.state == criteria).tolist()
-            //    )
-            //    // se não houver filtro, usa a lista completa.
-            //    : listincidents;
 
             bool hasStateFilter = btnClearFilter.Enabled;
 
-
             SortableBindingList<Incident> listToSort = hasStateFilter
-                    ? new SortableBindingList<Incident>(
-                        _filteredIncidents)
-                    : _listIncidents;
+                ? new SortableBindingList<Incident>(_filteredIncidents)
+                : _listIncidents;
 
-            // Função helper para parse seguro da data (para usar no LINQ).
-            Func<Incident, DateTime> dateSelector = i =>
-                System.DateTime.TryParse(columnName == "created" ? i.Created : i.Updated, out var dt)
-                ? dt : System.DateTime.MinValue;
+            // Função de ordenação para cada campo
+            Func<Incident, IComparable> selector;
 
-            //// Seleciona a ordenação (Ascendente ou Descendente)
+            if (columnName == "created")
+            {
+                selector = i => DateTime.TryParse(i.Created, out var dt) ? dt : DateTime.MinValue;
+            }
+            else if (columnName == "updated")
+            {
+                selector = i => DateTime.TryParse(i.Updated, out var dt) ? dt : DateTime.MinValue;
+            }
+            else // Age
+            {
+                selector = i => int.TryParse(i.Age, out var age) ? age : int.MinValue;
+            }
+
             var sortedList = ascending
-                ? listToSort.OrderBy(dateSelector).ToList()
-                : listToSort.OrderByDescending(dateSelector).ToList();
+                ? listToSort.OrderBy(selector).ToList()
+                : listToSort.OrderByDescending(selector).ToList();
 
             dgvIncidents.DataSource = new SortableBindingList<Incident>(sortedList);
-
         }
 
         /// <summary>
@@ -343,6 +337,7 @@ namespace IssueWatcher
             btnClearFilter.Enabled = (statesChecked.Count > 0) || (localStatusChecked.Count > 0) || (configurationItemChecked.Count > 0);
 
             txtSearchNumber.Text = "";
+            txtSearchText.Text = "";
 
             _filteredIncidents = _listIncidents.Where(incident =>
                 (statesChecked.Count == 0 || statesChecked.Contains(incident.State))
@@ -365,6 +360,9 @@ namespace IssueWatcher
         private void RemoveFilter()
         {
             btnClearFilter.Enabled = false;
+
+            txtSearchNumber.Text = "";
+            txtSearchText.Text = "";
 
             UncheckAllFilters(lstFilterStates);
             UncheckAllFilters(lstFilterLocalStatus);
@@ -583,12 +581,48 @@ namespace IssueWatcher
                 e.Handled = true;
         }
 
+        private void txtSearchText_TextChanged(object sender, EventArgs e)
+        {
+            if (_listIncidents == null) return;
+
+            txtSearchNumber.Text = "";
+
+            string filterValue = txtSearchText.Text.Trim();
+
+            // Mostra todos
+            if (string.IsNullOrEmpty(filterValue) || filterValue.Length <= 3)
+            {
+                dgvIncidents.DataSource = _listIncidents;
+                return;
+            }
+
+            SortableBindingList<Incident> filtered = null;
+
+            if (_filteredIncidents != null || _filteredIncidents.Count > 0)
+            {
+                filtered = new SortableBindingList<Incident>(
+                    _filteredIncidents.Where(i => i.ShortDescription != null && i.ShortDescription.Contains(filterValue)).ToList()
+                );
+            }
+            else
+            {
+                filtered = new SortableBindingList<Incident>(
+                    _listIncidents.Where(i => i.ShortDescription != null && i.ShortDescription.Contains(filterValue)).ToList()
+                );
+            }
+
+            dgvIncidents.DataSource = filtered;
+
+        }
+
         /// <summary>
         /// Busca pelo incidente digitando o número como critério
         /// </summary>
         private void txtSearchNumber_TextChanged(object sender, EventArgs e)
         {
             if (_listIncidents == null) return;
+
+            txtSearchText.Text = "";
 
             string filterValue = txtSearchNumber.Text.Trim();
             // Mostra todos
@@ -598,10 +632,21 @@ namespace IssueWatcher
                 return;
             }
 
+            SortableBindingList<Incident> filtered = null;
+
+            if (_filteredIncidents != null || _filteredIncidents.Count > 0)
+            {
+                filtered = new SortableBindingList<Incident>(
+                    _filteredIncidents.Where(i => i.Number != null && i.Number.Contains(filterValue)).ToList()
+                );
+            } else
+            {
+                filtered = new SortableBindingList<Incident>(
+                    _listIncidents.Where(i => i.Number != null && i.Number.Contains(filterValue)).ToList()
+                );
+            }
+
             // Filtra apenas números que contêm o valor digitado no campo Number
-            var filtered = new SortableBindingList<Incident>(
-                _listIncidents.Where(i => i.Number != null && i.Number.Contains(filterValue)).ToList()
-            );
 
             dgvIncidents.DataSource = filtered;
         }
@@ -676,5 +721,7 @@ namespace IssueWatcher
                     MessageBoxIcon.Information);
             }
         }
+
+
     }
 }

@@ -48,7 +48,13 @@ namespace IssueWatcher.Services
                 }
 
                 string sql = $@"
-                    SELECT i.* FROM incidents i
+                    SELECT i.*, 
+                      CAST(
+                        julianday(DATE('now')) - julianday(
+                          substr(created, 7, 4) || '-' || substr(created, 4, 2) || '-' || substr(created, 1, 2)
+                        )
+                      AS INTEGER) AS age
+                    FROM incidents i
                     ORDER BY state DESC, created ASC 
                     {limitClause};";
 
@@ -76,6 +82,7 @@ namespace IssueWatcher.Services
                             LocalStatus = reader["local_status"]?.ToString(),
                             CurrentIncident = reader["current_incident"]?.ToString(),
                             IssueType = reader["issue_type"]?.ToString(),
+                            Age = reader["age"]?.ToString(),
                         };
 
                         incidents.Add(incident);

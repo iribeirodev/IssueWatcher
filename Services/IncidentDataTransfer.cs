@@ -181,7 +181,7 @@ namespace IssueWatcher.Services
                 {
                     "Priority", "Number", "Status", "AssignmentGroup", "State", "Caller", "AssignedTo",
                     "Created", "Updated", "ShortDescription",
-                    "SlaDue", "ConfigurationItem", "Resolved", "Email", "Notas"
+                    "SlaDue", "ConfigurationItem", "Resolved", "Email", "Issue Type", "Observações"
                 };
 
                 for (int col = 0; col < headers.Count; col++)
@@ -205,11 +205,13 @@ namespace IssueWatcher.Services
                     worksheet.Cell(row + 2, 12).Value = inc.ConfigurationItem;
                     worksheet.Cell(row + 2, 13).Value = inc.Resolved;
                     worksheet.Cell(row + 2, 14).Value = inc.Email;
+                    worksheet.Cell(row + 2, 15).Value = inc.IssueType;
+
 
                     // Notas
                     var notes = service.GetNotes(inc.Number);
-                    worksheet.Cell(row + 2, 15).Value = string.Join(Environment.NewLine, notes);
-                    worksheet.Cell(row + 2, 15).Style.Alignment.WrapText = true; // Permite quebras de linha
+                    worksheet.Cell(row + 2, 16).Value = string.Join(Environment.NewLine, notes);
+                    worksheet.Cell(row + 2, 16).Style.Alignment.WrapText = true; // Permite quebras de linha
                 }
 
                 worksheet.Columns().AdjustToContents(); // Ajusta largura automaticamente
