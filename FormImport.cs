@@ -28,6 +28,8 @@ namespace IssueWatcher
                 Cursor = Cursors.WaitCursor;
                 _incidentDataTransfer.ImportIncidents(_fileName);
 
+                _incidentDataTransfer.UpsertLastImported(1);
+
                 Cursor = Cursors.Default;
                 MessageBox.Show(Properties.Resources.SUCCESSFULL_IMPORTING,
                                     "Sucess", 
@@ -38,13 +40,18 @@ namespace IssueWatcher
             }
             catch (InvalidDataException iex)
             {
+                _incidentDataTransfer.UpsertLastImported(0);
+
                 MessageBox.Show(Properties.Resources.ERROR_IMPORTING.Replace("{error}", iex.Message) , 
                                     "Error", 
                                     MessageBoxButtons.OK, 
                                     MessageBoxIcon.Error);
+
             }
             catch (Exception ex)
             {
+                _incidentDataTransfer.UpsertLastImported(0);
+
                 MessageBox.Show(Properties.Resources.ERROR_IMPORTING.Replace("{error}", ex.Message),
                                     "Error",
                                     MessageBoxButtons.OK,
@@ -77,5 +84,14 @@ namespace IssueWatcher
         }
 
         private void btnImport_Click(object sender, EventArgs e) => ImportIssues();
+
+        private void FormImport_Load(object sender, EventArgs e)
+        {
+            var lastImported = _incidentDataTransfer.GetLastImported();
+            if (lastImported != null)
+            {
+                lblLastImported.Text = $"Last imported at {lastImported.DateImported}, Status: {(lastImported.Successful == 1 ? "Successful" : "Failed")}";
+            }
+        }
     }
 }

@@ -178,6 +178,15 @@ namespace IssueWatcher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to https://abbnow.service-now.com/nav_to.do?uri=incident.do?sysparm_query=number={number}.
+        /// </summary>
+        internal static string INCIDENT_URL_SEARCH {
+            get {
+                return ResourceManager.GetString("INCIDENT_URL_SEARCH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please provide a valid file title (do not include the file extension)..
         /// </summary>
         internal static string INVALID_FILE_NAME {

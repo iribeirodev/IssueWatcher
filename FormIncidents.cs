@@ -22,9 +22,6 @@ namespace IssueWatcher
         private List<Incident> _filteredIncidents;              // Incidentes com filtro aplicado
         private HashSet<string> _incidentNumbersWithNotes;      // Incidentes com anotações
 
-
-        private const string INCIDENT_URL_SEARCH = "https://myservices.abb.com/cs_gr?id=search&spa=1&q={number}";
-
         private readonly Color TAG_COLOR = ColorTranslator.FromHtml(Properties.Resources.TAG_COLOR);
         private readonly Color NOTES_COLOR = ColorTranslator.FromHtml(Properties.Resources.NOTES_COLOR);
         
@@ -284,8 +281,8 @@ namespace IssueWatcher
                 var number = dgvIncidents.CurrentRow.Cells["number"].Value.ToString();
 
                 Process.Start(new ProcessStartInfo
-                {
-                    FileName = INCIDENT_URL_SEARCH.Replace("{number}", number),
+                {   
+                    FileName = Properties.Resources.INCIDENT_URL_SEARCH.Replace("{number}", number),
                     UseShellExecute = true
                 });
             }

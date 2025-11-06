@@ -1,9 +1,10 @@
-﻿using System;
+﻿using ClosedXML.Excel;
+using IssueWatcher.Model;
+using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
-using ClosedXML.Excel;
 
 namespace IssueWatcher.Services
 {
@@ -110,6 +111,66 @@ namespace IssueWatcher.Services
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Atualiza ou insere o registro de última importação na tabela last_imported.
+        /// </summary>
+        /// <param name="successful">Indica se a importação foi bem-sucedida (1 para sucesso, 0 para falha).</param>
+        public void UpsertLastImported(int successful)
+        {
+            string databaseFile = _configReader.GetDatabaseName();
+            using (var conn = new SQLiteConnection($"Data Source={databaseFile};Version=3;"))
+            {
+                conn.Open();
+
+                string checkSql = "SELECT COUNT(*) FROM last_imported;";
+                string updateSql = "UPDATE last_imported SET successful = @successful, date_imported = @date_imported;";
+                string insertSql = "INSERT INTO last_imported (successful, date_imported) VALUES (@successful, @date_imported);";
+
+                using (var checkCmd = new SQLiteCommand(checkSql, conn))
+                {
+                    long count = (long)checkCmd.ExecuteScalar();
+                    string sqlToExecute = count > 0 ? updateSql : insertSql;
+
+                    using (var cmd = new SQLiteCommand(sqlToExecute, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@successful", successful);
+                        cmd.Parameters.AddWithValue("@date_imported", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Recupera o registro mais recente da tabela last_imported.
+        /// </summary>
+        /// <returns>Instância de <see cref="LastImportedModel"/> contendo os dados da última importação, ou null se não houver registro.</returns>
+        public LastImportedModel GetLastImported()
+        {
+            string databaseFile = _configReader.GetDatabaseName();
+            using (var conn = new SQLiteConnection($"Data Source={databaseFile};Version=3;"))
+            {
+                conn.Open();
+
+                string query = "SELECT successful, date_imported FROM last_imported LIMIT 1;";
+
+                using (var cmd = new SQLiteCommand(query, conn))
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return new LastImportedModel
+                        {
+                            Successful = reader.GetInt32(0),
+                            DateImported = reader.GetString(1)
+                        };
+                    }
+                }
+            }
+
+            return null;
         }
 
         /// <summary>

@@ -1,7 +1,11 @@
-﻿using System;
+﻿using IssueWatcher.Services;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Drawing;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Windows.Forms;
-using IssueWatcher.Services;
 
 namespace IssueWatcher
 {

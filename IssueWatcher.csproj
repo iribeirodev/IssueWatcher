@@ -60,6 +60,9 @@
     <Reference Include="Microsoft.Bcl.HashCode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Bcl.HashCode.1.1.1\lib\net461\Microsoft.Bcl.HashCode.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="RBush, Version=4.0.0.0, Culture=neutral, PublicKeyToken=c77e27b81f4d0187, processorArchitecture=MSIL">
       <HintPath>packages\RBush.Signed.4.0.0\lib\net47\RBush.dll</HintPath>
     </Reference>
@@ -154,6 +157,7 @@
     </Compile>
     <Compile Include="Model\Incident.cs" />
     <Compile Include="Model\IncidentStat.cs" />
+    <Compile Include="Model\LastImported.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ConfigReader.cs" />
@@ -220,6 +224,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="create_script.txt" />
+    <Content Include="Data\create_tables.sql" />
     <Content Include="Pictures\check-mark.png" />
     <Content Include="Pictures\clear-filter.png" />
     <Content Include="Pictures\download.png" />
@@ -229,6 +234,7 @@
     <Content Include="Pictures\new.png" />
     <Content Include="Pictures\pie-chart.png" />
     <Content Include="Pictures\searching.png" />
+    <Content Include="Pictures\servicenow.png" />
     <Content Include="Pictures\settings.png" />
     <Content Include="Pictures\table.png" />
     <Content Include="Pictures\tag.png" />

@@ -156,6 +156,9 @@
   <data name="GOTO_ISSUE_NUMBER" xml:space="preserve">
     <value>Navigate issue #{number}</value>
   </data>
+  <data name="INCIDENT_URL_SEARCH" xml:space="preserve">
+    <value>https://abbnow.service-now.com/nav_to.do?uri=incident.do?sysparm_query=number={number}</value>
+  </data>
   <data name="INVALID_FILE_NAME" xml:space="preserve">
     <value>Please provide a valid file title (do not include the file extension).</value>
   </data>
