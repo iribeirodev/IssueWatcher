@@ -160,6 +160,15 @@ namespace IssueWatcher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred while trying to apply changes: {error}.
+        /// </summary>
+        internal static string ERROR_TRYING_APPLY_CHANGES {
+            get {
+                return ResourceManager.GetString("ERROR_TRYING_APPLY_CHANGES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error untagging issue..
         /// </summary>
         internal static string ERROR_UNTAGGING_ISSUE {
@@ -201,6 +210,24 @@ namespace IssueWatcher.Properties {
         internal static string INVALID_ISSUE_NUMBER {
             get {
                 return ResourceManager.GetString("INVALID_ISSUE_NUMBER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A parameter with that key already exists..
+        /// </summary>
+        internal static string INVALID_PARAMETER_KEY {
+            get {
+                return ResourceManager.GetString("INVALID_PARAMETER_KEY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid parameters data.  Please fill in correctly..
+        /// </summary>
+        internal static string INVALID_PARAMETERS_DATA {
+            get {
+                return ResourceManager.GetString("INVALID_PARAMETERS_DATA", resourceCulture);
             }
         }
         
@@ -277,11 +304,29 @@ namespace IssueWatcher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nothing to copy..
+        /// </summary>
+        internal static string NOTHING_TO_COPY {
+            get {
+                return ResourceManager.GetString("NOTHING_TO_COPY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nothing to export..
         /// </summary>
         internal static string NOTHING_TO_EXPORT {
             get {
                 return ResourceManager.GetString("NOTHING_TO_EXPORT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete this parameter?.
+        /// </summary>
+        internal static string PARAMETER_DELETE_CONFIRMATION {
+            get {
+                return ResourceManager.GetString("PARAMETER_DELETE_CONFIRMATION", resourceCulture);
             }
         }
         
@@ -309,6 +354,24 @@ namespace IssueWatcher.Properties {
         internal static string SUCCESSFULL_APPLIED {
             get {
                 return ResourceManager.GetString("SUCCESSFULL_APPLIED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value copied to clipboard..
+        /// </summary>
+        internal static string SUCCESSFULL_COPIED_TO_CLIPBOARD {
+            get {
+                return ResourceManager.GetString("SUCCESSFULL_COPIED_TO_CLIPBOARD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data successfully deleted..
+        /// </summary>
+        internal static string SUCCESSFULL_DELETED {
+            get {
+                return ResourceManager.GetString("SUCCESSFULL_DELETED", resourceCulture);
             }
         }
         

@@ -38,6 +38,7 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.parametersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -60,6 +61,7 @@
             this.importFromExcelToolStripMenuItem,
             this.editIncidentDataToolStripMenuItem,
             this.templatesToolStripMenuItem,
+            this.parametersToolStripMenuItem,
             this.toolStripMenuItem1,
             this.exitToolStripMenuItem});
             this.incidentsToolStripMenuItem.Name = "incidentsToolStripMenuItem";
@@ -69,33 +71,33 @@
             // importFromExcelToolStripMenuItem
             // 
             this.importFromExcelToolStripMenuItem.Name = "importFromExcelToolStripMenuItem";
-            this.importFromExcelToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.importFromExcelToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.importFromExcelToolStripMenuItem.Text = "Import from Excel";
             this.importFromExcelToolStripMenuItem.Click += new System.EventHandler(this.importFromExcelToolStripMenuItem_Click);
             // 
             // editIncidentDataToolStripMenuItem
             // 
             this.editIncidentDataToolStripMenuItem.Name = "editIncidentDataToolStripMenuItem";
-            this.editIncidentDataToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.editIncidentDataToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.editIncidentDataToolStripMenuItem.Text = "Edit Incident Data";
             this.editIncidentDataToolStripMenuItem.Click += new System.EventHandler(this.editIncidentDataToolStripMenuItem_Click);
             // 
             // templatesToolStripMenuItem
             // 
             this.templatesToolStripMenuItem.Name = "templatesToolStripMenuItem";
-            this.templatesToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.templatesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.templatesToolStripMenuItem.Text = "Templates";
             this.templatesToolStripMenuItem.Click += new System.EventHandler(this.templatesToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(165, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -116,6 +118,13 @@
             this.statusLabel.Name = "statusLabel";
             this.statusLabel.Size = new System.Drawing.Size(117, 17);
             this.statusLabel.Text = "toolStripStatusLabel1";
+            // 
+            // parametersToolStripMenuItem
+            // 
+            this.parametersToolStripMenuItem.Name = "parametersToolStripMenuItem";
+            this.parametersToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.parametersToolStripMenuItem.Text = "Parameters";
+            this.parametersToolStripMenuItem.Click += new System.EventHandler(this.parametersToolStripMenuItem_Click);
             // 
             // FormMain
             // 
@@ -153,6 +162,7 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
         private System.Windows.Forms.ToolStripMenuItem templatesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem parametersToolStripMenuItem;
     }
 }
 

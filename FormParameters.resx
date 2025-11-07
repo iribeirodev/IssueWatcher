@@ -117,123 +117,77 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="APPLY_ISSUE_CHANGES" xml:space="preserve">
-    <value>Apply changes for issue {number} ?</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btnDelete.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wgAADsIBFShKgAAAAgRJREFUSEulls8rBGEYx9+0OUjaNjnKUZLDJkmSJEn+kk0OcnBy2zZJkqTNSU57
+        loODJDn4C6RNkvbg5OAgaa3PdzyzzM7szux66tPz832+O69ZuDirOZf9cu4SXonfDMXX1CbxnRuHh+AZ
+        qix7wVfwFbziqvlhG2/fWLbBghr+GPqJe4wMFK1XsPF4YzjLobk/nFKr4Tcb6mJdPbhoqI9D2CjqOt5B
+        C0OYUBI+YNTW/hiFPthKssSfsU/fLN4jzth6Ks4NUtQPMsnhRDA/Yuu9u++FHMUDW3QFq8Qef+NmMHOO
+        1+Ij4hV82tb/GsVZG9q3UmLjTN7OLlspbDRnUa8L4HPkekv0dun1PCEv4fUzG7bems3mdRZaCsyAvkCe
+        AMO7xDqk109Ly6AvXobahHpwZGcLyjsSgJAATNCvCxDHC9AMCOB3bYknQFyGgAAEBCDRExxY3vQJWBh5
+        RbCkPNJoegIc9gTwAQHy0BPg2xPgUOAJbEnsFZFvQWsBhv9zRfECNP0rOlSOb+eKkguAJ4Bv54q2IVZg
+        GiRQtDzxFZH7AovKI42mJ+B/KvwI+TLor1mKfA7mibshTazemJ3dAT1RcwGaUwzpCc6IU1aONWa7oAR6
+        ggUrh41mGu5M5AkeQNci7hvw65p5hE8E5AdsXbQxoN+cN+D/ixKAJZEx3MKUrTFz7hs7wFzpNBT3HwAA
+        AABJRU5ErkJggg==
+</value>
   </data>
-  <data name="COULD_NOT_FIND_TAGGED" xml:space="preserve">
-    <value>The current issue is not present in the list (may be filtered).</value>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="btnSave.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAH
+        3QAAB90BsLuKDAAAABh0RVh0U29mdHdhcmUAUGFpbnQuTkVUIDUuMS45bG7aPgAAA71JREFUSEudll9s
+        FFUUh7dFQINGwMSEF2PAWlCQIo+GSGI0oUbBEhPkycQY3e4iD7o7q00BEw3BSGempmBUHiomBcvMdOnu
+        EmI0whOBFwIaBSI70xYR/70IqBR2/c7Mod3ttBX9JV927jn3/O7cO3fmbmI65Ud2zPR8a4nn2+tc3+x0
+        fWuXsgWIWYu9s+Zt2n1MqXzujlTBeC1dyK7SUFxuYLVisBd+gSpU4EcYgVGN/Qx73bK9TMtCpYrG+1CF
+        rIbGxZ3Op0ju8m+4Bv2Ob693A3sFRs2ubzc5vtXCbxu5Pqgwy1e0PNFezHWq+fdcL9JwJArvp+AIyN0d
+        cANzqaYmVffVdxq8oe65R3/9eJa0MX0DKjpAKux0U3nfvgfTr+EGA3Vo+JbFmr+K6RU1P5IeyNylqUiY
+        yrJU/5d5MbsB0z/U/HqqZKzRVCSM14CsuaOhWxaG6+B3NRd6NRXJHd41E+PPYNQJ7Icl9vpgrjFdNB5L
+        l4zmsNMUai9ln8BwpMb8YrKQXV6tnmj0ztv3fvqN25Bwy9ZizGUrfq51iU0FYxYDnKYg4Lcjedi4W1Nj
+        ShUzKyVfYy68LTm8XoDjsDDBS/QcF1UGagsrVXTO1RSehZfShWggHuhS2t/V5IVTyVJmgeR5hzaKpxdY
+        zzCaLW/lDX5XSPKm2g8Zt1O0f4LJYcxf5vfYhDhkX9RSBrBX4lnhpt+S6eyGC05gPqj5MVG0iOIzcbMY
+        XySLmfBdEOG3BGTZbWn0wAjTatJ8nShuhas1ZhORvb9au4fCT57rJbds9tAwszRGGWC55mPCYEuNYT0F
+        Y/fmwfcatGsoJ7Bkiaqeb3ZI4+mwEVhrNR/TpkFjDmYHY+ZFY4hdFm7tWuH3vHjCWmk0wQXYr/lJxZ5/
+        CMNztQNgHv9aIrxcuATNib7z2xu52APy1Kf9uLEcbRhf0wFOJg9lY+/HwJD1CF7Xobf/Yld0VmC8msBl
+        cD86/cGMMDiF2FnbMB9OFXOtGhpT32/vNrDd8/j85ZTNpzQciWAXyMeuU0NTiqWZrZd1Yv9vVY9uDY2r
+        P9h5J8kSVKTjev+Hup0xnfZ82zODQ2lbWOtbXw4E9lxN1YtttUAHkR2Qd8tdLZqaUtRwutE3qvnKC+z7
+        NDW5DkQz2QnyTORh7ZPjkWm3OHJkli2OTfNR4htAdgufGetP+nQ7w9Y8tfl38ZAep/ATkENe7k4Gk0P/
+        J20LshV7eUmf1LL/pn3n3pQt/IAXmPIPIwMfgny7OpjJs8yqOT9sxf62jCuR+Aes/RjC0rB5PwAAAABJ
+        RU5ErkJggg==
+</value>
   </data>
-  <data name="DISTRIB_BY_LOCAL_STATUS" xml:space="preserve">
-    <value>Distribution by Local Status</value>
+  <data name="btnNew.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAA
+        4wAAAOMBD+bfpwAAABh0RVh0U29mdHdhcmUAUGFpbnQuTkVUIDUuMS45bG7aPgAAA9NJREFUSEutVF1o
+        FFcU3lIpFCrqUynte0GhFGtLoYrF2gw2PhRsH5TSpyjYQkVKarWNVqFUaRFtCdQHCzFiUop/SGtikqpo
+        ERqD6yaaoNnd2Wyy7vzP7GRns4m7X8+ZvZPJykio5sDHDPee+333fufcG1vwOIbnj3SmRo92JpvFyMIF
+        et+Wkn8e+uHnzuHx7zuy28TwwgW6GlpnuhpRuLjd8bq2HkdPbLGYqoVSwDPi94miuHnNF1M73wdOrwV6
+        1g1UuxtfFlNhkMhKwm7CLsJX8yHvYFfaQouctvcWdmzr97a8i+p5iQSkw4KyPmjRjwT8H8gWMDach/vp
+        hyh/uw64JLkksFFQhqE4WEoLLgYLtcn5obpEblL++W4UpTfwsK0B6JVuolt6QdCGoRbwKhFnmTxnVXEn
+        U0Ii7WEwAjw+RPNZs4IJgr27GaWtZM85sqdXOigo64OIG5icd5U1KriWsNF700TfQARo/GrcQkqrQLub
+        xuSmDzB9kOzpXjuNvoaVgrI+iHwfCwQi84EKjHwRsDs6yZ43UW5tRPnGnoyVvvCcoAxD8fAsEfcEAill
+        5rH2MNi+B7yRvAv3QAu81Uthtv+GbN7OpIAIAQtLiNgMBNjfx9pDYHtyVGSj/zaKm9dj8uM1mLgWR8pG
+        SdbwoqANgzpoPRFXAgEtwpK5yPt5Vdh/nIH3TgxOyx7IsoOUAWQMfCZowyDS7wLynF3FkFyKtIZxd6yE
+        HG8ia8Jt/hzehuUwT55C2iZrNboXOn4XtGEQ8Wz/j1PbXb5lRVrDtnF3ZelyGbeGUdz4OlkkQUvcw5gQ
+        IPwjaGuhuHiFiEcCAYbfIWwFf53qI6Ac+tq/tpLAKrhf74BqP/RFWSCtIUeX7y1BH4sR0QYiteYKKE4F
+        6pgOxZwGbSAcZ3AdqAhu0ycovrcC1oW//LFceAKuw3ZB79vzZR0BdYfen0Dhm53QB0ehUK/XzROZlRnE
+        zOmP4B1rgpbM+Wv4ZOS/LyAb2O+TGyoW0aK22cX8xmR0OHR8u/0E9H/j/mnYkiCHrXNHL9Gj9hK8wQ6a
+        m5mdo50jyQI6ulQLy2Kkyv4PBAlMZp9og04FNP++7v+zkEFFzE/VNsAnkIdvQ73+C3RNrbOQGqt2Ag0m
+        Ofwa27OKMOUnkBV6fMQn5UXaiAzz7DmYV2/AOfoTrDNnYfZc8V/RK3EbQ9SXfCcCckZQByo0n2Z1jGrV
+        NJtAyapahGKU63bl23YnCaPvMrT74/7cBL22tctWDx5LizqQwH5u0fZHkyLBgsKeyPk54DoIgQQLyFFJ
+        T4PxoA46yv8B6BQbGZ+U2qMAAAAASUVORK5CYII=
+</value>
   </data>
-  <data name="DISTRIB_BY_PRIOR_LEVEL_TITLE" xml:space="preserve">
-    <value>Distribution by Priority Level</value>
-  </data>
-  <data name="DISTRIB_BY_STATE_CHART_TITLE" xml:space="preserve">
-    <value>Distribution by State</value>
-  </data>
-  <data name="ERROR_APPLYING_CHANGES" xml:space="preserve">
-    <value>Error applying changes: {error}</value>
-  </data>
-  <data name="ERROR_EXPORTING" xml:space="preserve">
-    <value>An error occurred while trying to export to Excel: {error}</value>
-  </data>
-  <data name="ERROR_IMPORTING" xml:space="preserve">
-    <value>Error importing issues: {error}</value>
-  </data>
-  <data name="ERROR_PROCESSING_ISSUE" xml:space="preserve">
-    <value>Failed to process issue: {error}</value>
-  </data>
-  <data name="ERROR_STATISTICS" xml:space="preserve">
-    <value>Error retrieving statistics: {error}</value>
-  </data>
-  <data name="ERROR_TAGGING_AS_DEFAULT" xml:space="preserve">
-    <value>Error tagging issue as default.</value>
-  </data>
-  <data name="ERROR_TRYING_APPLY_CHANGES" xml:space="preserve">
-    <value>An error occurred while trying to apply changes: {error}</value>
-  </data>
-  <data name="ERROR_UNTAGGING_ISSUE" xml:space="preserve">
-    <value>Error untagging issue.</value>
-  </data>
-  <data name="GOTO_ISSUE_NUMBER" xml:space="preserve">
-    <value>Navigate issue #{number}</value>
-  </data>
-  <data name="INCIDENT_URL_SEARCH" xml:space="preserve">
-    <value>https://abbnow.service-now.com/nav_to.do?uri=incident.do?sysparm_query=number={number}</value>
-  </data>
-  <data name="INVALID_FILE_NAME" xml:space="preserve">
-    <value>Please provide a valid file title (do not include the file extension).</value>
-  </data>
-  <data name="INVALID_ISSUE_NUMBER" xml:space="preserve">
-    <value>Invalid issue number.</value>
-  </data>
-  <data name="INVALID_PARAMETERS_DATA" xml:space="preserve">
-    <value>Invalid parameters data.  Please fill in correctly.</value>
-  </data>
-  <data name="INVALID_PARAMETER_KEY" xml:space="preserve">
-    <value>A parameter with that key already exists.</value>
-  </data>
-  <data name="INVALID_SPREADSHEET" xml:space="preserve">
-    <value>Spreadsheet contains invalid columns or whole invalid header</value>
-  </data>
-  <data name="ISSUES_EXPORTED_TO_EXCEL" xml:space="preserve">
-    <value>Data successfully exported.</value>
-  </data>
-  <data name="ISSUE_TAGGED_AS_DEFAULT" xml:space="preserve">
-    <value>Issue #{number} tagged as default.</value>
-  </data>
-  <data name="ISSUE_UNTAGGED" xml:space="preserve">
-    <value>Issue #{number} was untagged.</value>
-  </data>
-  <data name="LOCAL_STATUS_SERIES_TITLE" xml:space="preserve">
-    <value>Local Status</value>
-  </data>
-  <data name="NONE_MARKED_AS_DEFAULT" xml:space="preserve">
-    <value>No issue tagged as default.</value>
-  </data>
-  <data name="NOTES_COLOR" xml:space="preserve">
-    <value>#c2ccf2</value>
-    <comment>Cor de marcação se possui anotações</comment>
-  </data>
-  <data name="NOTHING_TO_COPY" xml:space="preserve">
-    <value>Nothing to copy.</value>
-  </data>
-  <data name="NOTHING_TO_EXPORT" xml:space="preserve">
-    <value>Nothing to export.</value>
-  </data>
-  <data name="NO_INCIDENTS" xml:space="preserve">
-    <value>No incidents found.</value>
-  </data>
-  <data name="PARAMETER_DELETE_CONFIRMATION" xml:space="preserve">
-    <value>Are you sure you want to delete this parameter?</value>
-  </data>
-  <data name="REMOVE_LINE_CONFIRMATION" xml:space="preserve">
-    <value>Erase this line?</value>
-  </data>
-  <data name="STATE_SERIES_TITLE" xml:space="preserve">
-    <value>States</value>
-  </data>
-  <data name="SUCCESSFULL_APPLIED" xml:space="preserve">
-    <value>Changes applied successfully.</value>
-  </data>
-  <data name="SUCCESSFULL_COPIED_TO_CLIPBOARD" xml:space="preserve">
-    <value>Value copied to clipboard.</value>
-  </data>
-  <data name="SUCCESSFULL_DELETED" xml:space="preserve">
-    <value>Data successfully deleted.</value>
-  </data>
-  <data name="SUCCESSFULL_IMPORTING" xml:space="preserve">
-    <value>Data successfully imported.</value>
-  </data>
-  <data name="TAG_COLOR" xml:space="preserve">
-    <value>#856BA1</value>
-    <comment>Cor de marcação da tag atual</comment>
-  </data>
-  <data name="TEMPLATE_INVALID_INFO" xml:space="preserve">
-    <value>Fill in the template information correctly.</value>
-  </data>
-  <data name="UNABLE_TO_SCROLL" xml:space="preserve">
-    <value>Unable to scroll to the line.  Try reloading the list.</value>
+  <data name="btnCopyToClipboard.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        EQAACxEBf2RfkQAAAJJJREFUSEvtlUEKxCAUQz3elN7/AtPeo/0u3ATz9JcZV32QhSTxg4KWleyhM3Ql
+        Nc0R6m0w0jTpQpblA57cST3mLdSlhRpP7+Qb6tICDV3PgB01MWzAjpoYNmBHTQwbsKMmhg3YURPDBuyo
+        iWEDdtTEsAE7amLYgB01MWxIdd4BQ/4+4OfPtVI/juyQuvkntIpSbiazprHMIKQ2AAAAAElFTkSuQmCC
+</value>
   </data>
 </root>

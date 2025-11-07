@@ -61,5 +61,12 @@ namespace IssueWatcher
             formTemplates.MdiParent = this;
             formTemplates.Show();
         }
+
+        private void parametersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormParameters formParameters = new FormParameters();
+            formParameters.MdiParent = this;
+            formParameters.Show();
+        }
     }
 }
