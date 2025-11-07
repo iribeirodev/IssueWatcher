@@ -96,7 +96,7 @@ namespace IssueWatcher
                     btnGoTo.Enabled = true;
                     btnExport.Enabled = true;
 
-                    btnGotoDefault.Enabled = false;
+                    btnGotoDefault.Enabled = true;
 
                     break;
             }
@@ -138,23 +138,27 @@ namespace IssueWatcher
         /// </summary>
         private void SetIncidentAsCurrent()
         {
-            string currentIncidentNumber = _incidentService.GetCurrentIncident();
-            if (string.IsNullOrEmpty(currentIncidentNumber))
+            List<string> currentIncidentNumbers = _incidentService.GetCurrentIncidents();
+            if (currentIncidentNumbers == null || !currentIncidentNumbers.Any())
             {
                 return;
             }
 
             foreach (DataGridViewRow row in dgvIncidents.Rows)
             {
-                if (row.Cells["number"].Value?.ToString() == currentIncidentNumber)
+                string incidentNumber = row.Cells["number"].Value?.ToString();
+
+                if (!string.IsNullOrEmpty(incidentNumber) && currentIncidentNumbers.Contains(incidentNumber))
                 {
                     row.Cells["Tag"].Style.BackColor = TAG_COLOR;
-                    break;
                 }
-
-                row.Cells["Tag"].Style.BackColor = dgvIncidents.DefaultCellStyle.BackColor;
+                else
+                {
+                    row.Cells["Tag"].Style.BackColor = dgvIncidents.DefaultCellStyle.BackColor;
+                }
             }
         }
+
 
         /// <summary>
         /// Ordena a lista pelas colunas created ou updated
@@ -241,10 +245,10 @@ namespace IssueWatcher
         private void TagIncident(DataGridViewCell cell, string number, Color defaultColor)
         {
             // Limpa tags anteriores em todas as linhas.
-            foreach (DataGridViewRow row in dgvIncidents.Rows)
-            {
-                row.Cells["Tag"].Style.BackColor = defaultColor;
-            }
+            //foreach (DataGridViewRow row in dgvIncidents.Rows)
+            //{
+            //    row.Cells["Tag"].Style.BackColor = defaultColor;
+            //}
 
             cell.Style.BackColor = TAG_COLOR;
             bool updated = _incidentService.UpdateCurrentIncident(number);
@@ -668,62 +672,85 @@ namespace IssueWatcher
         private void btnGotoDefault_Click(object sender, EventArgs e)
         {
             // Chama a rotina que encontra o incidente atual e obtém o número
-            string currentIncidentNumber = _incidentService.GetCurrentIncident();
-            if (string.IsNullOrEmpty(currentIncidentNumber))
+            //string currentIncidentNumber = _incidentService.GetCurrentIncident();
+
+            List<string> currentIncidentsNumber = _incidentService.GetCurrentIncidents();
+            if (currentIncidentsNumber != null && currentIncidentsNumber.Any())
+            {
+                _filteredIncidents = _listIncidents.Where(incident =>
+                                        currentIncidentsNumber.Contains(incident.Number)
+                                    ).ToList();
+
+                dgvIncidents.DataSource = _filteredIncidents;
+
+                // Atualiza a label com o total filtrado
+                lblFilter.Text = $"Filtrados: {_filteredIncidents.Count} de {_listIncidents.Count}";
+
+                SetIncidentAsCurrent();
+            } else
             {
                 MessageBox.Show(
                     Properties.Resources.NONE_MARKED_AS_DEFAULT,
                     "Information",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
-                return;
             }
 
-            // Procura a linha que corresponde ao número do incidente atual
-            int rowIndexToScroll = -1;
-            foreach (DataGridViewRow row in dgvIncidents.Rows)
-            {
-                // Verifica se a linha está visível (importante se houver filtros aplicados)
-                if (row.Visible && row.Cells["number"].Value?.ToString() == currentIncidentNumber)
-                {
-                    rowIndexToScroll = row.Index;
-                    break; // Linha encontrada, pode sair do loop
-                }
-            }
+            //if (string.IsNullOrEmpty(currentIncidentNumber))
+            //{
+            //    MessageBox.Show(
+            //        Properties.Resources.NONE_MARKED_AS_DEFAULT,
+            //        "Information",
+            //        MessageBoxButtons.OK,
+            //        MessageBoxIcon.Information);
+            //    return;
+            //}
 
-            // Rola o DataGridView se a linha for encontrada
-            if (rowIndexToScroll != -1)
-            {
-                try
-                {
-                    // Define a linha encontrada como a primeira linha visível da DataGridView.
-                    // Isso força a rolagem.
-                    dgvIncidents.FirstDisplayedScrollingRowIndex = rowIndexToScroll;
+            //// Procura a linha que corresponde ao número do incidente atual
+            //int rowIndexToScroll = -1;
+            //foreach (DataGridViewRow row in dgvIncidents.Rows)
+            //{
+            //    // Verifica se a linha está visível (importante se houver filtros aplicados)
+            //    if (row.Visible && row.Cells["number"].Value?.ToString() == currentIncidentNumber)
+            //    {
+            //        rowIndexToScroll = row.Index;
+            //        break; // Linha encontrada, pode sair do loop
+            //    }
+            //}
 
-                    // Opcional: Selecionar a linha para dar destaque visual
-                    //dgvIncidents.Rows[rowIndexToScroll].Selected = true;
+            //// Rola o DataGridView se a linha for encontrada
+            //if (rowIndexToScroll != -1)
+            //{
+            //    try
+            //    {
+            //        // Define a linha encontrada como a primeira linha visível da DataGridView.
+            //        // Isso força a rolagem.
+            //        dgvIncidents.FirstDisplayedScrollingRowIndex = rowIndexToScroll;
 
-                }
-                catch (InvalidOperationException)
-                {
-                    // Captura um possível erro se a linha estiver fora do range de visualização.
-                    // Isso pode acontecer se o DataGridView estiver sendo atualizado ou se a lista
-                    // de dados mudou inesperadamente.
-                    MessageBox.Show(
-                        Properties.Resources.UNABLE_TO_SCROLL,
-                        "Error",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
-                }
-            }
-            else
-            {
-                MessageBox.Show(
-                    Properties.Resources.UNABLE_TO_SCROLL,
-                    "Information",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
-            }
+            //        // Opcional: Selecionar a linha para dar destaque visual
+            //        //dgvIncidents.Rows[rowIndexToScroll].Selected = true;
+
+            //    }
+            //    catch (InvalidOperationException)
+            //    {
+            //        // Captura um possível erro se a linha estiver fora do range de visualização.
+            //        // Isso pode acontecer se o DataGridView estiver sendo atualizado ou se a lista
+            //        // de dados mudou inesperadamente.
+            //        MessageBox.Show(
+            //            Properties.Resources.UNABLE_TO_SCROLL,
+            //            "Error",
+            //            MessageBoxButtons.OK,
+            //            MessageBoxIcon.Error);
+            //    }
+            //}
+            //else
+            //{
+            //    MessageBox.Show(
+            //        Properties.Resources.UNABLE_TO_SCROLL,
+            //        "Information",
+            //        MessageBoxButtons.OK,
+            //        MessageBoxIcon.Information);
+            //}
         }
 
 

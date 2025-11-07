@@ -348,7 +348,7 @@
             // 
             this.lblFilter.AutoSize = true;
             this.lblFilter.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFilter.Location = new System.Drawing.Point(528, 160);
+            this.lblFilter.Location = new System.Drawing.Point(528, 168);
             this.lblFilter.Name = "lblFilter";
             this.lblFilter.Size = new System.Drawing.Size(46, 15);
             this.lblFilter.TabIndex = 26;
@@ -364,7 +364,7 @@
             this.btnGotoDefault.Size = new System.Drawing.Size(43, 37);
             this.btnGotoDefault.TabIndex = 25;
             this.toolTip1.SetToolTip(this.btnGotoDefault, "Find current incident");
-            this.btnGotoDefault.UseVisualStyleBackColor = true;
+            this.btnGotoDefault.UseVisualStyleBackColor = false;
             this.btnGotoDefault.Click += new System.EventHandler(this.btnGotoDefault_Click);
             // 
             // btnEdit
@@ -439,7 +439,7 @@
             this.groupBox3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.Location = new System.Drawing.Point(240, 11);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(278, 141);
+            this.groupBox3.Size = new System.Drawing.Size(278, 150);
             this.groupBox3.TabIndex = 19;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Quick Search";
@@ -506,7 +506,7 @@
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(21, 11);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(213, 141);
+            this.groupBox2.Size = new System.Drawing.Size(213, 150);
             this.groupBox2.TabIndex = 15;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Records Loaded";
@@ -556,7 +556,7 @@
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(524, 11);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1028, 141);
+            this.groupBox1.Size = new System.Drawing.Size(1028, 150);
             this.groupBox1.TabIndex = 14;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filter by";
@@ -605,7 +605,7 @@
             this.lstFilterConfigurationItem.Location = new System.Drawing.Point(639, 32);
             this.lstFilterConfigurationItem.Name = "lstFilterConfigurationItem";
             this.lstFilterConfigurationItem.ScrollAlwaysVisible = true;
-            this.lstFilterConfigurationItem.Size = new System.Drawing.Size(305, 90);
+            this.lstFilterConfigurationItem.Size = new System.Drawing.Size(305, 108);
             this.lstFilterConfigurationItem.Sorted = true;
             this.lstFilterConfigurationItem.TabIndex = 2;
             this.toolTip1.SetToolTip(this.lstFilterConfigurationItem, "Filter by Configuration Item (App)");
@@ -630,7 +630,7 @@
             this.lstFilterLocalStatus.Location = new System.Drawing.Point(326, 32);
             this.lstFilterLocalStatus.Name = "lstFilterLocalStatus";
             this.lstFilterLocalStatus.ScrollAlwaysVisible = true;
-            this.lstFilterLocalStatus.Size = new System.Drawing.Size(305, 90);
+            this.lstFilterLocalStatus.Size = new System.Drawing.Size(305, 108);
             this.lstFilterLocalStatus.Sorted = true;
             this.lstFilterLocalStatus.TabIndex = 1;
             this.toolTip1.SetToolTip(this.lstFilterLocalStatus, "Fiter by Local Status");
@@ -644,7 +644,7 @@
             this.lstFilterStates.Location = new System.Drawing.Point(15, 32);
             this.lstFilterStates.Name = "lstFilterStates";
             this.lstFilterStates.ScrollAlwaysVisible = true;
-            this.lstFilterStates.Size = new System.Drawing.Size(305, 90);
+            this.lstFilterStates.Size = new System.Drawing.Size(305, 108);
             this.lstFilterStates.Sorted = true;
             this.lstFilterStates.TabIndex = 0;
             this.toolTip1.SetToolTip(this.lstFilterStates, "Filter by State");

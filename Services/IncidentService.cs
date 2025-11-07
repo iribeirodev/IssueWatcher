@@ -302,6 +302,27 @@ namespace IssueWatcher.Services
             }
         }
 
+        public List<string> GetCurrentIncidents()
+        {
+            var list = new List<string>();
+
+            string sql = "SELECT number FROM incidents WHERE current_incident = 'Y' ";
+            using (var conn = new SQLiteConnection($"Data Source={_databaseFile};Version=3;"))
+            {
+                conn.Open();
+
+                using (var cmd = new SQLiteCommand(sql, conn))
+                {
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                            list.Add(reader["number"].ToString());
+                    }
+                }
+            }
+
+            return list;
+        }
 
         /// <summary>
         /// Obtém um único objeto <see cref="Incident"/> com base no seu número.
@@ -536,13 +557,13 @@ namespace IssueWatcher.Services
                 {
                     int rowsAffected = 0;
 
-                    // 1. Limpa a flag de todos os outros incidentes
-                    string clearSql = "UPDATE incidents SET current_incident = 'N' WHERE number != @incidentNumber;";
-                    using (var clearCmd = new SQLiteCommand(clearSql, conn))
-                    {
-                        clearCmd.Parameters.AddWithValue("@incidentNumber", incidentNumber);
-                        clearCmd.ExecuteNonQuery();
-                    }
+                    //// 1. Limpa a flag de todos os outros incidentes
+                    //string clearSql = "UPDATE incidents SET current_incident = 'N' WHERE number != @incidentNumber;";
+                    //using (var clearCmd = new SQLiteCommand(clearSql, conn))
+                    //{
+                    //    clearCmd.Parameters.AddWithValue("@incidentNumber", incidentNumber);
+                    //    clearCmd.ExecuteNonQuery();
+                    //}
 
                     // 2. Define a flag para o incidente atual
                     string setSql = "UPDATE incidents SET current_incident = 'Y' WHERE number = @incidentNumber;";
