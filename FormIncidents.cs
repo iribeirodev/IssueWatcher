@@ -22,6 +22,8 @@ namespace IssueWatcher
         private List<Incident> _filteredIncidents;              // Incidentes com filtro aplicado
         private HashSet<string> _incidentNumbersWithNotes;      // Incidentes com anotações
 
+        private string[] _filtrosIniciais = { "New", "In Progress", "Resolved" };
+
         private readonly Color TAG_COLOR = ColorTranslator.FromHtml(Properties.Resources.TAG_COLOR);
         private readonly Color NOTES_COLOR = ColorTranslator.FromHtml(Properties.Resources.NOTES_COLOR);
         
@@ -71,7 +73,7 @@ namespace IssueWatcher
                     txtSearchText.Text = "";
 
                     btnFilter.Enabled = true;
-                    btnClearFilter.Enabled = false;
+                    btnClearFilter.Enabled = true;
                     btnLoad.Enabled = true;
                     btnEdit.Enabled = false;
                     btnStat.Enabled = true;
@@ -87,7 +89,7 @@ namespace IssueWatcher
                     txtSearchText.Enabled = true;
 
                     btnFilter.Enabled = true;
-                    btnClearFilter.Enabled = false;
+                    btnClearFilter.Enabled = true;
                     btnLoad.Enabled = true;
                     btnEdit.Enabled = true;
                     btnStat.Enabled = true;
@@ -318,9 +320,14 @@ namespace IssueWatcher
 
         private void SetInitialFilter()
         {
-            lstFilterStates.SetItemChecked(2, true);
-            lstFilterStates.SetItemChecked(3, true);
-            lstFilterStates.SetItemChecked(4, true);
+            foreach (string filtro in _filtrosIniciais)
+            {
+                int index = lstFilterStates.Items.IndexOf(filtro);
+                if (index >= 0)
+                {
+                    lstFilterStates.SetItemChecked(index, true);
+                }
+            }
 
             FilterData();
         }
