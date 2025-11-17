@@ -595,7 +595,7 @@ namespace IssueWatcher
 
             txtSearchNumber.Text = "";
 
-            string filterValue = txtSearchText.Text.Trim();
+            string filterValue = txtSearchText.Text.ToLower().Trim();
 
             // Mostra todos
             if (string.IsNullOrEmpty(filterValue) || filterValue.Length <= 3)
@@ -609,13 +609,13 @@ namespace IssueWatcher
             if (_filteredIncidents != null || _filteredIncidents.Count > 0)
             {
                 filtered = new SortableBindingList<Incident>(
-                    _filteredIncidents.Where(i => i.ShortDescription != null && i.ShortDescription.Contains(filterValue)).ToList()
+                    _filteredIncidents.Where(i => i.ShortDescription != null && i.ShortDescription.ToLower().Contains(filterValue)).ToList()
                 );
             }
             else
             {
                 filtered = new SortableBindingList<Incident>(
-                    _listIncidents.Where(i => i.ShortDescription != null && i.ShortDescription.Contains(filterValue)).ToList()
+                    _listIncidents.Where(i => i.ShortDescription != null && i.ShortDescription.ToLower().Contains(filterValue)).ToList()
                 );
             }
 

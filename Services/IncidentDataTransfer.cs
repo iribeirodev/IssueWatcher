@@ -50,8 +50,7 @@ namespace IssueWatcher.Services
                 {
                     conn.Open();
 
-                    // Prepara as queries fora do loop
-                    string checkSql = "SELECT COUNT(*) FROM incidents WHERE number = @number;";
+                    string checkSql = "SELECT assigned_to FROM incidents WHERE number = @number;";
 
                     string updateSql =
                         @"UPDATE incidents SET
@@ -59,7 +58,7 @@ namespace IssueWatcher.Services
                             assigned_to = @assigned_to, priority = @priority, created = @created, 
                             updated = @updated, short_description = @short_description, sla_due = @sla_due, 
                             configuration_item = @configuration_item, resolved = @resolved, email = @email
-                        WHERE number = @number;";
+                         WHERE number = @number;";
 
                     string insertSql =
                         @"INSERT INTO incidents (
@@ -79,13 +78,11 @@ namespace IssueWatcher.Services
                         using (var checkCmd = new SQLiteCommand(checkSql, conn))
                         {
                             checkCmd.Parameters.AddWithValue("@number", number);
-                            long count = (long)checkCmd.ExecuteScalar();
+                            object existingAssignedTo = checkCmd.ExecuteScalar();
 
-                            string sqlToExecute = "";
-                            if (count > 0)
-                                sqlToExecute = updateSql;
-                            else
-                                sqlToExecute = insertSql;
+                            bool exists = existingAssignedTo != null;
+
+                            string sqlToExecute = exists ? updateSql : insertSql;
 
                             using (var cmd = new SQLiteCommand(sqlToExecute, conn))
                             {
@@ -93,7 +90,14 @@ namespace IssueWatcher.Services
                                 cmd.Parameters.AddWithValue("@number", number);
                                 cmd.Parameters.AddWithValue("@state", row.Cell(3).GetValue<string>());
                                 cmd.Parameters.AddWithValue("@caller", row.Cell(4).GetValue<string>());
-                                cmd.Parameters.AddWithValue("@assigned_to", row.Cell(5).GetValue<string>());
+
+                                // Se já existe e assigned_to não está vazio, mantém o valor atual
+                                string newAssignedTo = row.Cell(5).GetValue<string>();
+                                if (exists && !string.IsNullOrEmpty(existingAssignedTo?.ToString()))
+                                    cmd.Parameters.AddWithValue("@assigned_to", existingAssignedTo.ToString());
+                                else
+                                    cmd.Parameters.AddWithValue("@assigned_to", newAssignedTo);
+
                                 cmd.Parameters.AddWithValue("@priority", row.Cell(6).GetValue<string>());
                                 cmd.Parameters.AddWithValue("@created", row.Cell(7).GetValue<string>());
                                 cmd.Parameters.AddWithValue("@updated", row.Cell(8).GetValue<string>());
