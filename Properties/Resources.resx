@@ -144,6 +144,9 @@
   <data name="ERROR_PROCESSING_ISSUE" xml:space="preserve">
     <value>Failed to process issue: {error}</value>
   </data>
+  <data name="ERROR_SAVING_FILTER" xml:space="preserve">
+    <value>Error saving new filter: {error}</value>
+  </data>
   <data name="ERROR_STATISTICS" xml:space="preserve">
     <value>Error retrieving statistics: {error}</value>
   </data>
@@ -164,6 +167,9 @@
   </data>
   <data name="INVALID_FILE_NAME" xml:space="preserve">
     <value>Please provide a valid file title (do not include the file extension).</value>
+  </data>
+  <data name="INVALID_FILTER_NAME" xml:space="preserve">
+    <value>Please provide a valid filter name.</value>
   </data>
   <data name="INVALID_ISSUE_NUMBER" xml:space="preserve">
     <value>Invalid issue number.</value>
@@ -235,5 +241,8 @@
   </data>
   <data name="UNABLE_TO_SCROLL" xml:space="preserve">
     <value>Unable to scroll to the line.  Try reloading the list.</value>
+  </data>
+  <data name="UNSELECTED_CUSTOM_FILTER" xml:space="preserve">
+    <value>Please select a custom filter.</value>
   </data>
 </root>

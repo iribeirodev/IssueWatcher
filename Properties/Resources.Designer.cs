@@ -142,6 +142,15 @@ namespace IssueWatcher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error saving new filter: {error}.
+        /// </summary>
+        internal static string ERROR_SAVING_FILTER {
+            get {
+                return ResourceManager.GetString("ERROR_SAVING_FILTER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error retrieving statistics: {error}.
         /// </summary>
         internal static string ERROR_STATISTICS {
@@ -201,6 +210,15 @@ namespace IssueWatcher.Properties {
         internal static string INVALID_FILE_NAME {
             get {
                 return ResourceManager.GetString("INVALID_FILE_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please provide a valid filter name..
+        /// </summary>
+        internal static string INVALID_FILTER_NAME {
+            get {
+                return ResourceManager.GetString("INVALID_FILTER_NAME", resourceCulture);
             }
         }
         
@@ -408,6 +426,15 @@ namespace IssueWatcher.Properties {
         internal static string UNABLE_TO_SCROLL {
             get {
                 return ResourceManager.GetString("UNABLE_TO_SCROLL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select a custom filter..
+        /// </summary>
+        internal static string UNSELECTED_CUSTOM_FILTER {
+            get {
+                return ResourceManager.GetString("UNSELECTED_CUSTOM_FILTER", resourceCulture);
             }
         }
     }

@@ -17,6 +17,7 @@ namespace IssueWatcher
         private readonly IncidentService _incidentService;
         private readonly IncidentDataTransfer _incidentDataTransfer;
         private readonly ConfigReader _configReader;
+        private readonly CustomFilterService _customFilterService;
 
         private SortableBindingList<Incident> _listIncidents;   // Lista de incidentes padrão
         private List<Incident> _filteredIncidents;              // Incidentes com filtro aplicado
@@ -39,6 +40,7 @@ namespace IssueWatcher
             _configReader = new ConfigReader();
             _incidentService = new IncidentService(_configReader.GetDatabaseName());
             _incidentDataTransfer = new IncidentDataTransfer(_configReader);
+            _customFilterService = new CustomFilterService();
         }
 
         /// <summary>
@@ -61,6 +63,11 @@ namespace IssueWatcher
                     btnExport.Enabled = false;
                     btnGotoDefault.Enabled = false;
 
+                    txtNewFilter.Enabled = false;
+                    btnSaveFilter.Enabled = false;
+                    cboSavedFilters.Enabled = false;
+                    btnApplySavedFilter.Enabled = false;
+
                     lblFilter.Text = "";
                     cboRecordsToLoad.SelectedIndex = cboRecordsToLoad.Items.Count - 1;
 
@@ -81,6 +88,11 @@ namespace IssueWatcher
                     btnExport.Enabled = true;
                     btnGotoDefault.Enabled = true;
 
+                    txtNewFilter.Enabled = true;
+                    btnSaveFilter.Enabled = true;
+                    cboSavedFilters.Enabled = true;
+                    btnApplySavedFilter.Enabled = true;
+
                     lblFilter.Text = "";
 
                     break;
@@ -97,6 +109,11 @@ namespace IssueWatcher
                     btnExport.Enabled = true;
 
                     btnGotoDefault.Enabled = true;
+
+                    txtNewFilter.Enabled = true;
+                    btnSaveFilter.Enabled = true;
+                    cboSavedFilters.Enabled = true;
+                    btnApplySavedFilter.Enabled = true;
 
                     break;
             }
@@ -131,6 +148,13 @@ namespace IssueWatcher
 
             SetControlState(EnumControlState.Loaded);
             SetIncidentAsCurrent();
+        }
+
+        public void LoadCustomFilters()
+        {
+            var savedFilters = _customFilterService.GetAllFilters();
+            cboSavedFilters.DataSource = savedFilters;
+            cboSavedFilters.DisplayMember = "Name";
         }
 
         /// <summary>
@@ -392,6 +416,57 @@ namespace IssueWatcher
             checkedListBox.ClearSelected();
         }
 
+        private string GetCheckedItemsAsString(CheckedListBox checkedListBox)
+        {
+            var selecionados = checkedListBox.CheckedItems.Cast<string>().ToList();
+            return string.Join(",", selecionados);
+        }
+
+        private void SaveNewFilter()
+        {
+            if (string.IsNullOrEmpty(txtNewFilter.Text))
+            {
+                MessageBox.Show(Properties.Resources.INVALID_FILTER_NAME, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            var filtro = new CustomFilter
+            {
+                Name = txtNewFilter.Text.Trim(),
+                StateCriteria = GetCheckedItemsAsString(lstFilterStates),
+                LocalStatusCriteria = GetCheckedItemsAsString(lstFilterLocalStatus),
+                ConfigurationItemCriteria = GetCheckedItemsAsString(lstFilterConfigurationItem)
+            };
+
+            try
+            {
+                _customFilterService.SaveFilter(filtro);
+
+                LoadCustomFilters();
+
+                txtNewFilter.Text = "";
+
+                MessageBox.Show(Properties.Resources.SUCCESSFULL_APPLIED, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(Properties.Resources.ERROR_SAVING_FILTER.Replace("{error}", exc.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void MarkCheckedItems(CheckedListBox listBox, string criteriaCsv)
+        {
+            if (string.IsNullOrEmpty(criteriaCsv)) return;
+
+            var criterios = criteriaCsv.Split(',');
+            foreach (var criterio in criterios)
+            {
+                int index = listBox.Items.IndexOf(criterio.Trim());
+                if (index >= 0)
+                    listBox.SetItemChecked(index, true);
+            }
+        }
+
         private void FormEditIncident_Load(object sender, EventArgs e)
         {
             SetControlState(EnumControlState.Initial);
@@ -402,6 +477,7 @@ namespace IssueWatcher
             LoadData();
             LoadFilters();
             SetInitialFilter();
+            LoadCustomFilters();
         }
 
         private void dgvIncidents_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -695,64 +771,39 @@ namespace IssueWatcher
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
             }
-
-            //if (string.IsNullOrEmpty(currentIncidentNumber))
-            //{
-            //    MessageBox.Show(
-            //        Properties.Resources.NONE_MARKED_AS_DEFAULT,
-            //        "Information",
-            //        MessageBoxButtons.OK,
-            //        MessageBoxIcon.Information);
-            //    return;
-            //}
-
-            //// Procura a linha que corresponde ao número do incidente atual
-            //int rowIndexToScroll = -1;
-            //foreach (DataGridViewRow row in dgvIncidents.Rows)
-            //{
-            //    // Verifica se a linha está visível (importante se houver filtros aplicados)
-            //    if (row.Visible && row.Cells["number"].Value?.ToString() == currentIncidentNumber)
-            //    {
-            //        rowIndexToScroll = row.Index;
-            //        break; // Linha encontrada, pode sair do loop
-            //    }
-            //}
-
-            //// Rola o DataGridView se a linha for encontrada
-            //if (rowIndexToScroll != -1)
-            //{
-            //    try
-            //    {
-            //        // Define a linha encontrada como a primeira linha visível da DataGridView.
-            //        // Isso força a rolagem.
-            //        dgvIncidents.FirstDisplayedScrollingRowIndex = rowIndexToScroll;
-
-            //        // Opcional: Selecionar a linha para dar destaque visual
-            //        //dgvIncidents.Rows[rowIndexToScroll].Selected = true;
-
-            //    }
-            //    catch (InvalidOperationException)
-            //    {
-            //        // Captura um possível erro se a linha estiver fora do range de visualização.
-            //        // Isso pode acontecer se o DataGridView estiver sendo atualizado ou se a lista
-            //        // de dados mudou inesperadamente.
-            //        MessageBox.Show(
-            //            Properties.Resources.UNABLE_TO_SCROLL,
-            //            "Error",
-            //            MessageBoxButtons.OK,
-            //            MessageBoxIcon.Error);
-            //    }
-            //}
-            //else
-            //{
-            //    MessageBox.Show(
-            //        Properties.Resources.UNABLE_TO_SCROLL,
-            //        "Information",
-            //        MessageBoxButtons.OK,
-            //        MessageBoxIcon.Information);
-            //}
         }
 
+        private void btnSaveFilter_Click(object sender, EventArgs e)
+        {
+            SaveNewFilter();
+        }
 
+        private void btnApplySavedFilter_Click(object sender, EventArgs e)
+        {
+            if (cboSavedFilters.SelectedValue == null)
+            {
+                MessageBox.Show(Properties.Resources.UNSELECTED_CUSTOM_FILTER, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            var selectedFilter = (CustomFilter)cboSavedFilters.SelectedItem;
+
+            // Limpa seleções anteriores
+            foreach (int i in lstFilterStates.CheckedIndices)
+                lstFilterStates.SetItemChecked(i, false);
+
+            foreach (int i in lstFilterLocalStatus.CheckedIndices)
+                lstFilterLocalStatus.SetItemChecked(i, false);
+
+            foreach (int i in lstFilterConfigurationItem.CheckedIndices)
+                lstFilterConfigurationItem.SetItemChecked(i, false);
+
+            // Marca os itens que estão no filtro
+            MarkCheckedItems(lstFilterStates, selectedFilter.StateCriteria);
+            MarkCheckedItems(lstFilterLocalStatus, selectedFilter.LocalStatusCriteria);
+            MarkCheckedItems(lstFilterConfigurationItem, selectedFilter.ConfigurationItemCriteria);
+
+            FilterData();
+        }
     }
 }
