@@ -273,8 +273,14 @@ namespace IssueWatcher.Services
                     worksheet.Cell(row + 2, 15).Value = inc.IssueType;
 
                     // Notas
+                    string lastNote = string.Empty;
                     var notes = service.GetNotes(inc.Number);
-                    worksheet.Cell(row + 2, 16).Value = string.Join(Environment.NewLine, notes);
+                    if (notes.Any())
+                    {
+                        lastNote = notes.LastOrDefault();
+                    }
+
+                    worksheet.Cell(row + 2, 16).Value = lastNote; //string.Join(Environment.NewLine, notes);
                     worksheet.Cell(row + 2, 16).Style.Alignment.WrapText = true; // Permite quebras de linha
                 }
 
