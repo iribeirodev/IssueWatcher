@@ -789,20 +789,65 @@ namespace IssueWatcher.Services
             }
         }
 
+        ///// <summary>
+        ///// Remove todas as notas existentes para um incidente e insere uma nova lista de notas.
+        ///// A operação é realizada dentro de uma transação para garantir atomicidade (todas ou nenhuma são salvas).
+        ///// </summary>
+        ///// <param name="incidentNumber">O número único do incidente ao qual as notas estão associadas.</param>
+        ///// <param name="notes">Uma lista de strings representando as novas notas a serem inseridas. Se a lista for <c>null</c> ou vazia, todas as notas existentes serão apenas removidas.</param>
+        ///// <exception cref="ArgumentException">Lançada se o <paramref name="incidentNumber"/> for nulo ou vazio.</exception>
+        //public void ReplaceNotes(string incidentNumber, List<string> notes)
+        //{
+        //    if (string.IsNullOrWhiteSpace(incidentNumber))
+        //        throw new ArgumentException("Incident number cannot be empty.", nameof(incidentNumber));
+
+        //    if (notes == null)
+        //        notes = new List<string>();
+
+        //    using (var conn = new SQLiteConnection($"Data Source={_databaseFile};Version=3;"))
+        //    {
+        //        conn.Open();
+
+        //        using (var transaction = conn.BeginTransaction())
+        //        {
+        //            // 1. Deleta as notas existentes
+        //            using (var deleteCmd = new SQLiteCommand("DELETE FROM notes WHERE number = @number;", conn))
+        //            {
+        //                deleteCmd.Parameters.AddWithValue("@number", incidentNumber);
+        //                deleteCmd.ExecuteNonQuery();
+        //            }
+
+        //            // 2. Insere as novas notas
+        //            using (var insertCmd = new SQLiteCommand("INSERT INTO notes (number, description) VALUES (@number, @description);", conn))
+        //            {
+        //                insertCmd.Parameters.AddWithValue("@number", incidentNumber);
+        //                var descriptionParam = insertCmd.Parameters.Add("@description", System.Data.DbType.String);
+
+        //                foreach (var note in notes)
+        //                {
+        //                    descriptionParam.Value = note ?? "";
+        //                    insertCmd.ExecuteNonQuery();
+        //                }
+        //            }
+
+        //            transaction.Commit();
+        //        }
+
+        //        conn.Close();
+        //    }
+        //}
+
         /// <summary>
-        /// Remove todas as notas existentes para um incidente e insere uma nova lista de notas.
-        /// A operação é realizada dentro de uma transação para garantir atomicidade (todas ou nenhuma são salvas).
+        /// Remove a nota existente para um incidente e insere uma nova nota.
+        /// A operação é realizada dentro de uma transação para garantir atomicidade.
         /// </summary>
-        /// <param name="incidentNumber">O número único do incidente ao qual as notas estão associadas.</param>
-        /// <param name="notes">Uma lista de strings representando as novas notas a serem inseridas. Se a lista for <c>null</c> ou vazia, todas as notas existentes serão apenas removidas.</param>
+        /// <param name="incidentNumber">O número único do incidente ao qual a nota está associada.</param>
+        /// <param name="note">O texto da nota. Se for <c>null</c> ou vazio, todas as notas existentes serão apenas removidas.</param>
         /// <exception cref="ArgumentException">Lançada se o <paramref name="incidentNumber"/> for nulo ou vazio.</exception>
-        public void ReplaceNotes(string incidentNumber, List<string> notes)
+        public void ReplaceNote(string incidentNumber, string note)
         {
             if (string.IsNullOrWhiteSpace(incidentNumber))
                 throw new ArgumentException("Incident number cannot be empty.", nameof(incidentNumber));
-
-            if (notes == null)
-                notes = new List<string>();
 
             using (var conn = new SQLiteConnection($"Data Source={_databaseFile};Version=3;"))
             {
@@ -810,22 +855,20 @@ namespace IssueWatcher.Services
 
                 using (var transaction = conn.BeginTransaction())
                 {
-                    // 1. Deleta as notas existentes
+                    // 1. Deleta a nota existente
                     using (var deleteCmd = new SQLiteCommand("DELETE FROM notes WHERE number = @number;", conn))
                     {
                         deleteCmd.Parameters.AddWithValue("@number", incidentNumber);
                         deleteCmd.ExecuteNonQuery();
                     }
 
-                    // 2. Insere as novas notas
-                    using (var insertCmd = new SQLiteCommand("INSERT INTO notes (number, description) VALUES (@number, @description);", conn))
+                    // 2. Insere a nova nota (se houver)
+                    if (!string.IsNullOrWhiteSpace(note))
                     {
-                        insertCmd.Parameters.AddWithValue("@number", incidentNumber);
-                        var descriptionParam = insertCmd.Parameters.Add("@description", System.Data.DbType.String);
-
-                        foreach (var note in notes)
+                        using (var insertCmd = new SQLiteCommand("INSERT INTO notes (number, description) VALUES (@number, @description);", conn))
                         {
-                            descriptionParam.Value = note ?? "";
+                            insertCmd.Parameters.AddWithValue("@number", incidentNumber);
+                            insertCmd.Parameters.AddWithValue("@description", note);
                             insertCmd.ExecuteNonQuery();
                         }
                     }
