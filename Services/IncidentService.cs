@@ -874,6 +874,44 @@ namespace IssueWatcher.Services
             }
         }
 
+        /// <summary>
+        /// Executa um bulk update nos incidentes.
+        /// Se <paramref name="updateState"/> for true, atualiza todos os incidentes com o State informado para o novo Local Status.
+        /// Caso contrário, atualiza todos os incidentes com o Local Status informado para o novo State.
+        /// </summary>
+        /// <param name="criteriaValue">Valor atual (State ou Local Status) que será usado como filtro.</param>
+        /// <param name="newValue">Novo valor que será aplicado (Local Status ou State).</param>
+        /// <param name="updateState">Se true, atualiza Local Status a partir de State. Se false, atualiza State a partir de Local Status.</param>
+        /// <returns>Quantidade de registros afetados.</returns>
+        public int BulkUpdate(string criteriaValue, string newValue, bool updateState)
+        {
+            using (var conn = new SQLiteConnection($"Data Source={_databaseFile};Version=3;"))
+            {
+                conn.Open();
+
+                string sql;
+                if (updateState)
+                {
+                    // Atualiza todos os incidentes com State = criteriaValue para Local Status = newValue
+                    sql = "UPDATE incidents SET local_status = @newValue WHERE state = @criteriaValue;";
+                }
+                else
+                {
+                    // Atualiza todos os incidentes com Local Status = criteriaValue para State = newValue
+                    sql = "UPDATE incidents SET state = @newValue WHERE local_status = @criteriaValue;";
+                }
+
+                using (var cmd = new SQLiteCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@newValue", newValue);
+                    cmd.Parameters.AddWithValue("@criteriaValue", criteriaValue);
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    return rowsAffected;
+                }
+            }
+        }
+
         #endregion
     }
 }

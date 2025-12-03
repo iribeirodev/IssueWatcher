@@ -70,6 +70,15 @@ namespace IssueWatcher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Proceed with changing {value1} to {value2}?.
+        /// </summary>
+        internal static string CHANGE_STATES_CONFIRMATION {
+            get {
+                return ResourceManager.GetString("CHANGE_STATES_CONFIRMATION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The current issue is not present in the list (may be filtered)..
         /// </summary>
         internal static string COULD_NOT_FIND_TAGGED {

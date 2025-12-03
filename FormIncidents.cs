@@ -58,6 +58,7 @@ namespace IssueWatcher
                     btnClearFilter.Enabled = false;
                     btnLoad.Enabled = true;
                     btnEdit.Enabled = false;
+                    btnAlterStatus.Enabled = false;
                     btnStat.Enabled = false;
                     btnGoTo.Enabled = false;
                     btnExport.Enabled = false;
@@ -83,6 +84,7 @@ namespace IssueWatcher
                     btnClearFilter.Enabled = true;
                     btnLoad.Enabled = true;
                     btnEdit.Enabled = false;
+                    btnAlterStatus.Enabled = true;
                     btnStat.Enabled = true;
                     btnGoTo.Enabled = false;
                     btnExport.Enabled = true;
@@ -104,6 +106,7 @@ namespace IssueWatcher
                     btnClearFilter.Enabled = true;
                     btnLoad.Enabled = true;
                     btnEdit.Enabled = true;
+                    btnAlterStatus.Enabled = false;
                     btnStat.Enabled = true;
                     btnGoTo.Enabled = true;
                     btnExport.Enabled = true;
@@ -505,6 +508,12 @@ namespace IssueWatcher
             }
         }
 
+        private void btnAlterStatus_Click(object sender, EventArgs e)
+        {
+            FormReplaceStatus formReplaceStatus = new FormReplaceStatus();
+            formReplaceStatus.ShowDialog();
+        }
+
         private void btnFiltering_Click(object sender, EventArgs e) => FilterData();
 
         private void btnClearFilter_Click(object sender, EventArgs e) => RemoveFilter();
@@ -770,5 +779,7 @@ namespace IssueWatcher
             // Filtra apenas números que contêm o valor digitado no campo Number
             dgvIncidents.DataSource = filtered;
         }
+
+
     }
 }

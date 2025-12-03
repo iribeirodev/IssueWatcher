@@ -158,6 +158,12 @@
     <Compile Include="FormParameters.Designer.cs">
       <DependentUpon>FormParameters.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormReplaceStatus.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormReplaceStatus.Designer.cs">
+      <DependentUpon>FormReplaceStatus.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormStatistics.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -203,6 +209,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormParameters.resx">
       <DependentUpon>FormParameters.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormReplaceStatus.resx">
+      <DependentUpon>FormReplaceStatus.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormStatistics.resx">
       <DependentUpon>FormStatistics.cs</DependentUpon>
@@ -252,18 +261,23 @@
     <Content Include="Pictures\check-mark.png" />
     <Content Include="Pictures\check.png" />
     <Content Include="Pictures\clear-filter.png" />
+    <Content Include="Pictures\down-arrow.png" />
     <Content Include="Pictures\download.png" />
     <Content Include="Pictures\edit.png" />
+    <Content Include="Pictures\engine.png" />
     <Content Include="Pictures\filter.png" />
     <Content Include="Pictures\internet.png" />
+    <Content Include="Pictures\left-arrow.png" />
     <Content Include="Pictures\new.png" />
     <Content Include="Pictures\pie-chart.png" />
+    <Content Include="Pictures\right-arrow.png" />
     <Content Include="Pictures\searching.png" />
     <Content Include="Pictures\servicenow.png" />
     <Content Include="Pictures\settings.png" />
     <Content Include="Pictures\table.png" />
     <Content Include="Pictures\tag.png" />
     <Content Include="Pictures\undo.png" />
+    <Content Include="Pictures\up-arrow.png" />
     <Content Include="Pictures\upload.png" />
     <Content Include="Pictures\usefilter.png" />
     <Content Include="Pictures\warning.ico" />
