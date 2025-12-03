@@ -2,10 +2,12 @@
 using IssueWatcher.Services;
 using System;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using static System.Windows.Forms.AxHost;
 
 namespace IssueWatcher
 {
@@ -60,6 +62,7 @@ namespace IssueWatcher
             GenerateConfigurationItemChart(chartConfigurationItem);
             GenerateStateChart(chartStates);
             GenerateLocalStatusChart(chartLocalStatus);
+            GenerateTopOpenCallersChart(chartOpenCallers);
             GenerateSummary();
         }
 
@@ -74,6 +77,10 @@ namespace IssueWatcher
 
             chartCaller.ChartAreas[0].AxisX.LabelStyle.Font = _chartFontMin;
             chartCaller.ChartAreas[0].AxisY.LabelStyle.Font = _chartFontMin;
+
+            // Eixo Y (quantidade de chamados) sempre inteiro
+            chartCaller.ChartAreas[0].AxisY.Interval = 1;
+            chartCaller.ChartAreas[0].AxisY.LabelStyle.Format = "N0";
 
             // Adiciona os TopCallers dinamicamente
             foreach (var callerStat in Stats.TopCallers)
@@ -161,6 +168,56 @@ namespace IssueWatcher
                 series.Points.AddXY("Cancelled", Stats.CountCancelled);
         }
 
+        private void GenerateTopOpenCallersChart(Chart chartOpenCallers)
+        {
+            chartOpenCallers.Series.Clear();
+            var series = chartOpenCallers.Series.Add("Número de chamados");
+            series.ChartType = SeriesChartType.Bar; // barras horizontais para melhor aproveitamento
+
+            chartOpenCallers.Legends[0].Enabled = false;
+
+            chartOpenCallers.Titles.Clear();
+            chartOpenCallers.Titles.Add("Open tickets by user");
+            chartOpenCallers.Titles[0].Font = _chartFont;
+
+            // Ajuste de fontes
+            chartOpenCallers.ChartAreas[0].AxisX.LabelStyle.Font = _chartFontMin;
+            chartOpenCallers.ChartAreas[0].AxisY.LabelStyle.Font = _chartFontMin;
+
+            // Eixo Y (quantidade de chamados) sempre inteiro
+            chartOpenCallers.ChartAreas[0].AxisY.Interval = 1;
+            chartOpenCallers.ChartAreas[0].AxisY.LabelStyle.Format = "N0";
+
+            // Eixo X (usuários) – garante todos os rótulos
+            chartOpenCallers.ChartAreas[0].AxisX.Interval = 1;
+            chartOpenCallers.ChartAreas[0].AxisX.LabelStyle.IsStaggered = false;
+            //chartOpenCallers.ChartAreas[0].AxisX.LabelStyle.Angle = -15;
+            chartOpenCallers.ChartAreas[0].AxisX.LabelAutoFitStyle = LabelAutoFitStyles.DecreaseFont;
+            chartOpenCallers.ChartAreas[0].AxisX.IsLabelAutoFit = true;
+            chartOpenCallers.ChartAreas[0].AxisX.LabelStyle.Font = _chartFontMin;
+
+            // Expande área útil do gráfico
+            chartOpenCallers.ChartAreas[0].Position = new ElementPosition(5, 5, 90, 85);
+            chartOpenCallers.ChartAreas[0].InnerPlotPosition = new ElementPosition(25, 10, 70, 80);
+
+            // Ativa rolagem se houver muitos usuários
+            chartOpenCallers.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
+            chartOpenCallers.ChartAreas[0].AxisX.ScrollBar.Enabled = true;
+            chartOpenCallers.ChartAreas[0].AxisX.ScrollBar.Size = 12;
+            chartOpenCallers.ChartAreas[0].AxisX.ScrollBar.ButtonStyle = ScrollBarButtonStyles.SmallScroll;
+
+            // Exibe valores nas barras
+            series.IsValueShownAsLabel = false;
+            series.LabelFormat = "N0";
+
+            // Adiciona os dados
+            foreach (var caller in Stats.TopOpenCallers)
+            {
+                series.Points.AddXY(caller.Caller, caller.Total);
+            }
+        }
+
+
         private void GenerateSummary()
         {
             var sb = new StringBuilder();
@@ -222,6 +279,69 @@ namespace IssueWatcher
             }
         }
 
+        private void SetNextMonthYear()
+        {
+            int mes = cboMonth.SelectedIndex + 1;
+            int ano = (int)nupYear.Value;
+
+            if (mes == 12)
+            {
+                mes = 1;
+                ano++;
+            }
+            else
+            {
+                mes++;
+            }
+
+            UpdateMonthYear(mes, ano);
+        }
+
+        private void SetPrevMonthYear()
+        {
+            int mes = cboMonth.SelectedIndex + 1;
+            int ano = (int)nupYear.Value;
+
+            if (mes == 1)
+            {
+                mes = 12;
+                ano--;
+            }
+            else
+            {
+                mes--;
+            }
+
+            UpdateMonthYear(mes, ano);
+        }
+
+        private void UpdateMonthYear(int mes, int ano)
+        {
+            for (int i = 0; i < cboMonth.Items.Count; i++)
+            {
+                var item = cboMonth.Items[i].ToString();
+                var numItem = int.Parse(item.Split('-')[0]);
+
+                if (numItem == mes)
+                {
+                    cboMonth.SelectedIndex = i;
+                    break;
+                }
+            }
+
+            nupYear.Value = ano;
+        }
+
+        private void btnPrev_Click(object sender, EventArgs e)
+        {
+            SetPrevMonthYear();
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            SetNextMonthYear();
+        }
+
         private void btnFilter_Click(object sender, EventArgs e)
         {
             FilterData();
@@ -248,5 +368,7 @@ namespace IssueWatcher
         {
 
         }
+
+
     }
 }

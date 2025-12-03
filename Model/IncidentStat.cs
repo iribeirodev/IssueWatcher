@@ -7,6 +7,7 @@ namespace IssueWatcher.Model
         public string MesAno { get; set; } // Ex: "2025-10"
 
         public int TotalIncidents { get; set; }
+        public int TotalOpenIncidents { get; set; }
 
         // Contagem por estado
         public int CountCancelled { get; set; }
@@ -24,6 +25,7 @@ namespace IssueWatcher.Model
         public int CountNaoAtuado { get; set; }
 
         public List<CallerStat> TopCallers { get; set; } = new List<CallerStat>();
+        public List<CallerStat> TopOpenCallers { get; set; } = new List<CallerStat>();
 
         public List<AppStat> TopApps { get; set; } = new List<AppStat>();
     }

@@ -553,6 +553,47 @@ namespace IssueWatcher.Services
             }
         }
 
+        private void FillOpenCallers(SQLiteConnection conn, string mesAno, IncidentStat stat)
+        {
+            string query = @"
+                SELECT caller,
+                       COUNT(*) AS total_abertos
+                FROM (
+                    SELECT caller, state,
+                           STRFTIME('%Y-%m',
+                               SUBSTR(updated, 7, 4) || '-' || SUBSTR(updated, 4, 2) || '-' || SUBSTR(updated, 1, 2)
+                           ) AS mes_ano
+                    FROM incidents
+                )
+                WHERE mes_ano = @mesAno
+                  AND state NOT IN ('Closed', 'Cancelled', 'Resolved')
+                GROUP BY caller
+                ORDER BY total_abertos DESC;";
+
+            using (var cmd = new SQLiteCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("@mesAno", mesAno);
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    stat.TopOpenCallers.Clear();
+                    stat.TotalOpenIncidents = 0;
+
+                    while (reader.Read())
+                    {
+                        var callerStat = new CallerStat
+                        {
+                            Caller = reader["caller"].ToString(),
+                            Total = Convert.ToInt32(reader["total_abertos"])
+                        };
+
+                        stat.TopOpenCallers.Add(callerStat);
+                        stat.TotalOpenIncidents += callerStat.Total;
+                    }
+                }
+            }
+        }
+
         private void FillTopApps(SQLiteConnection conn, string mesAno, IncidentStat stat)
         {
             string topAppsQuery = @"
@@ -602,6 +643,7 @@ namespace IssueWatcher.Services
                 FillLocalStatusCounts(conn, mesAno, stat);
                 FillTopCallers(conn, mesAno, stat);
                 FillTopApps(conn, mesAno, stat);
+                FillOpenCallers(conn, mesAno, stat);
             }
 
             return stat;
@@ -788,54 +830,6 @@ namespace IssueWatcher.Services
                 }
             }
         }
-
-        ///// <summary>
-        ///// Remove todas as notas existentes para um incidente e insere uma nova lista de notas.
-        ///// A operação é realizada dentro de uma transação para garantir atomicidade (todas ou nenhuma são salvas).
-        ///// </summary>
-        ///// <param name="incidentNumber">O número único do incidente ao qual as notas estão associadas.</param>
-        ///// <param name="notes">Uma lista de strings representando as novas notas a serem inseridas. Se a lista for <c>null</c> ou vazia, todas as notas existentes serão apenas removidas.</param>
-        ///// <exception cref="ArgumentException">Lançada se o <paramref name="incidentNumber"/> for nulo ou vazio.</exception>
-        //public void ReplaceNotes(string incidentNumber, List<string> notes)
-        //{
-        //    if (string.IsNullOrWhiteSpace(incidentNumber))
-        //        throw new ArgumentException("Incident number cannot be empty.", nameof(incidentNumber));
-
-        //    if (notes == null)
-        //        notes = new List<string>();
-
-        //    using (var conn = new SQLiteConnection($"Data Source={_databaseFile};Version=3;"))
-        //    {
-        //        conn.Open();
-
-        //        using (var transaction = conn.BeginTransaction())
-        //        {
-        //            // 1. Deleta as notas existentes
-        //            using (var deleteCmd = new SQLiteCommand("DELETE FROM notes WHERE number = @number;", conn))
-        //            {
-        //                deleteCmd.Parameters.AddWithValue("@number", incidentNumber);
-        //                deleteCmd.ExecuteNonQuery();
-        //            }
-
-        //            // 2. Insere as novas notas
-        //            using (var insertCmd = new SQLiteCommand("INSERT INTO notes (number, description) VALUES (@number, @description);", conn))
-        //            {
-        //                insertCmd.Parameters.AddWithValue("@number", incidentNumber);
-        //                var descriptionParam = insertCmd.Parameters.Add("@description", System.Data.DbType.String);
-
-        //                foreach (var note in notes)
-        //                {
-        //                    descriptionParam.Value = note ?? "";
-        //                    insertCmd.ExecuteNonQuery();
-        //                }
-        //            }
-
-        //            transaction.Commit();
-        //        }
-
-        //        conn.Close();
-        //    }
-        //}
 
         /// <summary>
         /// Remove a nota existente para um incidente e insere uma nova nota.
