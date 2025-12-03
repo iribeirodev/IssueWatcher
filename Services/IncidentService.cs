@@ -409,12 +409,186 @@ namespace IssueWatcher.Services
             return result;
         }
 
-        /// <summary>
-        /// Calcula e retorna as estatísticas agregadas de incidentes para um mês específico,
-        /// incluindo contagem por estado e por status local.
-        /// </summary>
-        /// <param name="mesAno">O mês e ano no formato "yyyy-MM" (ex: "2025-10") para o qual as estatísticas devem ser calculadas.</param>
-        /// <returns>Um objeto <see cref="IncidentStat"/> preenchido com as contagens de incidentes correspondentes ao mês informado.</returns>
+        private void FillTotalIncidents(SQLiteConnection conn, string mesAno, IncidentStat stat)
+        {
+            string totalQuery = @"
+                SELECT COUNT(*)
+                FROM incidents
+                WHERE STRFTIME('%Y-%m',
+                          SUBSTR(updated, 7, 4) || '-' || SUBSTR(updated, 4, 2) || '-' || SUBSTR(updated, 1, 2)
+                      ) = @mesAno";
+
+            using (var cmd = new SQLiteCommand(totalQuery, conn))
+            {
+                cmd.Parameters.AddWithValue("@mesAno", mesAno);
+                stat.TotalIncidents = Convert.ToInt32(cmd.ExecuteScalar());
+            }
+        }
+
+        private void FillStateCounts(SQLiteConnection conn, string mesAno, IncidentStat stat)
+        {
+            string stateQuery = @"
+                SELECT state, COUNT(*) as count
+                FROM (
+                    SELECT state,
+                           STRFTIME('%Y-%m',
+                               SUBSTR(updated, 7, 4) || '-' || SUBSTR(updated, 4, 2) || '-' || SUBSTR(updated, 1, 2)
+                           ) AS mes_ano
+                    FROM incidents
+                )
+                WHERE mes_ano = @mesAno
+                GROUP BY state";
+
+            using (var cmd = new SQLiteCommand(stateQuery, conn))
+            {
+                cmd.Parameters.AddWithValue("@mesAno", mesAno);
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string state = reader.GetString(0);
+                        int count = reader.GetInt32(1);
+
+                        switch (state.ToLower())
+                        {
+                            case "canceled": stat.CountCancelled = count; break;
+                            case "closed": stat.CountClosed = count; break;
+                            case "in progress": stat.CountInProgress = count; break;
+                            case "resolved": stat.CountResolved = count; break;
+                            case "new": stat.CountNew = count; break;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void FillLocalStatusCounts(SQLiteConnection conn, string mesAno, IncidentStat stat)
+        {
+            string localStatusQuery = @"
+                SELECT state, local_status
+                FROM (
+                    SELECT state, local_status,
+                           STRFTIME('%Y-%m',
+                               SUBSTR(updated, 7, 4) || '-' || SUBSTR(updated, 4, 2) || '-' || SUBSTR(updated, 1, 2)
+                           ) AS mes_ano
+                    FROM incidents
+                )
+                WHERE mes_ano = @mesAno";
+
+            using (var cmd = new SQLiteCommand(localStatusQuery, conn))
+            {
+                cmd.Parameters.AddWithValue("@mesAno", mesAno);
+                using (var reader = cmd.ExecuteReader())
+                {
+                    var localStatusCounts = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
+
+                    while (reader.Read())
+                    {
+                        string state = reader.IsDBNull(0) ? null : reader.GetString(0);
+                        string localStatus = reader.IsDBNull(1) ? null : reader.GetString(1);
+
+                        string key;
+                        if (localStatus == null && string.Equals(state, "New", StringComparison.OrdinalIgnoreCase))
+                            key = "n/a";
+                        else if (localStatus != null)
+                            key = localStatus.ToLower();
+                        else
+                            continue;
+
+                        if (!localStatusCounts.ContainsKey(key))
+                            localStatusCounts[key] = 0;
+
+                        localStatusCounts[key]++;
+                    }
+
+                    foreach (var kvp in localStatusCounts)
+                    {
+                        switch (kvp.Key)
+                        {
+                            case "aguardando homologação": stat.CountAguardandoHomologacao = kvp.Value; break;
+                            case "aguardando publicação": stat.CountAguardandoPublicacao = kvp.Value; break;
+                            case "aguardando testes": stat.CountAguardandoTestes = kvp.Value; break;
+                            case "em atendimento": stat.CountEmAtendimento = kvp.Value; break;
+                            case "finalizado": stat.CountFinalizado = kvp.Value; break;
+                            case "n/a": stat.CountNaoAtuado = kvp.Value; break;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void FillTopCallers(SQLiteConnection conn, string mesAno, IncidentStat stat)
+        {
+            string topCallersQuery = @"
+                SELECT caller, COUNT(*) AS total
+                FROM (
+                    SELECT caller,
+                           STRFTIME('%Y-%m',
+                               SUBSTR(updated, 7, 4) || '-' || SUBSTR(updated, 4, 2) || '-' || SUBSTR(updated, 1, 2)
+                           ) AS mes_ano
+                    FROM incidents
+                )
+                WHERE mes_ano = @mesAno
+                GROUP BY caller
+                ORDER BY total DESC
+                LIMIT 5";
+
+            using (var cmd = new SQLiteCommand(topCallersQuery, conn))
+            {
+                cmd.Parameters.AddWithValue("@mesAno", mesAno);
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string caller = reader.GetString(0);
+                        int count = reader.GetInt32(1);
+
+                        stat.TopCallers.Add(new CallerStat
+                        {
+                            Caller = caller,
+                            Total = count
+                        });
+                    }
+                }
+            }
+        }
+
+        private void FillTopApps(SQLiteConnection conn, string mesAno, IncidentStat stat)
+        {
+            string topAppsQuery = @"
+                SELECT configuration_item, COUNT(*) AS total
+                FROM (
+                    SELECT configuration_item,
+                           STRFTIME('%Y-%m',
+                               SUBSTR(updated, 7, 4) || '-' || SUBSTR(updated, 4, 2) || '-' || SUBSTR(updated, 1, 2)
+                           ) AS mes_ano
+                    FROM incidents
+                )
+                WHERE mes_ano = @mesAno
+                GROUP BY configuration_item
+                ORDER BY total DESC
+                LIMIT 5";
+
+            using (var cmd = new SQLiteCommand(topAppsQuery, conn))
+            {
+                cmd.Parameters.AddWithValue("@mesAno", mesAno);
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string app = reader.GetString(0);
+                        int count = reader.GetInt32(1);
+
+                        stat.TopApps.Add(new AppStat
+                        {
+                            App = app,
+                            Total = count
+                        });
+                    }
+                }
+            }
+        }
+
         public IncidentStat GetStatistics(string mesAno)
         {
             var stat = new IncidentStat { MesAno = mesAno };
@@ -423,117 +597,11 @@ namespace IssueWatcher.Services
             {
                 conn.Open();
 
-                // Contagem por estado no mês especificado
-                string stateQuery = @"
-                    SELECT state, COUNT(*) as count
-                    FROM (
-                        SELECT state,
-                               STRFTIME('%Y-%m',
-                                   SUBSTR(updated, 7, 4) || '-' || SUBSTR(updated, 4, 2) || '-' || SUBSTR(updated, 1, 2)
-                               ) AS mes_ano
-                        FROM incidents
-                    )
-                    WHERE mes_ano = @mesAno
-                    GROUP BY state";
-
-                using (var cmd = new SQLiteCommand(stateQuery, conn))
-                {
-                    cmd.Parameters.AddWithValue("@mesAno", mesAno);
-
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            string state = reader.GetString(0);
-                            int count = reader.GetInt32(1);
-
-                            switch (state.ToLower())
-                            {
-                                case "canceled":
-                                    stat.CountCancelled = count;
-                                    break;
-                                case "closed":
-                                    stat.CountClosed = count;
-                                    break;
-                                case "in progress":
-                                    stat.CountInProgress = count;
-                                    break;
-                                case "resolved":
-                                    stat.CountResolved = count;
-                                    break;
-                                case "new":
-                                    stat.CountNew = count;
-                                    break;
-                            }
-                        }
-                    }
-                }
-
-                // Contagem por status local no mês especificado
-                string localStatusQuery = @"
-                    SELECT state, local_status
-                    FROM (
-                        SELECT state, local_status,
-                               STRFTIME('%Y-%m',
-                                   SUBSTR(updated, 7, 4) || '-' || SUBSTR(updated, 4, 2) || '-' || SUBSTR(updated, 1, 2)
-                               ) AS mes_ano
-                        FROM incidents
-                    )
-                    WHERE mes_ano = @mesAno";
-
-                using (var cmd = new SQLiteCommand(localStatusQuery, conn))
-                {
-                    cmd.Parameters.AddWithValue("@mesAno", mesAno);
-
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        var localStatusCounts = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
-
-                        while (reader.Read())
-                        {
-                            string state = reader.IsDBNull(0) ? null : reader.GetString(0);
-                            string localStatus = reader.IsDBNull(1) ? null : reader.GetString(1);
-
-                            string key;
-                            if (localStatus == null && string.Equals(state, "New", StringComparison.OrdinalIgnoreCase))
-                                key = "n/a";
-                            else if (localStatus != null)
-                                key = localStatus.ToLower();
-                            else
-                                continue;
-
-                            if (!localStatusCounts.ContainsKey(key))
-                                localStatusCounts[key] = 0;
-
-                            localStatusCounts[key]++;
-                        }
-
-                        foreach (var kvp in localStatusCounts)
-                        {
-                            switch (kvp.Key)
-                            {
-                                case "aguardando homologação":
-                                    stat.CountAguardandoHomologacao = kvp.Value;
-                                    break;
-                                case "aguardando publicação":
-                                    stat.CountAguardandoPublicacao = kvp.Value;
-                                    break;
-                                case "aguardando testes":
-                                    stat.CountAguardandoTestes = kvp.Value;
-                                    break;
-                                case "em atendimento":
-                                    stat.CountEmAtendimento = kvp.Value;
-                                    break;
-                                case "finalizado":
-                                    stat.CountFinalizado = kvp.Value;
-                                    break;
-                                case "n/a":
-                                    stat.CountNaoAtuado = kvp.Value;
-                                    break;
-                            }
-                        }
-                    }
-                }
+                FillTotalIncidents(conn, mesAno, stat);
+                FillStateCounts(conn, mesAno, stat);
+                FillLocalStatusCounts(conn, mesAno, stat);
+                FillTopCallers(conn, mesAno, stat);
+                FillTopApps(conn, mesAno, stat);
             }
 
             return stat;

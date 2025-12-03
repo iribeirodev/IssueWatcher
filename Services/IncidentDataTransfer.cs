@@ -272,7 +272,6 @@ namespace IssueWatcher.Services
                     worksheet.Cell(row + 2, 14).Value = inc.Email;
                     worksheet.Cell(row + 2, 15).Value = inc.IssueType;
 
-
                     // Notas
                     var notes = service.GetNotes(inc.Number);
                     worksheet.Cell(row + 2, 16).Value = string.Join(Environment.NewLine, notes);

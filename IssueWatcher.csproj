@@ -171,6 +171,8 @@
       <DependentUpon>FormTemplates.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\AppParameter.cs" />
+    <Compile Include="Model\AppStat.cs" />
+    <Compile Include="Model\CallerStat.cs" />
     <Compile Include="Model\CustomFilter.cs" />
     <Compile Include="Model\Incident.cs" />
     <Compile Include="Model\IncidentStat.cs" />

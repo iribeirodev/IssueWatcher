@@ -164,25 +164,18 @@ namespace IssueWatcher
         {
             List<string> currentIncidentNumbers = _incidentService.GetCurrentIncidents();
             if (currentIncidentNumbers == null || !currentIncidentNumbers.Any())
-            {
                 return;
-            }
-
+ 
             foreach (DataGridViewRow row in dgvIncidents.Rows)
             {
                 string incidentNumber = row.Cells["number"].Value?.ToString();
 
                 if (!string.IsNullOrEmpty(incidentNumber) && currentIncidentNumbers.Contains(incidentNumber))
-                {
                     row.Cells["Tag"].Style.BackColor = TAG_COLOR;
-                }
                 else
-                {
                     row.Cells["Tag"].Style.BackColor = dgvIncidents.DefaultCellStyle.BackColor;
-                }
             }
         }
-
 
         /// <summary>
         /// Ordena a lista pelas colunas created ou updated
@@ -208,17 +201,11 @@ namespace IssueWatcher
             Func<Incident, IComparable> selector;
 
             if (columnName == "created")
-            {
                 selector = i => DateTime.TryParse(i.Created, out var dt) ? dt : DateTime.MinValue;
-            }
             else if (columnName == "updated")
-            {
                 selector = i => DateTime.TryParse(i.Updated, out var dt) ? dt : DateTime.MinValue;
-            }
             else // Age
-            {
                 selector = i => int.TryParse(i.Age, out var age) ? age : int.MinValue;
-            }
 
             var sortedList = ascending
                 ? listToSort.OrderBy(selector).ToList()
@@ -325,6 +312,7 @@ namespace IssueWatcher
                 var distinctStates = _listIncidents.Select(i => i.State).Distinct().ToList();
                 var distinctLocalStatus = _listIncidents.Select(i => i.LocalStatus).Distinct().ToList();
                 var distinctConfigurationItem = _listIncidents.Select(i => i.ConfigurationItem).Distinct().ToList();
+                var distinctCallers = _listIncidents.Select(i => i.Caller).Distinct().ToList();
 
                 lstFilterStates.Items.Clear();
                 foreach (var state in distinctStates)
@@ -342,6 +330,12 @@ namespace IssueWatcher
                     if (!string.IsNullOrEmpty(ci))
                         lstFilterConfigurationItem.Items.Add(ci);
 
+                lstFilterCaller.Items.Clear();
+                foreach(var ca in distinctCallers)
+                    if (!string.IsNullOrEmpty(ca))
+                        lstFilterCaller.Items.Add(ca);
+
+
                 lstFilterLocalStatus.Items.Add("<Blank>");
             }
         }
@@ -352,9 +346,7 @@ namespace IssueWatcher
             {
                 int index = lstFilterStates.Items.IndexOf(filtro);
                 if (index >= 0)
-                {
                     lstFilterStates.SetItemChecked(index, true);
-                }
             }
 
             FilterData();
@@ -365,8 +357,13 @@ namespace IssueWatcher
             List<string> statesChecked = lstFilterStates.CheckedItems.Cast<string>().ToList();
             List<string> localStatusChecked = lstFilterLocalStatus.CheckedItems.Cast<string>().ToList();
             List<string> configurationItemChecked = lstFilterConfigurationItem.CheckedItems.Cast<string>().ToList();
+            List<string> callersChecked = lstFilterCaller.CheckedItems.Cast<string>().ToList();
 
-            btnClearFilter.Enabled = (statesChecked.Count > 0) || (localStatusChecked.Count > 0) || (configurationItemChecked.Count > 0);
+            // Habilita o botão se qualquer filtro estiver ativo
+            btnClearFilter.Enabled = (statesChecked.Count > 0)
+                                     || (localStatusChecked.Count > 0)
+                                     || (configurationItemChecked.Count > 0)
+                                     || (callersChecked.Count > 0);
 
             txtSearchNumber.Text = "";
             txtSearchText.Text = "";
@@ -379,6 +376,10 @@ namespace IssueWatcher
                     (localStatusChecked.Contains("<Blank>") && string.IsNullOrWhiteSpace(incident.LocalStatus)))
                 &&
                 (configurationItemChecked.Count == 0 || configurationItemChecked.Contains(incident.ConfigurationItem))
+                &&
+                (callersChecked.Count == 0 ||
+                    callersChecked.Contains(incident.Caller) ||
+                    (callersChecked.Contains("<Blank>") && string.IsNullOrWhiteSpace(incident.Caller)))
             ).ToList();
 
             dgvIncidents.DataSource = _filteredIncidents;
@@ -399,6 +400,7 @@ namespace IssueWatcher
             UncheckAllFilters(lstFilterStates);
             UncheckAllFilters(lstFilterLocalStatus);
             UncheckAllFilters(lstFilterConfigurationItem);
+            UncheckAllFilters(lstFilterCaller);
 
             lblFilter.Text = "";
             dgvIncidents.DataSource = _listIncidents;
@@ -409,9 +411,7 @@ namespace IssueWatcher
         private void UncheckAllFilters(CheckedListBox checkedListBox)
         {
             for (int i = 0; i < checkedListBox.Items.Count; i++)
-            {
                 checkedListBox.SetItemChecked(i, false);
-            }
 
             checkedListBox.ClearSelected();
         }
@@ -467,17 +467,123 @@ namespace IssueWatcher
             }
         }
 
-        private void FormEditIncident_Load(object sender, EventArgs e)
-        {
-            SetControlState(EnumControlState.Initial);
-        }
-
         private void btnLoad_Click(object sender, EventArgs e)
         {
             LoadData();
             LoadFilters();
             SetInitialFilter();
             LoadCustomFilters();
+        }
+
+        private void FormEditIncident_Load(object sender, EventArgs e) => SetControlState(EnumControlState.Initial);
+
+        private void btnGoTo_Click(object sender, EventArgs e) => GoToIncidentPage();
+
+        private void btnGotoDefault_Click(object sender, EventArgs e)
+        {
+            List<string> currentIncidentsNumber = _incidentService.GetCurrentIncidents();
+            if (currentIncidentsNumber != null && currentIncidentsNumber.Any())
+            {
+                _filteredIncidents = _listIncidents.Where(incident =>
+                                        currentIncidentsNumber.Contains(incident.Number)
+                                    ).ToList();
+
+                dgvIncidents.DataSource = _filteredIncidents;
+
+                // Atualiza a label com o total filtrado
+                lblFilter.Text = $"Filtrados: {_filteredIncidents.Count} de {_listIncidents.Count}";
+
+                SetIncidentAsCurrent();
+            }
+            else
+            {
+                MessageBox.Show(
+                    Properties.Resources.NONE_MARKED_AS_DEFAULT,
+                    "Information",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+            }
+        }
+
+        private void btnFiltering_Click(object sender, EventArgs e) => FilterData();
+
+        private void btnClearFilter_Click(object sender, EventArgs e) => RemoveFilter();
+
+        private void btnSaveFilter_Click(object sender, EventArgs e) => SaveNewFilter();
+
+        private void btnApplySavedFilter_Click(object sender, EventArgs e)
+        {
+            if (cboSavedFilters.SelectedValue == null)
+            {
+                MessageBox.Show(Properties.Resources.UNSELECTED_CUSTOM_FILTER, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            var selectedFilter = (CustomFilter)cboSavedFilters.SelectedItem;
+
+            // Limpa seleções anteriores
+            foreach (int i in lstFilterStates.CheckedIndices)
+                lstFilterStates.SetItemChecked(i, false);
+
+            foreach (int i in lstFilterLocalStatus.CheckedIndices)
+                lstFilterLocalStatus.SetItemChecked(i, false);
+
+            foreach (int i in lstFilterConfigurationItem.CheckedIndices)
+                lstFilterConfigurationItem.SetItemChecked(i, false);
+
+            // Marca os itens que estão no filtro
+            MarkCheckedItems(lstFilterStates, selectedFilter.StateCriteria);
+            MarkCheckedItems(lstFilterLocalStatus, selectedFilter.LocalStatusCriteria);
+            MarkCheckedItems(lstFilterConfigurationItem, selectedFilter.ConfigurationItemCriteria);
+
+            FilterData();
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            formEditIncident = new FormEditIncident();
+            var number = dgvIncidents.CurrentRow.Cells["number"].Value.ToString();
+            formEditIncident.Number = number;
+            formEditIncident.ShowDialog();
+            if (formEditIncident.Changed)
+            {
+                dgvIncidents.CurrentRow.Cells["Priority"].Value = formEditIncident.PriorityUpdated;
+                dgvIncidents.CurrentRow.Cells["IssueType"].Value = formEditIncident.IssueType;
+                dgvIncidents.CurrentRow.Cells["assigned_to"].Value = formEditIncident.AssignedToUpdated;
+                dgvIncidents.CurrentRow.Cells["state"].Value = formEditIncident.StateUpdated;
+                dgvIncidents.CurrentRow.Cells["LocalStatus"].Value = formEditIncident.LocalStatusUpdated;
+
+            }
+        }
+
+        private void btnStat_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                formStatistics = new FormStatistics();
+                formStatistics.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(Properties.Resources.ERROR_STATISTICS.Replace("{error}", ex.Message),
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            if ((_listIncidents == null) || (_listIncidents.Count == 0))
+            {
+                MessageBox.Show(Properties.Resources.NOTHING_TO_EXPORT,
+                    "Warning",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                return;
+            }
+
+            ExportIncidentsToExcel();
         }
 
         private void dgvIncidents_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -502,20 +608,6 @@ namespace IssueWatcher
 
                 SetControlState(EnumControlState.Selected);
             }
-        }
-
-        private void btnExport_Click(object sender, EventArgs e)
-        {
-            if ((_listIncidents == null) || (_listIncidents.Count == 0))
-            {
-                MessageBox.Show(Properties.Resources.NOTHING_TO_EXPORT,
-                    "Warning", 
-                    MessageBoxButtons.OK, 
-                    MessageBoxIcon.Warning);
-                return;
-            }
-
-            ExportIncidentsToExcel();
         }
 
         private void dgvIncidents_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
@@ -560,30 +652,6 @@ namespace IssueWatcher
             );
 
             e.Handled = true;
-        }
-
-        private void btnStat_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                //var stats = _incidentService.GetStatistics();
-
-                formStatistics = new FormStatistics();
-                //formStatistics.Stats = stats;
-                formStatistics.ShowDialog();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(Properties.Resources.ERROR_STATISTICS.Replace("{error}", ex.Message),
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-            }
-        }
-
-        private void btnGoTo_Click(object sender, EventArgs e)
-        {
-            GoToIncidentPage();
         }
 
         // Aciona marcação de incidente como default na grid
@@ -631,39 +699,15 @@ namespace IssueWatcher
 
         // Ao reordenar manter o incidente marcado como default
         private void dgvIncidents_Sorted(object sender, EventArgs e)
-        {
-            SetIncidentAsCurrent();
-        }
+            => SetIncidentAsCurrent();
 
         // Ao clicar no header reordena por data
         private void dgvIncidents_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            SortListByDateFields(dgvIncidents.Columns[e.ColumnIndex].Name);
-        }
-
-        private void btnEdit_Click(object sender, EventArgs e)
-        {
-            formEditIncident = new FormEditIncident();
-            var number = dgvIncidents.CurrentRow.Cells["number"].Value.ToString();
-            formEditIncident.Number = number;
-            formEditIncident.ShowDialog();
-            if (formEditIncident.Changed)
-            {
-                dgvIncidents.CurrentRow.Cells["Priority"].Value = formEditIncident.PriorityUpdated;
-                dgvIncidents.CurrentRow.Cells["IssueType"].Value = formEditIncident.IssueType;
-                dgvIncidents.CurrentRow.Cells["assigned_to"].Value = formEditIncident.AssignedToUpdated;
-                dgvIncidents.CurrentRow.Cells["state"].Value = formEditIncident.StateUpdated;
-                dgvIncidents.CurrentRow.Cells["LocalStatus"].Value = formEditIncident.LocalStatusUpdated;
-                
-            }
-        }
+            => SortListByDateFields(dgvIncidents.Columns[e.ColumnIndex].Name);
 
         // Permite apenas dígitos e tecla backspace
         private void txtSearchNumber_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
-                e.Handled = true;
-        }
+            => e.Handled = (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back);
 
         private void txtSearchText_TextChanged(object sender, EventArgs e)
         {
@@ -683,17 +727,13 @@ namespace IssueWatcher
             SortableBindingList<Incident> filtered = null;
 
             if (_filteredIncidents != null || _filteredIncidents.Count > 0)
-            {
                 filtered = new SortableBindingList<Incident>(
                     _filteredIncidents.Where(i => i.ShortDescription != null && i.ShortDescription.ToLower().Contains(filterValue)).ToList()
                 );
-            }
             else
-            {
                 filtered = new SortableBindingList<Incident>(
                     _listIncidents.Where(i => i.ShortDescription != null && i.ShortDescription.ToLower().Contains(filterValue)).ToList()
                 );
-            }
 
             dgvIncidents.DataSource = filtered;
 
@@ -719,91 +759,16 @@ namespace IssueWatcher
             SortableBindingList<Incident> filtered = null;
 
             if (_filteredIncidents != null || _filteredIncidents.Count > 0)
-            {
                 filtered = new SortableBindingList<Incident>(
                     _filteredIncidents.Where(i => i.Number != null && i.Number.Contains(filterValue)).ToList()
                 );
-            } else
-            {
+            else
                 filtered = new SortableBindingList<Incident>(
                     _listIncidents.Where(i => i.Number != null && i.Number.Contains(filterValue)).ToList()
                 );
-            }
 
             // Filtra apenas números que contêm o valor digitado no campo Number
-
             dgvIncidents.DataSource = filtered;
-        }
-
-        private void btnFiltering_Click(object sender, EventArgs e)
-        {
-            FilterData();
-        }
-
-        private void btnClearFilter_Click(object sender, EventArgs e)
-        {
-            RemoveFilter();
-        }
-
-        private void btnGotoDefault_Click(object sender, EventArgs e)
-        {
-            // Chama a rotina que encontra o incidente atual e obtém o número
-            //string currentIncidentNumber = _incidentService.GetCurrentIncident();
-
-            List<string> currentIncidentsNumber = _incidentService.GetCurrentIncidents();
-            if (currentIncidentsNumber != null && currentIncidentsNumber.Any())
-            {
-                _filteredIncidents = _listIncidents.Where(incident =>
-                                        currentIncidentsNumber.Contains(incident.Number)
-                                    ).ToList();
-
-                dgvIncidents.DataSource = _filteredIncidents;
-
-                // Atualiza a label com o total filtrado
-                lblFilter.Text = $"Filtrados: {_filteredIncidents.Count} de {_listIncidents.Count}";
-
-                SetIncidentAsCurrent();
-            } else
-            {
-                MessageBox.Show(
-                    Properties.Resources.NONE_MARKED_AS_DEFAULT,
-                    "Information",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
-            }
-        }
-
-        private void btnSaveFilter_Click(object sender, EventArgs e)
-        {
-            SaveNewFilter();
-        }
-
-        private void btnApplySavedFilter_Click(object sender, EventArgs e)
-        {
-            if (cboSavedFilters.SelectedValue == null)
-            {
-                MessageBox.Show(Properties.Resources.UNSELECTED_CUSTOM_FILTER, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
-            }
-
-            var selectedFilter = (CustomFilter)cboSavedFilters.SelectedItem;
-
-            // Limpa seleções anteriores
-            foreach (int i in lstFilterStates.CheckedIndices)
-                lstFilterStates.SetItemChecked(i, false);
-
-            foreach (int i in lstFilterLocalStatus.CheckedIndices)
-                lstFilterLocalStatus.SetItemChecked(i, false);
-
-            foreach (int i in lstFilterConfigurationItem.CheckedIndices)
-                lstFilterConfigurationItem.SetItemChecked(i, false);
-
-            // Marca os itens que estão no filtro
-            MarkCheckedItems(lstFilterStates, selectedFilter.StateCriteria);
-            MarkCheckedItems(lstFilterLocalStatus, selectedFilter.LocalStatusCriteria);
-            MarkCheckedItems(lstFilterConfigurationItem, selectedFilter.ConfigurationItemCriteria);
-
-            FilterData();
         }
     }
 }

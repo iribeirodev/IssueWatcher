@@ -60,13 +60,6 @@
             this.email = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.assignment_group = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlControl = new System.Windows.Forms.Panel();
-            this.lblFilter = new System.Windows.Forms.Label();
-            this.btnGotoDefault = new System.Windows.Forms.Button();
-            this.btnEdit = new System.Windows.Forms.Button();
-            this.btnGoTo = new System.Windows.Forms.Button();
-            this.btnStat = new System.Windows.Forms.Button();
-            this.btnExport = new System.Windows.Forms.Button();
-            this.btnLoad = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.txtSearchText = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -76,6 +69,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.cboRecordsToLoad = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblFilter = new System.Windows.Forms.Label();
             this.btnApplySavedFilter = new System.Windows.Forms.Button();
             this.btnSaveFilter = new System.Windows.Forms.Button();
             this.cboSavedFilters = new System.Windows.Forms.ComboBox();
@@ -91,11 +85,21 @@
             this.lstFilterStates = new System.Windows.Forms.CheckedListBox();
             this.label3 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.btnGotoDefault = new System.Windows.Forms.Button();
+            this.btnEdit = new System.Windows.Forms.Button();
+            this.btnStat = new System.Windows.Forms.Button();
+            this.btnExport = new System.Windows.Forms.Button();
+            this.btnLoad = new System.Windows.Forms.Button();
+            this.pnlButtons = new System.Windows.Forms.Panel();
+            this.btnGoTo = new System.Windows.Forms.Button();
+            this.lstFilterCaller = new System.Windows.Forms.CheckedListBox();
+            this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvIncidents)).BeginInit();
             this.pnlControl.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.pnlButtons.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvIncidents
@@ -133,12 +137,12 @@
             dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvIncidents.DefaultCellStyle = dataGridViewCellStyle12;
             this.dgvIncidents.GridColor = System.Drawing.Color.LightSteelBlue;
-            this.dgvIncidents.Location = new System.Drawing.Point(0, 283);
+            this.dgvIncidents.Location = new System.Drawing.Point(0, 334);
             this.dgvIncidents.Margin = new System.Windows.Forms.Padding(2);
             this.dgvIncidents.Name = "dgvIncidents";
             this.dgvIncidents.RowHeadersWidth = 51;
             this.dgvIncidents.RowTemplate.Height = 24;
-            this.dgvIncidents.Size = new System.Drawing.Size(1811, 462);
+            this.dgvIncidents.Size = new System.Drawing.Size(1193, 208);
             this.dgvIncidents.TabIndex = 0;
             this.dgvIncidents.TabStop = false;
             this.dgvIncidents.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvIncidents_CellClick);
@@ -333,109 +337,14 @@
             // 
             // pnlControl
             // 
-            this.pnlControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlControl.Controls.Add(this.lblFilter);
-            this.pnlControl.Controls.Add(this.btnGotoDefault);
-            this.pnlControl.Controls.Add(this.btnEdit);
-            this.pnlControl.Controls.Add(this.btnGoTo);
-            this.pnlControl.Controls.Add(this.btnStat);
-            this.pnlControl.Controls.Add(this.btnExport);
-            this.pnlControl.Controls.Add(this.btnLoad);
             this.pnlControl.Controls.Add(this.groupBox3);
             this.pnlControl.Controls.Add(this.groupBox2);
             this.pnlControl.Controls.Add(this.groupBox1);
-            this.pnlControl.Location = new System.Drawing.Point(0, 1);
+            this.pnlControl.Location = new System.Drawing.Point(11, 52);
             this.pnlControl.Margin = new System.Windows.Forms.Padding(2);
             this.pnlControl.Name = "pnlControl";
-            this.pnlControl.Size = new System.Drawing.Size(1811, 278);
+            this.pnlControl.Size = new System.Drawing.Size(1192, 278);
             this.pnlControl.TabIndex = 4;
-            // 
-            // lblFilter
-            // 
-            this.lblFilter.AutoSize = true;
-            this.lblFilter.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFilter.Location = new System.Drawing.Point(365, 247);
-            this.lblFilter.Name = "lblFilter";
-            this.lblFilter.Size = new System.Drawing.Size(46, 15);
-            this.lblFilter.TabIndex = 26;
-            this.lblFilter.Text = "lblFilter";
-            // 
-            // btnGotoDefault
-            // 
-            this.btnGotoDefault.Enabled = false;
-            this.btnGotoDefault.Image = ((System.Drawing.Image)(resources.GetObject("btnGotoDefault.Image")));
-            this.btnGotoDefault.Location = new System.Drawing.Point(1656, 124);
-            this.btnGotoDefault.Margin = new System.Windows.Forms.Padding(2);
-            this.btnGotoDefault.Name = "btnGotoDefault";
-            this.btnGotoDefault.Size = new System.Drawing.Size(43, 37);
-            this.btnGotoDefault.TabIndex = 25;
-            this.toolTip1.SetToolTip(this.btnGotoDefault, "Find current incident");
-            this.btnGotoDefault.UseVisualStyleBackColor = false;
-            this.btnGotoDefault.Click += new System.EventHandler(this.btnGotoDefault_Click);
-            // 
-            // btnEdit
-            // 
-            this.btnEdit.Enabled = false;
-            this.btnEdit.Image = ((System.Drawing.Image)(resources.GetObject("btnEdit.Image")));
-            this.btnEdit.Location = new System.Drawing.Point(1515, 124);
-            this.btnEdit.Margin = new System.Windows.Forms.Padding(2);
-            this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(43, 37);
-            this.btnEdit.TabIndex = 21;
-            this.toolTip1.SetToolTip(this.btnEdit, "Edit Incident Info");
-            this.btnEdit.UseVisualStyleBackColor = true;
-            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
-            // 
-            // btnGoTo
-            // 
-            this.btnGoTo.Enabled = false;
-            this.btnGoTo.Image = ((System.Drawing.Image)(resources.GetObject("btnGoTo.Image")));
-            this.btnGoTo.Location = new System.Drawing.Point(1609, 124);
-            this.btnGoTo.Margin = new System.Windows.Forms.Padding(2);
-            this.btnGoTo.Name = "btnGoTo";
-            this.btnGoTo.Size = new System.Drawing.Size(43, 37);
-            this.btnGoTo.TabIndex = 23;
-            this.btnGoTo.UseVisualStyleBackColor = true;
-            this.btnGoTo.Click += new System.EventHandler(this.btnGoTo_Click);
-            // 
-            // btnStat
-            // 
-            this.btnStat.Enabled = false;
-            this.btnStat.Image = ((System.Drawing.Image)(resources.GetObject("btnStat.Image")));
-            this.btnStat.Location = new System.Drawing.Point(1562, 124);
-            this.btnStat.Margin = new System.Windows.Forms.Padding(2);
-            this.btnStat.Name = "btnStat";
-            this.btnStat.Size = new System.Drawing.Size(43, 37);
-            this.btnStat.TabIndex = 22;
-            this.toolTip1.SetToolTip(this.btnStat, "Statistics");
-            this.btnStat.UseVisualStyleBackColor = true;
-            this.btnStat.Click += new System.EventHandler(this.btnStat_Click);
-            // 
-            // btnExport
-            // 
-            this.btnExport.Enabled = false;
-            this.btnExport.Image = ((System.Drawing.Image)(resources.GetObject("btnExport.Image")));
-            this.btnExport.Location = new System.Drawing.Point(1703, 124);
-            this.btnExport.Margin = new System.Windows.Forms.Padding(2);
-            this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(43, 37);
-            this.btnExport.TabIndex = 24;
-            this.toolTip1.SetToolTip(this.btnExport, "Export to Excel");
-            this.btnExport.UseVisualStyleBackColor = true;
-            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
-            // 
-            // btnLoad
-            // 
-            this.btnLoad.Image = ((System.Drawing.Image)(resources.GetObject("btnLoad.Image")));
-            this.btnLoad.Location = new System.Drawing.Point(1468, 124);
-            this.btnLoad.Margin = new System.Windows.Forms.Padding(2);
-            this.btnLoad.Name = "btnLoad";
-            this.btnLoad.Size = new System.Drawing.Size(43, 37);
-            this.btnLoad.TabIndex = 20;
-            this.toolTip1.SetToolTip(this.btnLoad, "Refresh Data");
-            this.btnLoad.UseVisualStyleBackColor = true;
-            this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
             // 
             // groupBox3
             // 
@@ -446,7 +355,7 @@
             this.groupBox3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.Location = new System.Drawing.Point(21, 112);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(278, 150);
+            this.groupBox3.Size = new System.Drawing.Size(224, 148);
             this.groupBox3.TabIndex = 19;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Quick Search";
@@ -462,7 +371,7 @@
             this.txtSearchText.MaxLength = 30;
             this.txtSearchText.Multiline = true;
             this.txtSearchText.Name = "txtSearchText";
-            this.txtSearchText.Size = new System.Drawing.Size(247, 29);
+            this.txtSearchText.Size = new System.Drawing.Size(200, 29);
             this.txtSearchText.TabIndex = 20;
             this.toolTip1.SetToolTip(this.txtSearchText, "Filter by Incident Number");
             this.txtSearchText.TextChanged += new System.EventHandler(this.txtSearchText_TextChanged);
@@ -474,7 +383,7 @@
             this.label1.Location = new System.Drawing.Point(9, 80);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(27, 13);
+            this.label1.Size = new System.Drawing.Size(26, 13);
             this.label1.TabIndex = 19;
             this.label1.Text = "Text";
             // 
@@ -513,7 +422,7 @@
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(21, 13);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(278, 93);
+            this.groupBox2.Size = new System.Drawing.Size(224, 93);
             this.groupBox2.TabIndex = 15;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Records Loaded";
@@ -552,6 +461,11 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Controls.Add(this.lstFilterCaller);
+            this.groupBox1.Controls.Add(this.lblFilter);
             this.groupBox1.Controls.Add(this.btnApplySavedFilter);
             this.groupBox1.Controls.Add(this.btnSaveFilter);
             this.groupBox1.Controls.Add(this.cboSavedFilters);
@@ -567,18 +481,28 @@
             this.groupBox1.Controls.Add(this.lstFilterStates);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(353, 13);
+            this.groupBox1.Location = new System.Drawing.Point(251, 13);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1028, 224);
+            this.groupBox1.Size = new System.Drawing.Size(931, 247);
             this.groupBox1.TabIndex = 14;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filter by";
+            // 
+            // lblFilter
+            // 
+            this.lblFilter.AutoSize = true;
+            this.lblFilter.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFilter.Location = new System.Drawing.Point(12, 222);
+            this.lblFilter.Name = "lblFilter";
+            this.lblFilter.Size = new System.Drawing.Size(46, 15);
+            this.lblFilter.TabIndex = 33;
+            this.lblFilter.Text = "lblFilter";
             // 
             // btnApplySavedFilter
             // 
             this.btnApplySavedFilter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnApplySavedFilter.Image = ((System.Drawing.Image)(resources.GetObject("btnApplySavedFilter.Image")));
-            this.btnApplySavedFilter.Location = new System.Drawing.Point(912, 185);
+            this.btnApplySavedFilter.Location = new System.Drawing.Point(792, 185);
             this.btnApplySavedFilter.Name = "btnApplySavedFilter";
             this.btnApplySavedFilter.Size = new System.Drawing.Size(36, 32);
             this.btnApplySavedFilter.TabIndex = 32;
@@ -591,7 +515,7 @@
             // 
             this.btnSaveFilter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnSaveFilter.Image = ((System.Drawing.Image)(resources.GetObject("btnSaveFilter.Image")));
-            this.btnSaveFilter.Location = new System.Drawing.Point(451, 185);
+            this.btnSaveFilter.Location = new System.Drawing.Point(362, 185);
             this.btnSaveFilter.Name = "btnSaveFilter";
             this.btnSaveFilter.Size = new System.Drawing.Size(36, 32);
             this.btnSaveFilter.TabIndex = 31;
@@ -607,7 +531,7 @@
             this.cboSavedFilters.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboSavedFilters.ForeColor = System.Drawing.Color.Black;
             this.cboSavedFilters.FormattingEnabled = true;
-            this.cboSavedFilters.Location = new System.Drawing.Point(585, 187);
+            this.cboSavedFilters.Location = new System.Drawing.Point(465, 187);
             this.cboSavedFilters.Margin = new System.Windows.Forms.Padding(2);
             this.cboSavedFilters.Name = "cboSavedFilters";
             this.cboSavedFilters.Size = new System.Drawing.Size(322, 28);
@@ -620,7 +544,7 @@
             this.txtNewFilter.Enabled = false;
             this.txtNewFilter.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNewFilter.ForeColor = System.Drawing.Color.Black;
-            this.txtNewFilter.Location = new System.Drawing.Point(104, 187);
+            this.txtNewFilter.Location = new System.Drawing.Point(15, 186);
             this.txtNewFilter.Margin = new System.Windows.Forms.Padding(2);
             this.txtNewFilter.MaxLength = 50;
             this.txtNewFilter.Multiline = true;
@@ -633,7 +557,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(506, 195);
+            this.label7.Location = new System.Drawing.Point(462, 172);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(63, 13);
@@ -644,7 +568,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(20, 195);
+            this.label6.Location = new System.Drawing.Point(12, 172);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(71, 13);
@@ -654,7 +578,7 @@
             // btnClearFilter
             // 
             this.btnClearFilter.Image = ((System.Drawing.Image)(resources.GetObject("btnClearFilter.Image")));
-            this.btnClearFilter.Location = new System.Drawing.Point(989, 53);
+            this.btnClearFilter.Location = new System.Drawing.Point(870, 82);
             this.btnClearFilter.Margin = new System.Windows.Forms.Padding(2);
             this.btnClearFilter.Name = "btnClearFilter";
             this.btnClearFilter.Size = new System.Drawing.Size(30, 25);
@@ -666,7 +590,7 @@
             // btnFilter
             // 
             this.btnFilter.Image = ((System.Drawing.Image)(resources.GetObject("btnFilter.Image")));
-            this.btnFilter.Location = new System.Drawing.Point(957, 53);
+            this.btnFilter.Location = new System.Drawing.Point(870, 53);
             this.btnFilter.Margin = new System.Windows.Forms.Padding(2);
             this.btnFilter.Name = "btnFilter";
             this.btnFilter.Size = new System.Drawing.Size(30, 25);
@@ -679,7 +603,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(636, 17);
+            this.label5.Location = new System.Drawing.Point(440, 16);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(105, 13);
@@ -688,14 +612,16 @@
             // 
             // lstFilterConfigurationItem
             // 
+            this.lstFilterConfigurationItem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lstFilterConfigurationItem.BackColor = System.Drawing.Color.White;
             this.lstFilterConfigurationItem.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lstFilterConfigurationItem.ForeColor = System.Drawing.Color.Black;
             this.lstFilterConfigurationItem.FormattingEnabled = true;
-            this.lstFilterConfigurationItem.Location = new System.Drawing.Point(639, 32);
+            this.lstFilterConfigurationItem.Location = new System.Drawing.Point(443, 32);
             this.lstFilterConfigurationItem.Name = "lstFilterConfigurationItem";
             this.lstFilterConfigurationItem.ScrollAlwaysVisible = true;
-            this.lstFilterConfigurationItem.Size = new System.Drawing.Size(305, 126);
+            this.lstFilterConfigurationItem.Size = new System.Drawing.Size(208, 126);
             this.lstFilterConfigurationItem.Sorted = true;
             this.lstFilterConfigurationItem.TabIndex = 2;
             this.toolTip1.SetToolTip(this.lstFilterConfigurationItem, "Filter by Configuration Item (App)");
@@ -704,7 +630,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(323, 16);
+            this.label4.Location = new System.Drawing.Point(226, 16);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(68, 13);
@@ -713,20 +639,24 @@
             // 
             // lstFilterLocalStatus
             // 
+            this.lstFilterLocalStatus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lstFilterLocalStatus.BackColor = System.Drawing.Color.White;
             this.lstFilterLocalStatus.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lstFilterLocalStatus.ForeColor = System.Drawing.Color.Black;
             this.lstFilterLocalStatus.FormattingEnabled = true;
-            this.lstFilterLocalStatus.Location = new System.Drawing.Point(326, 32);
+            this.lstFilterLocalStatus.Location = new System.Drawing.Point(229, 32);
             this.lstFilterLocalStatus.Name = "lstFilterLocalStatus";
             this.lstFilterLocalStatus.ScrollAlwaysVisible = true;
-            this.lstFilterLocalStatus.Size = new System.Drawing.Size(305, 126);
+            this.lstFilterLocalStatus.Size = new System.Drawing.Size(208, 126);
             this.lstFilterLocalStatus.Sorted = true;
             this.lstFilterLocalStatus.TabIndex = 1;
             this.toolTip1.SetToolTip(this.lstFilterLocalStatus, "Fiter by Local Status");
             // 
             // lstFilterStates
             // 
+            this.lstFilterStates.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lstFilterStates.BackColor = System.Drawing.Color.White;
             this.lstFilterStates.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lstFilterStates.ForeColor = System.Drawing.Color.Black;
@@ -734,7 +664,7 @@
             this.lstFilterStates.Location = new System.Drawing.Point(15, 32);
             this.lstFilterStates.Name = "lstFilterStates";
             this.lstFilterStates.ScrollAlwaysVisible = true;
-            this.lstFilterStates.Size = new System.Drawing.Size(305, 126);
+            this.lstFilterStates.Size = new System.Drawing.Size(208, 126);
             this.lstFilterStates.Sorted = true;
             this.lstFilterStates.TabIndex = 0;
             this.toolTip1.SetToolTip(this.lstFilterStates, "Filter by State");
@@ -754,12 +684,131 @@
             // 
             this.toolTip1.IsBalloon = true;
             // 
+            // btnGotoDefault
+            // 
+            this.btnGotoDefault.Enabled = false;
+            this.btnGotoDefault.Image = ((System.Drawing.Image)(resources.GetObject("btnGotoDefault.Image")));
+            this.btnGotoDefault.Location = new System.Drawing.Point(201, 5);
+            this.btnGotoDefault.Margin = new System.Windows.Forms.Padding(2);
+            this.btnGotoDefault.Name = "btnGotoDefault";
+            this.btnGotoDefault.Size = new System.Drawing.Size(43, 37);
+            this.btnGotoDefault.TabIndex = 31;
+            this.toolTip1.SetToolTip(this.btnGotoDefault, "Find current incident");
+            this.btnGotoDefault.UseVisualStyleBackColor = false;
+            this.btnGotoDefault.Click += new System.EventHandler(this.btnGotoDefault_Click);
+            // 
+            // btnEdit
+            // 
+            this.btnEdit.Enabled = false;
+            this.btnEdit.Image = ((System.Drawing.Image)(resources.GetObject("btnEdit.Image")));
+            this.btnEdit.Location = new System.Drawing.Point(60, 5);
+            this.btnEdit.Margin = new System.Windows.Forms.Padding(2);
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(43, 37);
+            this.btnEdit.TabIndex = 27;
+            this.toolTip1.SetToolTip(this.btnEdit, "Edit Incident Info");
+            this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+            // 
+            // btnStat
+            // 
+            this.btnStat.Enabled = false;
+            this.btnStat.Image = ((System.Drawing.Image)(resources.GetObject("btnStat.Image")));
+            this.btnStat.Location = new System.Drawing.Point(107, 5);
+            this.btnStat.Margin = new System.Windows.Forms.Padding(2);
+            this.btnStat.Name = "btnStat";
+            this.btnStat.Size = new System.Drawing.Size(43, 37);
+            this.btnStat.TabIndex = 28;
+            this.toolTip1.SetToolTip(this.btnStat, "Statistics");
+            this.btnStat.UseVisualStyleBackColor = true;
+            this.btnStat.Click += new System.EventHandler(this.btnStat_Click);
+            // 
+            // btnExport
+            // 
+            this.btnExport.Enabled = false;
+            this.btnExport.Image = ((System.Drawing.Image)(resources.GetObject("btnExport.Image")));
+            this.btnExport.Location = new System.Drawing.Point(248, 5);
+            this.btnExport.Margin = new System.Windows.Forms.Padding(2);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(43, 37);
+            this.btnExport.TabIndex = 30;
+            this.toolTip1.SetToolTip(this.btnExport, "Export to Excel");
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
+            // 
+            // btnLoad
+            // 
+            this.btnLoad.Image = ((System.Drawing.Image)(resources.GetObject("btnLoad.Image")));
+            this.btnLoad.Location = new System.Drawing.Point(13, 5);
+            this.btnLoad.Margin = new System.Windows.Forms.Padding(2);
+            this.btnLoad.Name = "btnLoad";
+            this.btnLoad.Size = new System.Drawing.Size(43, 37);
+            this.btnLoad.TabIndex = 26;
+            this.toolTip1.SetToolTip(this.btnLoad, "Refresh Data");
+            this.btnLoad.UseVisualStyleBackColor = true;
+            this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
+            // 
+            // pnlButtons
+            // 
+            this.pnlButtons.BackColor = System.Drawing.Color.AliceBlue;
+            this.pnlButtons.Controls.Add(this.btnGotoDefault);
+            this.pnlButtons.Controls.Add(this.btnEdit);
+            this.pnlButtons.Controls.Add(this.btnGoTo);
+            this.pnlButtons.Controls.Add(this.btnStat);
+            this.pnlButtons.Controls.Add(this.btnExport);
+            this.pnlButtons.Controls.Add(this.btnLoad);
+            this.pnlButtons.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlButtons.Location = new System.Drawing.Point(0, 0);
+            this.pnlButtons.Name = "pnlButtons";
+            this.pnlButtons.Size = new System.Drawing.Size(1208, 47);
+            this.pnlButtons.TabIndex = 5;
+            // 
+            // btnGoTo
+            // 
+            this.btnGoTo.Enabled = false;
+            this.btnGoTo.Image = ((System.Drawing.Image)(resources.GetObject("btnGoTo.Image")));
+            this.btnGoTo.Location = new System.Drawing.Point(154, 5);
+            this.btnGoTo.Margin = new System.Windows.Forms.Padding(2);
+            this.btnGoTo.Name = "btnGoTo";
+            this.btnGoTo.Size = new System.Drawing.Size(43, 37);
+            this.btnGoTo.TabIndex = 29;
+            this.btnGoTo.UseVisualStyleBackColor = true;
+            this.btnGoTo.Click += new System.EventHandler(this.btnGoTo_Click);
+            // 
+            // lstFilterCaller
+            // 
+            this.lstFilterCaller.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lstFilterCaller.BackColor = System.Drawing.Color.White;
+            this.lstFilterCaller.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lstFilterCaller.ForeColor = System.Drawing.Color.Black;
+            this.lstFilterCaller.FormattingEnabled = true;
+            this.lstFilterCaller.Location = new System.Drawing.Point(657, 32);
+            this.lstFilterCaller.Name = "lstFilterCaller";
+            this.lstFilterCaller.ScrollAlwaysVisible = true;
+            this.lstFilterCaller.Size = new System.Drawing.Size(208, 126);
+            this.lstFilterCaller.Sorted = true;
+            this.lstFilterCaller.TabIndex = 34;
+            this.toolTip1.SetToolTip(this.lstFilterCaller, "Filter by State");
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(656, 17);
+            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(36, 13);
+            this.label8.TabIndex = 35;
+            this.label8.Text = "Caller";
+            // 
             // FormIncidents
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(236)))), ((int)(((byte)(237)))));
-            this.ClientSize = new System.Drawing.Size(1811, 743);
+            this.ClientSize = new System.Drawing.Size(1208, 545);
+            this.Controls.Add(this.pnlButtons);
             this.Controls.Add(this.pnlControl);
             this.Controls.Add(this.dgvIncidents);
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -770,13 +819,13 @@
             this.Load += new System.EventHandler(this.FormEditIncident_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvIncidents)).EndInit();
             this.pnlControl.ResumeLayout(false);
-            this.pnlControl.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.pnlButtons.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -801,13 +850,6 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label lblNumber;
         private System.Windows.Forms.Button btnClearFilter;
-        private System.Windows.Forms.Button btnEdit;
-        private System.Windows.Forms.Button btnGoTo;
-        private System.Windows.Forms.Button btnStat;
-        private System.Windows.Forms.Button btnExport;
-        private System.Windows.Forms.Button btnLoad;
-        private System.Windows.Forms.Button btnGotoDefault;
-        private System.Windows.Forms.Label lblFilter;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtSearchText;
         private System.Windows.Forms.DataGridViewButtonColumn Action;
@@ -832,5 +874,15 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnSaveFilter;
         private System.Windows.Forms.Button btnApplySavedFilter;
+        private System.Windows.Forms.Panel pnlButtons;
+        private System.Windows.Forms.Button btnGotoDefault;
+        private System.Windows.Forms.Button btnEdit;
+        private System.Windows.Forms.Button btnGoTo;
+        private System.Windows.Forms.Button btnStat;
+        private System.Windows.Forms.Button btnExport;
+        private System.Windows.Forms.Button btnLoad;
+        private System.Windows.Forms.Label lblFilter;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.CheckedListBox lstFilterCaller;
     }
 }

@@ -1,8 +1,12 @@
-﻿namespace IssueWatcher.Model
+﻿using System.Collections.Generic;
+
+namespace IssueWatcher.Model
 {
     public class IncidentStat
     {
         public string MesAno { get; set; } // Ex: "2025-10"
+
+        public int TotalIncidents { get; set; }
 
         // Contagem por estado
         public int CountCancelled { get; set; }
@@ -18,5 +22,9 @@
         public int CountAguardandoHomologacao { get; set; }
         public int CountFinalizado { get; set; }
         public int CountNaoAtuado { get; set; }
+
+        public List<CallerStat> TopCallers { get; set; } = new List<CallerStat>();
+
+        public List<AppStat> TopApps { get; set; } = new List<AppStat>();
     }
 }
