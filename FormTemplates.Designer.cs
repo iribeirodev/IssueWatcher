@@ -37,6 +37,7 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.btnUndo = new System.Windows.Forms.Button();
             this.rtfContent = new System.Windows.Forms.RichTextBox();
+            this.btnAlter = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // cboTemplates
@@ -48,7 +49,7 @@
             this.cboTemplates.FormattingEnabled = true;
             this.cboTemplates.Location = new System.Drawing.Point(41, 37);
             this.cboTemplates.Name = "cboTemplates";
-            this.cboTemplates.Size = new System.Drawing.Size(523, 25);
+            this.cboTemplates.Size = new System.Drawing.Size(483, 25);
             this.cboTemplates.TabIndex = 0;
             this.cboTemplates.SelectedIndexChanged += new System.EventHandler(this.cboTemplates_SelectedIndexChanged);
             // 
@@ -71,7 +72,7 @@
             this.btnNew.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnNew.Image = ((System.Drawing.Image)(resources.GetObject("btnNew.Image")));
             this.btnNew.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnNew.Location = new System.Drawing.Point(590, 32);
+            this.btnNew.Location = new System.Drawing.Point(530, 32);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(48, 35);
             this.btnNew.TabIndex = 2;
@@ -83,7 +84,7 @@
             // 
             this.btnSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
-            this.btnSave.Location = new System.Drawing.Point(644, 32);
+            this.btnSave.Location = new System.Drawing.Point(584, 32);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(48, 35);
             this.btnSave.TabIndex = 3;
@@ -96,7 +97,7 @@
             // 
             this.btnUndo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnUndo.Image = ((System.Drawing.Image)(resources.GetObject("btnUndo.Image")));
-            this.btnUndo.Location = new System.Drawing.Point(698, 32);
+            this.btnUndo.Location = new System.Drawing.Point(692, 32);
             this.btnUndo.Name = "btnUndo";
             this.btnUndo.Size = new System.Drawing.Size(48, 35);
             this.btnUndo.TabIndex = 4;
@@ -116,12 +117,26 @@
             this.rtfContent.Text = "";
             this.rtfContent.TextChanged += new System.EventHandler(this.rtfContent_TextChanged);
             // 
+            // btnAlter
+            // 
+            this.btnAlter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnAlter.Image = ((System.Drawing.Image)(resources.GetObject("btnAlter.Image")));
+            this.btnAlter.Location = new System.Drawing.Point(638, 32);
+            this.btnAlter.Name = "btnAlter";
+            this.btnAlter.Size = new System.Drawing.Size(48, 35);
+            this.btnAlter.TabIndex = 5;
+            this.btnAlter.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.toolTip1.SetToolTip(this.btnAlter, "Macro Substitution");
+            this.btnAlter.UseVisualStyleBackColor = true;
+            this.btnAlter.Click += new System.EventHandler(this.btnAlter_Click);
+            // 
             // FormTemplates
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(236)))), ((int)(((byte)(237)))));
             this.ClientSize = new System.Drawing.Size(784, 461);
+            this.Controls.Add(this.btnAlter);
             this.Controls.Add(this.btnUndo);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.rtfContent);
@@ -150,5 +165,6 @@
         private System.Windows.Forms.RichTextBox rtfContent;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnUndo;
+        private System.Windows.Forms.Button btnAlter;
     }
 }

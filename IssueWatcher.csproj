@@ -258,6 +258,7 @@
   <ItemGroup>
     <EmbeddedResource Include="create_script.txt" />
     <Content Include="Data\create_tables.sql" />
+    <Content Include="Pictures\alter.png" />
     <Content Include="Pictures\check-mark.png" />
     <Content Include="Pictures\check.png" />
     <Content Include="Pictures\clear-filter.png" />

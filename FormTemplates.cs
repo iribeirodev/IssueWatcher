@@ -15,6 +15,7 @@ namespace IssueWatcher
     public partial class FormTemplates : Form
     {
         private readonly TemplateService _templateService;
+        private readonly AppParameterService _appParameterService;
         private bool _loading = false;
         private bool _isEdit = true;
 
@@ -25,6 +26,8 @@ namespace IssueWatcher
             InitializeComponent();
 
             _templateService = new TemplateService();
+            ConfigReader config = new ConfigReader();
+            _appParameterService = new AppParameterService(config.GetDatabaseName());
         }
 
         private void LoadTemplatesList()
@@ -165,6 +168,27 @@ namespace IssueWatcher
             LoadTemplatesList();
         }
 
+        private void ChangeText()
+        {
+            string texto = rtfContent.Text;
+            string[] tokens = texto.Split(' ');
+
+            var macroWords = tokens.Where(t => t.StartsWith("!") && t != "!").ToList();
+
+            foreach (var macroWord in macroWords)
+            {
+                var parameter = _appParameterService.GetByKey(macroWord);
+                if (parameter != null)
+                {
+                    // Substitui no texto original o token pelo valor do parâmetro
+                    texto = texto.Replace(macroWord, parameter.Value);
+                }
+            }
+
+            rtfContent.Text = texto;
+            MessageBox.Show("Ready.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
         private void FormTemplates_Load(object sender, EventArgs e)
         {
             LoadTemplatesList();
@@ -198,6 +222,11 @@ namespace IssueWatcher
         {
             if (!_loading)
                 _changed = true;
+        }
+
+        private void btnAlter_Click(object sender, EventArgs e)
+        {
+            ChangeText();
         }
     }
 }
